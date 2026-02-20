@@ -45,10 +45,12 @@
 .tabler-fl-icon {
     position: absolute;
     left: 0;
-    bottom: 0.75rem;
-    color: var(--tabler-form-muted);
+    bottom: 0.65rem;
+    font-size: 1.25rem;
+    color: var(--tblr-body-color, #1d273b);
+    opacity: 0.6;
     pointer-events: none;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease;
     z-index: 2;
 }
 
@@ -97,6 +99,7 @@
 /* Icon active state */
 .tabler-fl-wrap:focus-within .tabler-fl-icon {
     color: var(--tabler-form-primary);
+    opacity: 1;
 }
 
 /* Animated underline */
@@ -287,6 +290,15 @@
 
 [data-bs-theme="dark"] .tabler-fl-input {
     color: var(--tblr-body-color);
+}
+
+[data-bs-theme="dark"] .tabler-fl-icon {
+    color: var(--tblr-body-color, #f8fafc);
+    opacity: 0.7;
+}
+
+[data-bs-theme="dark"] .tabler-fl-wrap:focus-within .tabler-fl-icon {
+    opacity: 1;
 }
 
 [data-bs-theme="dark"] .choice-card {
