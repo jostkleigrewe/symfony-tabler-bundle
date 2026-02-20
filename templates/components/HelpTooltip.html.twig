@@ -1,0 +1,14 @@
+{#
+    DE: Hilfe-Tooltip mit Info-Icon
+    EN: Help tooltip with info icon
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\HelpTooltip
+#}
+<span
+    class="text-{{ color }} cursor-help"
+    data-bs-toggle="tooltip"
+    data-bs-placement="{{ placement }}"
+    {% if title %}data-bs-title="{{ title }}: {{ text }}"{% else %}data-bs-title="{{ text }}"{% endif %}
+>
+    <i class="ti ti-{{ icon }}"></i>
+</span>

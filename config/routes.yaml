@@ -1,0 +1,12 @@
+# DE: Bundle-Routes für Showcase-Controller
+# EN: Bundle routes for showcase controller
+#
+# In der Host-App einbinden via config/routes/tabler.yaml:
+#
+#   tabler_bundle:
+#       resource: '@TablerBundle/config/routes.yaml'
+#       prefix: /tabler
+
+tabler_showcase:
+    resource: '../src/Controller/'
+    type: attribute

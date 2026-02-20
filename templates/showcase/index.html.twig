@@ -1,0 +1,79 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}Tabler Bundle - Overview{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="Tabler Bundle Showcase"
+        pretitle="Symfony Bundle"
+        subtitle="FormTypes and TwigComponents for the Tabler Design System"
+        icon="layout-dashboard"
+        iconColor="azure"
+    />
+{% endblock %}
+
+{% block content %}
+    {# Alerts #}
+    <div class="mb-4">
+        <twig:Tabler:Alert type="info" title="Welcome!">
+            This showcase demonstrates all features of the Tabler Bundle.
+            Use the navigation on the left to explore FormTypes and TwigComponents.
+        </twig:Tabler:Alert>
+    </div>
+
+    {# Stats Row #}
+    <div class="row row-deck row-cards mb-4">
+        {% for stat in stats %}
+            <div class="col-sm-6 col-lg-3">
+                <twig:Tabler:StatCard
+                    :label="stat.label"
+                    :value="stat.value"
+                    :icon="stat.icon"
+                    :trend="stat.trend|default(null)"
+                    :hint="stat.hint|default(null)"
+                />
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Feature Cards #}
+    <div class="row row-cards">
+        <div class="col-md-6">
+            <twig:Tabler:Panel title="FormTypes" icon="forms" iconColor="purple" :centered="false">
+                <p class="text-secondary">
+                    Beautiful form inputs following the Tabler Design System.
+                </p>
+                <ul class="list-unstyled mb-3">
+                    <li><i class="ti ti-check text-success me-2"></i>FloatingUnderlineType</li>
+                    <li><i class="ti ti-check text-success me-2"></i>SwitchType</li>
+                    <li><i class="ti ti-check text-success me-2"></i>ChoiceCardType</li>
+                    <li><i class="ti ti-check text-success me-2"></i>EntityCardType</li>
+                    <li><i class="ti ti-check text-success me-2"></i>CardSelectType</li>
+                </ul>
+                <a href="{{ path('tabler_showcase_form_types') }}" class="btn btn-purple">
+                    <i class="ti ti-arrow-right me-1"></i>
+                    View FormTypes
+                </a>
+            </twig:Tabler:Panel>
+        </div>
+
+        <div class="col-md-6">
+            <twig:Tabler:Panel title="TwigComponents" icon="components" iconColor="green" :centered="false">
+                <p class="text-secondary">
+                    Reusable UI components for rapid development.
+                </p>
+                <ul class="list-unstyled mb-3">
+                    <li><i class="ti ti-check text-success me-2"></i>PageHeader</li>
+                    <li><i class="ti ti-check text-success me-2"></i>StatCard</li>
+                    <li><i class="ti ti-check text-success me-2"></i>Panel</li>
+                    <li><i class="ti ti-check text-success me-2"></i>Alert</li>
+                    <li><i class="ti ti-check text-success me-2"></i>EmptyState, HelpTooltip</li>
+                </ul>
+                <a href="{{ path('tabler_showcase_components') }}" class="btn btn-green">
+                    <i class="ti ti-arrow-right me-1"></i>
+                    View Components
+                </a>
+            </twig:Tabler:Panel>
+        </div>
+    </div>
+{% endblock %}

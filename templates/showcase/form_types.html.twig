@@ -1,0 +1,183 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}FormTypes - Tabler Bundle{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="FormTypes"
+        pretitle="Showcase"
+        subtitle="Symfony FormTypes following the Tabler Design System"
+        icon="forms"
+        iconColor="purple"
+    />
+{% endblock %}
+
+{% block content %}
+    <twig:Tabler:Alert type="info" title="Note">
+        FormTypes require a Symfony Form to render. This page shows the visual output and usage examples.
+    </twig:Tabler:Alert>
+
+    {# FloatingUnderlineType #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">FloatingUnderlineType</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Material Design inspired input with floating label and animated underline.
+            </p>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="tabler-fl-wrap">
+                        <i class="ti ti-mail tabler-fl-icon"></i>
+                        <input type="email" class="tabler-fl-input" placeholder=" " value="">
+                        <label class="tabler-fl-label">Email Address</label>
+                        <span class="tabler-fl-line"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="tabler-fl-wrap">
+                        <i class="ti ti-lock tabler-fl-icon"></i>
+                        <input type="password" class="tabler-fl-input" placeholder=" " value="">
+                        <label class="tabler-fl-label">Password</label>
+                        <span class="tabler-fl-line"></span>
+                    </div>
+                </div>
+            </div>
+
+            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
+
+$builder->add('email', FloatingUnderlineType::class, [
+    'label' => 'Email Address',
+    'icon' => 'mail',
+    'input_type' => 'email',
+]);</code></pre>
+        </div>
+    </div>
+
+    {# SwitchType #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">SwitchType</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Checkbox rendered as a Tabler switch toggle.
+            </p>
+
+            <div class="mb-4">
+                <label class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" checked>
+                    <span class="form-check-label">Active</span>
+                </label>
+                <div class="form-hint">User can log in to the system</div>
+            </div>
+
+            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\SwitchType;
+
+$builder->add('isActive', SwitchType::class, [
+    'label' => 'Active',
+    'help' => 'User can log in to the system',
+]);</code></pre>
+        </div>
+    </div>
+
+    {# ChoiceCardType #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">ChoiceCardType</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Card-based choice selection with icons, badges, and descriptions.
+            </p>
+
+            <div class="row row-cards mb-4">
+                <div class="col-md-6">
+                    <label class="choice-card">
+                        <input type="checkbox" class="choice-card-input" checked>
+                        <div class="choice-card-body">
+                            <div class="choice-card-icon-wrapper">
+                                <i class="ti ti-key choice-card-icon text-azure"></i>
+                            </div>
+                            <div class="choice-card-content">
+                                <div class="choice-card-header">
+                                    <span class="choice-card-label">Authorization Code</span>
+                                    <span class="badge bg-green-lt choice-card-badge">Recommended</span>
+                                </div>
+                                <span class="choice-card-description">Standard OAuth2 flow for web apps</span>
+                            </div>
+                            <div class="choice-card-check">
+                                <i class="ti ti-check"></i>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                <div class="col-md-6">
+                    <label class="choice-card">
+                        <input type="checkbox" class="choice-card-input">
+                        <div class="choice-card-body">
+                            <div class="choice-card-icon-wrapper">
+                                <i class="ti ti-server choice-card-icon text-purple"></i>
+                            </div>
+                            <div class="choice-card-content">
+                                <div class="choice-card-header">
+                                    <span class="choice-card-label">Client Credentials</span>
+                                    <span class="badge bg-purple-lt choice-card-badge">M2M</span>
+                                </div>
+                                <span class="choice-card-description">Server-to-server communication</span>
+                            </div>
+                            <div class="choice-card-check">
+                                <i class="ti ti-check"></i>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\ChoiceCardType;
+
+$builder->add('grantTypes', ChoiceCardType::class, [
+    'choices' => [
+        'Authorization Code' => 'authorization_code',
+        'Client Credentials' => 'client_credentials',
+    ],
+    'icon' => 'key',
+    'columns' => 2,
+    'choice_attr' => fn($value) => match($value) {
+        'client_credentials' => [
+            'data-badge' => 'M2M',
+            'data-description' => 'Server-to-server',
+        ],
+        default => [],
+    },
+]);</code></pre>
+        </div>
+    </div>
+
+    {# EntityCardType #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">EntityCardType</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Like ChoiceCardType, but for Doctrine entities.
+            </p>
+
+            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\EntityCardType;
+
+$builder->add('scopes', EntityCardType::class, [
+    'class' => Scope::class,
+    'query_builder' => fn($repo) => $repo->createQueryBuilder('s')
+        ->where('s.active = true'),
+    'choice_label' => fn(Scope $s) => $s->getDisplayName(),
+    'choice_attr' => fn(Scope $s) => [
+        'data-icon' => $s->getIcon(),
+        'data-description' => $s->getDescription(),
+    ],
+]);</code></pre>
+        </div>
+    </div>
+{% endblock %}

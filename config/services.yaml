@@ -8,3 +8,15 @@ services:
     Jostkleigrewe\TablerBundle\Form\Type\:
         resource: '../src/Form/Type/'
         tags: ['form.type']
+
+    # DE: TwigComponents für Tabler Design System
+    # EN: TwigComponents for Tabler Design System
+    Jostkleigrewe\TablerBundle\Twig\Components\:
+        resource: '../src/Twig/Components/'
+        tags: ['twig.component']
+
+    # DE: Showcase Controller
+    # EN: Showcase Controller
+    Jostkleigrewe\TablerBundle\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']

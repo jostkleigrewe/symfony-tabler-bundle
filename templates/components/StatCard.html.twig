@@ -1,0 +1,39 @@
+{#
+    DE: Statistik-Card für Dashboards
+    EN: Statistics card for dashboards
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\StatCard
+#}
+<div class="card">
+    {% if url %}
+    <a href="{{ url }}" class="card-body text-decoration-none text-reset">
+    {% else %}
+    <div class="card-body">
+    {% endif %}
+        <div class="d-flex align-items-center">
+            {% if icon %}
+                <div class="avatar avatar-lg bg-{{ iconColor }}-lt me-3">
+                    <i class="ti ti-{{ icon }} fs-1"></i>
+                </div>
+            {% endif %}
+            <div class="flex-fill">
+                <div class="text-secondary text-uppercase fw-semibold small">{{ label }}</div>
+                <div class="d-flex align-items-baseline">
+                    <div class="h2 mb-0">{{ value }}</div>
+                    {% if trend %}
+                        <span class="ms-2 text-{{ trend == 'up' ? 'success' : 'danger' }}">
+                            <i class="ti ti-trending-{{ trend }}"></i>
+                        </span>
+                    {% endif %}
+                </div>
+                {% if hint %}
+                    <div class="text-secondary small mt-1">{{ hint }}</div>
+                {% endif %}
+            </div>
+        </div>
+    {% if url %}
+    </a>
+    {% else %}
+    </div>
+    {% endif %}
+</div>

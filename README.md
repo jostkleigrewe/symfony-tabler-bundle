@@ -1,21 +1,31 @@
 # Tabler Bundle for Symfony
 
-Symfony Bundle providing FormTypes following the [Tabler](https://tabler.io) Design System.
+Symfony Bundle providing FormTypes and TwigComponents for the [Tabler](https://tabler.io) Design System.
 
 ## Features
 
+### FormTypes
 - **FloatingUnderlineType** - Elegant input with floating label and animated underline
 - **SwitchType** - Checkbox rendered as Tabler switch
 - **ChoiceCardType** - Card-based choice selection with icons and badges
 - **EntityCardType** - Like ChoiceCardType, but for Doctrine entities
 - **CardSelectType** - Generic card-based multiple selection
 
+### TwigComponents
+- **PageHeader** - Page header with icon, title, subtitle and action buttons
+- **StatCard** - Statistics card for dashboards with trend indicators
+- **Panel** - Generic card/panel with title and content slot
+- **Alert** - Notification alerts (success, info, warning, danger)
+- **EmptyState** - Empty state for lists without entries
+- **HelpTooltip** - Contextual help tooltip with info icon
+
 ## Requirements
 
 This bundle requires **Tabler** to be installed in your application:
 
 - [Tabler](https://tabler.io) CSS Framework
-- [Tabler Icons](https://tabler.io/icons) (for icon support in FormTypes)
+- [Tabler Icons](https://tabler.io/icons) (for icon support)
+- [Symfony UX TwigComponent](https://symfony.com/bundles/ux-twig-component) (for TwigComponents)
 
 **The bundle does NOT ship Tabler assets** - you need to install them yourself.
 
@@ -61,7 +71,82 @@ Copy `assets/styles/tabler-forms.css` from this bundle to your project's public 
 <link rel="stylesheet" href="{{ asset('path/to/tabler-forms.css') }}">
 ```
 
-## Usage
+### Step 5 (Optional): Enable Showcase Routes
+
+To see the bundle showcase at `/tabler/showcase`, add to `config/routes/tabler.yaml`:
+
+```yaml
+tabler_bundle:
+    resource: '@TablerBundle/config/routes.yaml'
+```
+
+## TwigComponents Usage
+
+### PageHeader
+
+```twig
+<twig:Tabler:PageHeader
+    title="Dashboard"
+    pretitle="Overview"
+    subtitle="Welcome back!"
+    icon="dashboard"
+    iconColor="azure"
+>
+    <twig:block name="actions">
+        <a href="#" class="btn btn-primary">Add New</a>
+    </twig:block>
+</twig:Tabler:PageHeader>
+```
+
+### StatCard
+
+```twig
+<twig:Tabler:StatCard
+    label="Total Users"
+    value="1,234"
+    icon="users"
+    iconColor="blue"
+    trend="up"
+    hint="+12% this month"
+/>
+```
+
+### Panel
+
+```twig
+<twig:Tabler:Panel title="Login" subtitle="Enter your credentials" icon="login">
+    <form>...</form>
+</twig:Tabler:Panel>
+```
+
+### Alert
+
+```twig
+<twig:Tabler:Alert type="success" title="Saved!" text="Your changes have been saved." />
+<twig:Tabler:Alert type="warning" :dismissible="true" title="Warning" />
+<twig:Tabler:Alert type="danger" :important="true" title="Error" />
+```
+
+### EmptyState
+
+```twig
+<twig:Tabler:EmptyState
+    title="No users yet"
+    text="Add your first user to get started"
+    icon="users"
+    actionUrl="/users/new"
+    actionLabel="Add User"
+/>
+```
+
+### HelpTooltip
+
+```twig
+<twig:Tabler:HelpTooltip text="Explanation here" />
+<twig:Tabler:HelpTooltip text="With title" title="Redirect URI" />
+```
+
+## FormTypes Usage
 
 ### FloatingUnderlineType
 
@@ -220,6 +305,7 @@ class LoginFormType extends AbstractType
 
 - PHP 8.4+
 - Symfony 7.0+ or 8.0+
+- Symfony UX TwigComponent (for TwigComponents)
 - Tabler CSS Framework (not included)
 - Tabler Icons CSS (not included)
 - Optional: doctrine/orm (for EntityCardType)

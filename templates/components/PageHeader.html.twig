@@ -1,0 +1,36 @@
+{#
+    DE: Page Header Component mit Icon, Titel und Actions
+    EN: Page header component with icon, title and actions
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\PageHeader
+#}
+<div class="page-header d-print-none">
+    <div class="container-xl">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <div class="d-flex align-items-center">
+                    {% if icon %}
+                        <span class="avatar avatar-lg bg-{{ iconColor }}-lt me-3">
+                            <i class="ti ti-{{ icon }} fs-1"></i>
+                        </span>
+                    {% endif %}
+                    <div>
+                        {% if pretitle %}
+                            <div class="page-pretitle">{{ pretitle }}</div>
+                        {% endif %}
+                        <h2 class="page-title mb-0">{{ title }}</h2>
+                        {% if subtitle %}
+                            <div class="text-secondary mt-1">{{ subtitle }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if block('actions') is defined %}
+                <div class="col-auto ms-auto d-print-none">
+                    {% block actions %}{% endblock %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

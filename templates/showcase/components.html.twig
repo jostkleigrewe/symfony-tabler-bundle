@@ -1,0 +1,217 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}TwigComponents - Tabler Bundle{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="TwigComponents"
+        pretitle="Showcase"
+        subtitle="Reusable UI components with PHP classes"
+        icon="components"
+        iconColor="green"
+    />
+{% endblock %}
+
+{% block content %}
+    {# PageHeader #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">PageHeader</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Page header with icon, title, subtitle and optional action buttons.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Users"
+                    pretitle="Administration"
+                    subtitle="Manage your team members"
+                    icon="users"
+                    iconColor="blue"
+                />
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Users"
+    pretitle="Administration"
+    subtitle="Manage your team members"
+    icon="users"
+    iconColor="blue"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# StatCard #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">StatCard</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Statistics card for dashboards with trend indicators.
+            </p>
+            <div class="row row-cards mb-3">
+                <div class="col-md-4">
+                    <twig:Tabler:StatCard
+                        label="Active Users"
+                        value="2,847"
+                        icon="users"
+                        iconColor="blue"
+                        trend="up"
+                        hint="+15% this week"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <twig:Tabler:StatCard
+                        label="Revenue"
+                        value="€12,456"
+                        icon="currency-euro"
+                        iconColor="green"
+                        trend="up"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <twig:Tabler:StatCard
+                        label="Bounce Rate"
+                        value="23.4%"
+                        icon="chart-line"
+                        iconColor="orange"
+                        trend="down"
+                        hint="Needs attention"
+                    />
+                </div>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:StatCard
+    label="Active Users"
+    value="2,847"
+    icon="users"
+    iconColor="blue"
+    trend="up"
+    hint="+15% this week"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# Panel #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Panel</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Generic panel/card with title, optional icon and content slot.
+            </p>
+            <div class="row row-cards mb-3">
+                <div class="col-md-6">
+                    <twig:Tabler:Panel title="Login" subtitle="Enter your credentials" icon="login" iconColor="azure">
+                        <p class="text-secondary text-center mb-0">Form content goes here...</p>
+                    </twig:Tabler:Panel>
+                </div>
+                <div class="col-md-6">
+                    <twig:Tabler:Panel title="Settings" icon="settings" iconColor="purple" :centered="false">
+                        <p class="text-secondary mb-0">Left-aligned panel content.</p>
+                    </twig:Tabler:Panel>
+                </div>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:Panel title="Login" subtitle="Enter your credentials" icon="login"&gt;
+    Form content here...
+&lt;/twig:Tabler:Panel&gt;</code></pre>
+        </div>
+    </div>
+
+    {# Alert #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Alert</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Notification alerts with different types and styles.
+            </p>
+            <div class="mb-3">
+                <twig:Tabler:Alert type="success" title="Success!" text="Your changes have been saved." />
+            </div>
+            <div class="mb-3">
+                <twig:Tabler:Alert type="info" title="Info">
+                    This is an info alert with <strong>custom HTML content</strong>.
+                </twig:Tabler:Alert>
+            </div>
+            <div class="mb-3">
+                <twig:Tabler:Alert type="warning" title="Warning" text="Please review before continuing." :dismissible="true" />
+            </div>
+            <div class="mb-3">
+                <twig:Tabler:Alert type="danger" title="Error" text="Something went wrong." :important="true" />
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:Alert type="success" title="Success!" text="Saved." /&gt;
+&lt;twig:Tabler:Alert type="warning" :dismissible="true" title="Warning" /&gt;
+&lt;twig:Tabler:Alert type="danger" :important="true" title="Error" /&gt;</code></pre>
+        </div>
+    </div>
+
+    {# EmptyState #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">EmptyState</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Empty state for lists without entries or search results.
+            </p>
+            <div class="row row-cards mb-3">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <twig:Tabler:EmptyState
+                                title="No results found"
+                                text="Try adjusting your search criteria"
+                                icon="search"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <twig:Tabler:EmptyState
+                                title="No users yet"
+                                text="Add your first user to get started"
+                                icon="users"
+                                iconColor="blue"
+                                actionUrl="#"
+                                actionLabel="Add User"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:EmptyState
+    title="No users yet"
+    text="Add your first user to get started"
+    icon="users"
+    actionUrl="/users/new"
+    actionLabel="Add User"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# HelpTooltip #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">HelpTooltip</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Contextual help tooltips with info icons.
+            </p>
+            <p class="mb-3">
+                Hover over these icons:
+                <twig:Tabler:HelpTooltip text="This is a simple tooltip" />
+                <twig:Tabler:HelpTooltip text="The URI where users are redirected after login" title="Redirect URI" />
+                <twig:Tabler:HelpTooltip text="Custom icon tooltip" icon="question-mark" color="azure" />
+            </p>
+            <pre class="mb-0"><code>&lt;twig:Tabler:HelpTooltip text="Simple tooltip" /&gt;
+&lt;twig:Tabler:HelpTooltip text="With title" title="Redirect URI" /&gt;
+&lt;twig:Tabler:HelpTooltip text="Custom" icon="question-mark" color="azure" /&gt;</code></pre>
+        </div>
+    </div>
+{% endblock %}
