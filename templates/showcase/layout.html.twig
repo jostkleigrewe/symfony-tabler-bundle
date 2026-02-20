@@ -1,21 +1,12 @@
 {#
-    DE: Minimales Showcase-Layout - verwendet Tabler aus der Host-App
-    EN: Minimal showcase layout - uses Tabler from host app
+    DE: Showcase-Layout - erweitert das base.html.twig der Host-App
+    EN: Showcase layout - extends host app's base.html.twig
 
-    Voraussetzung: Host-App bindet Tabler CSS/JS ein
+    Voraussetzung: Host-App hat ein base.html.twig mit Tabler CSS/JS
 #}
-<!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Tabler Bundle Showcase{% endblock %}</title>
+{% extends 'base.html.twig' %}
 
-    {# DE: Tabler CSS muss von der Host-App bereitgestellt werden #}
-    {# EN: Tabler CSS must be provided by the host app #}
-    {% block stylesheets %}{% endblock %}
-</head>
-<body class="theme-light">
+{% block body %}
     <div class="page">
         <aside class="navbar navbar-vertical navbar-expand-lg" data-bs-theme="dark">
             <div class="container-fluid">
@@ -31,7 +22,7 @@
                 <div class="collapse navbar-collapse" id="sidebar-menu">
                     <ul class="navbar-nav pt-lg-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('tabler_showcase_index') }}">
+                            <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_index' ? ' active' : '' }}" href="{{ path('tabler_showcase_index') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <i class="ti ti-home"></i>
                                 </span>
@@ -39,7 +30,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('tabler_showcase_components') }}">
+                            <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_components' ? ' active' : '' }}" href="{{ path('tabler_showcase_components') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <i class="ti ti-components"></i>
                                 </span>
@@ -47,11 +38,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('tabler_showcase_form_types') }}">
+                            <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_form_types' ? ' active' : '' }}" href="{{ path('tabler_showcase_form_types') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <i class="ti ti-forms"></i>
                                 </span>
                                 <span class="nav-link-title">FormTypes</span>
+                            </a>
+                        </li>
+                        <li class="nav-item mt-auto">
+                            <a class="nav-link" href="https://github.com/jostkleigrewe/symfony-tabler-bundle" target="_blank">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-brand-github"></i>
+                                </span>
+                                <span class="nav-link-title">GitHub</span>
                             </a>
                         </li>
                     </ul>
@@ -70,17 +69,15 @@
 
             <footer class="footer footer-transparent d-print-none">
                 <div class="container-xl">
-                    <div class="text-center text-secondary">
+                    <div class="text-center text-secondary small">
                         <a href="https://github.com/jostkleigrewe/symfony-tabler-bundle" target="_blank" class="link-secondary">
-                            <i class="ti ti-brand-github me-1"></i>
                             jostkleigrewe/symfony-tabler-bundle
                         </a>
+                        <span class="mx-1">·</span>
+                        MIT License
                     </div>
                 </div>
             </footer>
         </div>
     </div>
-
-    {% block javascripts %}{% endblock %}
-</body>
-</html>
+{% endblock %}
