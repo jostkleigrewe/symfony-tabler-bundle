@@ -1,0 +1,78 @@
+{#
+    DE: Floating Underline Form Theme - Elegantes Input mit schwebendem Label und animierter Unterstreichung.
+        Teil des Tabler Design System.
+
+    EN: Floating Underline Form Theme - Elegant input with floating label and animated underline.
+        Part of the Tabler Design System.
+
+    Verwendung / Usage:
+        use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
+
+        ->add('email', FloatingUnderlineType::class, [
+            'label' => 'E-Mail-Adresse',
+            'icon' => 'mail',
+            'input_type' => 'email',
+            'help' => 'Hilfetext hier',
+        ])
+
+    Das Theme muss in twig.yaml registriert werden:
+        twig:
+            form_themes:
+                - '@Tabler/form/floating_underline.html.twig'
+#}
+
+{% block tabler_floating_underline_row %}
+    {% set has_errors = errors|length > 0 %}
+
+    <div class="mb-3 {{ row_attr.class|default('') }}">
+        <div class="tabler-fl-wrap {{ icon is not null ? '' : 'tabler-fl-wrap--no-icon' }} {{ has_errors ? 'tabler-fl-wrap--error' : '' }}">
+            {# Icon #}
+            {% if icon is not null %}
+                <i class="ti ti-{{ icon }} tabler-fl-icon"></i>
+            {% endif %}
+
+            {# Input #}
+            <input
+                type="{{ input_type|default('text') }}"
+                id="{{ id }}"
+                name="{{ full_name }}"
+                class="tabler-fl-input"
+                placeholder=" "
+                {% if value is not null %}value="{{ value }}"{% endif %}
+                {% if disabled %}disabled{% endif %}
+                {% if required %}required{% endif %}
+                {% for attrname, attrvalue in attr %}
+                    {{ attrname }}="{{ attrvalue }}"
+                {% endfor %}
+            >
+
+            {# Floating Label #}
+            {% if label is not same as(false) %}
+                <label class="tabler-fl-label" for="{{ id }}">
+                    {{- label|trans(label_translation_parameters, translation_domain) -}}
+                    {%- if required %}<span class="text-danger ms-1">*</span>{% endif -%}
+                </label>
+            {% endif %}
+
+            {# Animated Underline #}
+            <span class="tabler-fl-line"></span>
+        </div>
+
+        {# Help text #}
+        {% if help is defined and help is not null and help is not empty %}
+            <div class="tabler-fl-help">
+                {{- help|trans(help_translation_parameters, translation_domain) -}}
+            </div>
+        {% endif %}
+
+        {# Errors #}
+        {% if has_errors %}
+            {% for error in errors %}
+                <div class="tabler-fl-error">
+                    <i class="ti ti-alert-circle"></i>
+                    {{ error.message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

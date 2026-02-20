@@ -1,0 +1,299 @@
+/**
+ * Tabler Form Types - Konsolidierte Styles
+ * =========================================
+ *
+ * DE: Styles für alle custom Tabler FormTypes.
+ *     Teil des Tabler Design System Bundle.
+ *
+ * EN: Styles for all custom Tabler FormTypes.
+ *     Part of the Tabler Design System Bundle.
+ *
+ * FormTypes:
+ * - FloatingUnderlineType
+ * - SwitchType (nutzt Tabler native Styles)
+ * - ChoiceCardType
+ * - CardSelectType
+ * - EntityCardType
+ *
+ * Installation:
+ *   1. CSS in Projekt kopieren oder Asset Mapper nutzen
+ *   2. In base.html.twig einbinden:
+ *      <link rel="stylesheet" href="{{ asset('bundles/tabler/styles/tabler-forms.css') }}">
+ */
+
+/* =================================================================
+   CSS Custom Properties (erbt von Tabler/Projekt)
+   ================================================================= */
+:root {
+    --tabler-form-primary: var(--eurip-azure, var(--tblr-primary, #1f74ff));
+    --tabler-form-danger: var(--tblr-danger, #d63939);
+    --tabler-form-border: var(--tblr-border-color, #e6e7e9);
+    --tabler-form-text: var(--tblr-body-color, #1d273b);
+    --tabler-form-muted: var(--tblr-secondary, #626976);
+}
+
+/* =================================================================
+   FLOATING UNDERLINE INPUT
+   Material Design inspiriertes Input mit Floating Label
+   ================================================================= */
+
+.tabler-fl-wrap {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.tabler-fl-icon {
+    position: absolute;
+    left: 0;
+    bottom: 0.75rem;
+    color: var(--tabler-form-muted);
+    pointer-events: none;
+    transition: color 0.2s ease;
+    z-index: 2;
+}
+
+.tabler-fl-input {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid var(--tabler-form-border);
+    border-radius: 0;
+    padding: 0.75rem 0 0.75rem 2rem;
+    background: transparent;
+    font-size: 1rem;
+    color: var(--tabler-form-text);
+    transition: border-color 0.2s ease;
+}
+
+.tabler-fl-input:focus {
+    outline: none;
+    box-shadow: none;
+    border-bottom-color: var(--tabler-form-primary);
+}
+
+.tabler-fl-input::placeholder {
+    color: transparent;
+}
+
+.tabler-fl-label {
+    position: absolute;
+    left: 2rem;
+    top: 0.75rem;
+    color: var(--tabler-form-muted);
+    pointer-events: none;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    background: transparent;
+}
+
+/* Label floating state */
+.tabler-fl-input:focus ~ .tabler-fl-label,
+.tabler-fl-input:not(:placeholder-shown) ~ .tabler-fl-label {
+    top: -0.875rem;
+    font-size: 0.75rem;
+    color: var(--tabler-form-primary);
+}
+
+/* Icon active state */
+.tabler-fl-wrap:focus-within .tabler-fl-icon {
+    color: var(--tabler-form-primary);
+}
+
+/* Animated underline */
+.tabler-fl-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--tabler-form-primary);
+    transition: width 0.3s ease;
+}
+
+.tabler-fl-input:focus ~ .tabler-fl-line {
+    width: 100%;
+}
+
+/* No icon variant */
+.tabler-fl-wrap--no-icon .tabler-fl-input {
+    padding-left: 0;
+}
+
+.tabler-fl-wrap--no-icon .tabler-fl-label {
+    left: 0;
+}
+
+/* Error state */
+.tabler-fl-wrap--error .tabler-fl-input {
+    border-bottom-color: var(--tabler-form-danger);
+}
+
+.tabler-fl-wrap--error .tabler-fl-icon {
+    color: var(--tabler-form-danger);
+}
+
+.tabler-fl-wrap--error .tabler-fl-line {
+    background: var(--tabler-form-danger);
+    width: 100%;
+}
+
+.tabler-fl-wrap--error .tabler-fl-label {
+    color: var(--tabler-form-danger);
+}
+
+/* Help text */
+.tabler-fl-help {
+    font-size: 0.8125rem;
+    color: var(--tabler-form-muted);
+    margin-top: 0.5rem;
+}
+
+/* Error message */
+.tabler-fl-error {
+    font-size: 0.8125rem;
+    color: var(--tabler-form-danger);
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.tabler-fl-error i {
+    font-size: 0.875rem;
+}
+
+/* =================================================================
+   CHOICE CARD
+   Card-basierte Checkbox/Radio Auswahl
+   ================================================================= */
+
+.choice-card {
+    display: block;
+    cursor: pointer;
+    border: 1px solid var(--tabler-form-border);
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+    background: var(--tblr-card-bg, #fff);
+}
+
+.choice-card:hover {
+    border-color: var(--tabler-form-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.choice-card-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.choice-card-input:checked + .choice-card-body {
+    border-color: var(--tabler-form-primary);
+    background: rgba(31, 116, 255, 0.04);
+}
+
+.choice-card-input:checked + .choice-card-body .choice-card-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.choice-card-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+}
+
+.choice-card-icon-wrapper {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.choice-card-icon {
+    font-size: 1.25rem;
+}
+
+.choice-card-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.choice-card-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+}
+
+.choice-card-label {
+    font-weight: 600;
+    color: var(--tabler-form-text);
+}
+
+.choice-card-badge {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.choice-card-code {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--tabler-form-muted);
+    margin-top: 0.125rem;
+}
+
+.choice-card-description {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--tabler-form-muted);
+    margin-top: 0.25rem;
+}
+
+.choice-card-check {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--tabler-form-primary);
+    color: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.15s ease;
+}
+
+/* Required variant */
+.choice-card--required {
+    cursor: not-allowed;
+}
+
+.choice-card--required .choice-card-body {
+    background: rgba(255, 0, 0, 0.02);
+}
+
+/* =================================================================
+   DARK MODE SUPPORT
+   ================================================================= */
+
+[data-bs-theme="dark"] .tabler-fl-input {
+    color: var(--tblr-body-color);
+}
+
+[data-bs-theme="dark"] .choice-card {
+    background: var(--tblr-card-bg);
+    border-color: var(--tblr-border-color);
+}
+
+[data-bs-theme="dark"] .choice-card-input:checked + .choice-card-body {
+    background: rgba(31, 116, 255, 0.1);
+}

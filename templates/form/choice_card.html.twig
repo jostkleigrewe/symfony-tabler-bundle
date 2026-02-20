@@ -1,0 +1,139 @@
+{#
+    DE: Tabler Choice Card Form Theme - Rendert Choice/Entity-Auswahl als kompakte Cards.
+        Teil des Tabler Design System.
+
+    EN: Tabler Choice Card Form Theme - Renders choice/entity selection as compact cards.
+        Part of the Tabler Design System.
+
+    Verwendung / Usage:
+        use Jostkleigrewe\TablerBundle\Form\Type\ChoiceCardType;
+
+        ->add('grantTypes', ChoiceCardType::class, [
+            'choices' => ['Label A' => 'value_a', 'Label B' => 'value_b'],
+            'icon' => 'key',
+            'icon_color' => 'azure',
+            'columns' => 2,
+        ])
+
+    Optionen:
+    - icon: Globales Tabler Icon
+    - icon_color: Icon-Farbe
+    - columns: Anzahl Spalten (1-4)
+
+    Data-Attribute pro Choice:
+    - data-icon: Überschreibt globales Icon
+    - data-icon-color: Überschreibt globale Farbe
+    - data-description: Kurze Beschreibung
+    - data-badge: Badge-Text
+    - data-badge-class: Badge CSS-Klasse
+    - data-code: Technischer Code
+    - data-indicator-icon: Zusätzliches Indicator-Icon
+    - data-indicator-class: Indicator CSS-Klasse
+    - data-indicator-title: Tooltip für Indicator
+    - data-required: "1" für Pflicht-Einträge
+
+    Das Theme muss in twig.yaml registriert werden:
+        twig:
+            form_themes:
+                - '@Tabler/form/choice_card.html.twig'
+#}
+
+{% use "bootstrap_5_layout.html.twig" %}
+
+{# DE: Gesamte Choice Card Auswahl #}
+{# EN: Entire choice card selection #}
+{% block tabler_choice_card_widget %}
+    {% set columns = columns|default(2) %}
+    {% set col_class = {
+        1: 'col-12',
+        2: 'col-12 col-md-6',
+        3: 'col-12 col-md-6 col-lg-4',
+        4: 'col-12 col-sm-6 col-lg-3'
+    } %}
+
+    <div class="row g-2">
+        {% for child in form %}
+            <div class="{{ col_class[columns] }}">
+                {{- form_widget(child, {
+                    parent_icon: icon|default(null),
+                    parent_icon_color: icon_color|default('secondary')
+                }) -}}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{# DE: Einzelne Choice-Card (Checkbox) #}
+{# EN: Single choice card (checkbox) #}
+{% block tabler_choice_card_entry_widget %}
+    {% set parent_icon = parent_icon|default(form.parent.vars.icon|default(null)) %}
+    {% set parent_icon_color = parent_icon_color|default(form.parent.vars.icon_color|default('secondary')) %}
+
+    {% set attr = form.vars.attr|default({}) %}
+    {% set icon = attr['data-icon']|default(parent_icon) %}
+    {% set icon_color = attr['data-icon-color']|default(parent_icon_color) %}
+    {% set description = attr['data-description']|default('') %}
+    {% set badge = attr['data-badge']|default('') %}
+    {% set badge_class = attr['data-badge-class']|default('bg-secondary-lt') %}
+    {% set code = attr['data-code']|default('') %}
+    {% set indicator_icon = attr['data-indicator-icon']|default('') %}
+    {% set indicator_class = attr['data-indicator-class']|default('bg-yellow-lt') %}
+    {% set indicator_title = attr['data-indicator-title']|default('') %}
+    {% set is_required = attr['data-required']|default('0') == '1' %}
+
+    <label class="choice-card{% if is_required %} choice-card--required{% endif %}" for="{{ id }}"
+           {% if is_required %}
+               data-controller="required-checkbox"
+               data-action="click->required-checkbox#prevent"
+           {% endif %}>
+        <input type="checkbox"
+               id="{{ id }}"
+               name="{{ full_name }}"
+               value="{{ value }}"
+               class="choice-card-input{% if is_required %} choice-card-input--required{% endif %}"
+               {% if checked or is_required %}checked{% endif %}
+               {% if is_required %}
+                   data-required="1"
+                   data-required-checkbox-target="checkbox"
+                   data-action="change->required-checkbox#enforce"
+               {% endif %}
+               {% if disabled %}disabled{% endif %}>
+        <span class="choice-card-body">
+            {% if icon %}
+                <span class="choice-card-icon-wrapper">
+                    {% if is_required %}
+                        <i class="ti ti-lock choice-card-icon text-red"></i>
+                    {% else %}
+                        <i class="ti ti-{{ icon }} choice-card-icon text-{{ icon_color }}"></i>
+                    {% endif %}
+                </span>
+            {% endif %}
+            <span class="choice-card-content">
+                <span class="choice-card-header">
+                    <span class="choice-card-label">{{ label|trans(label_translation_parameters|default({}), translation_domain|default(null)) }}</span>
+                    {% if is_required %}
+                        <span class="choice-card-badge badge bg-red-lt" title="{{ 'admin.client.form.scope_required_hint'|trans({}, translation_domain|default(null)) }}">
+                            <i class="ti ti-lock" style="font-size: 9px;"></i>
+                        </span>
+                    {% elseif badge %}
+                        <span class="choice-card-badge badge {{ badge_class }}">{{ badge }}</span>
+                    {% endif %}
+                    {% if indicator_icon %}
+                        <span class="choice-card-indicator badge {{ indicator_class }}"{% if indicator_title %} title="{{ indicator_title|trans({}, translation_domain|default(null)) }}"{% endif %}>
+                            <i class="ti ti-{{ indicator_icon }}" style="font-size: 10px;"></i>
+                        </span>
+                    {% endif %}
+                </span>
+                {% if code %}
+                    <code class="choice-card-code">{{ code }}</code>
+                {% endif %}
+                {% if description %}
+                    <span class="choice-card-description">{{ description }}</span>
+                {% endif %}
+            </span>
+            <span class="choice-card-check">
+                <i class="ti ti-check"></i>
+            </span>
+        </span>
+    </label>
+{% endblock %}

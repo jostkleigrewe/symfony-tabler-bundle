@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # DE: FormTypes für Tabler Design System
+    # EN: FormTypes for Tabler Design System
+    Jostkleigrewe\TablerBundle\Form\Type\:
+        resource: '../src/Form/Type/'
+        tags: ['form.type']

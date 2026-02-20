@@ -1,0 +1,63 @@
+{#
+    DE: Floating Underline Input TwigComponent.
+        Für Standalone-Nutzung außerhalb von Symfony Forms.
+        Teil des Tabler Design System.
+
+    EN: Floating Underline Input TwigComponent.
+        For standalone use outside Symfony Forms.
+        Part of the Tabler Design System.
+
+    Usage:
+        <twig:Tabler:FloatingInput
+            name="_username"
+            type="email"
+            label="E-Mail-Adresse"
+            icon="mail"
+            :value="last_username"
+            required
+        />
+#}
+
+<div class="mb-3">
+    <div class="tabler-fl-wrap {{ this.hasIcon ? '' : 'tabler-fl-wrap--no-icon' }} {{ this.hasError ? 'tabler-fl-wrap--error' : '' }}">
+        {# Icon #}
+        {% if this.hasIcon %}
+            <i class="ti ti-{{ icon }} tabler-fl-icon"></i>
+        {% endif %}
+
+        {# Input #}
+        <input
+            type="{{ type }}"
+            id="{{ this.getId() }}"
+            name="{{ name }}"
+            class="tabler-fl-input"
+            placeholder=" "
+            {% if value %}value="{{ value }}"{% endif %}
+            {% if required %}required{% endif %}
+            {% if autofocus %}autofocus{% endif %}
+            {% if autocomplete %}autocomplete="{{ autocomplete }}"{% endif %}
+        >
+
+        {# Floating Label #}
+        <label class="tabler-fl-label" for="{{ this.getId() }}">
+            {{ label }}
+            {%- if required %}<span class="text-danger ms-1">*</span>{% endif -%}
+        </label>
+
+        {# Animated Underline #}
+        <span class="tabler-fl-line"></span>
+    </div>
+
+    {# Help text #}
+    {% if help %}
+        <div class="tabler-fl-help">{{ help }}</div>
+    {% endif %}
+
+    {# Error #}
+    {% if this.hasError %}
+        <div class="tabler-fl-error">
+            <i class="ti ti-alert-circle"></i>
+            {{ error }}
+        </div>
+    {% endif %}
+</div>

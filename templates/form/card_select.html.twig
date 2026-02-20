@@ -1,0 +1,118 @@
+{#
+    DE: Tabler Card Select Form Theme - Rendert Entity-Auswahl als Cards mit Icons, Badges und Beschreibungen.
+        Teil des Tabler Design System.
+
+    EN: Tabler Card Select Form Theme - Renders entity selection as cards with icons, badges and descriptions.
+        Part of the Tabler Design System.
+
+    Verwendung / Usage:
+        use Jostkleigrewe\TablerBundle\Form\Type\CardSelectType;
+
+        ->add('scopes', CardSelectType::class, [
+            'class' => Scope::class,
+            'choice_label' => fn(Scope $s) => $s->getDisplayName(),
+            'choice_attr' => fn(Scope $s) => [
+                'data-icon' => $s->getIcon(),
+                'data-description' => $s->getDescription(),
+            ],
+        ])
+
+    Data-Attribute pro Choice:
+    - data-icon: Tabler Icon Name
+    - data-icon-color: Avatar-Hintergrundfarbe
+    - data-badge: Badge-Text
+    - data-badge-class: Badge CSS-Klasse
+    - data-code: Technischer Code
+    - data-description: Beschreibungstext
+    - data-indicator-icon: Zusätzliches Indicator-Icon
+    - data-indicator-class: CSS-Klasse für Indicator-Badge
+    - data-indicator-title: Tooltip für Indicator
+    - data-required: "1" für Pflicht-Einträge
+
+    Das Theme muss in twig.yaml registriert werden:
+        twig:
+            form_themes:
+                - '@Tabler/form/card_select.html.twig'
+#}
+
+{% use "bootstrap_5_layout.html.twig" %}
+
+{# DE: Gesamte Card-Selection als Grid-Row #}
+{# EN: Entire card selection as grid row #}
+{% block tabler_card_select_row %}
+    <div class="mb-3">
+        {% if label is not same as(false) %}
+            {{ form_label(form) }}
+        {% endif %}
+        {{ form_errors(form) }}
+        <div class="row g-2">
+            {% for child in form %}
+                {{ form_row(child) }}
+            {% endfor %}
+        </div>
+        {% if help is defined and help %}
+            <div class="form-hint mt-2">{{ help|trans(help_translation_parameters, translation_domain) }}</div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{# DE: Einzelne Card-Checkbox #}
+{# EN: Single card checkbox #}
+{% block tabler_card_select_entry_row %}
+    {% set attr = form.vars.attr %}
+    {% set icon = attr['data-icon']|default('circle') %}
+    {% set icon_color = attr['data-icon-color']|default('secondary') %}
+    {% set badge = attr['data-badge']|default('') %}
+    {% set badge_class = attr['data-badge-class']|default('bg-secondary-lt') %}
+    {% set code = attr['data-code']|default('') %}
+    {% set description = attr['data-description']|default('') %}
+    {% set indicator_icon = attr['data-indicator-icon']|default('') %}
+    {% set indicator_class = attr['data-indicator-class']|default('bg-yellow-lt') %}
+    {% set indicator_title = attr['data-indicator-title']|default('') %}
+    {% set is_required = attr['data-required']|default('0') == '1' %}
+
+    <div class="col-12 col-md-6">
+        <label class="form-selectgroup-item flex-fill{% if is_required %} is-required{% endif %}">
+            <input type="checkbox"
+                   id="{{ id }}"
+                   name="{{ full_name }}"
+                   value="{{ value }}"
+                   class="form-selectgroup-input{% if is_required %} scope-required{% endif %}"
+                   {% if checked or is_required %}checked{% endif %}
+                   {% if is_required %}data-required="1"{% endif %}
+                   {% if required and not compound %}required{% endif %}>
+            <div class="form-selectgroup-label d-flex align-items-start p-3">
+                <span class="avatar avatar-sm bg-{{ icon_color }}-lt me-3">
+                    {% if is_required %}
+                        <i class="ti ti-lock"></i>
+                    {% else %}
+                        <i class="ti ti-{{ icon }}"></i>
+                    {% endif %}
+                </span>
+                <div class="flex-fill">
+                    <div class="d-flex align-items-center flex-wrap gap-1">
+                        <strong>{{ label|trans(label_translation_parameters, translation_domain) }}</strong>
+                        {% if is_required %}
+                            <span class="badge bg-red-lt text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.025em;" title="{{ 'admin.client.form.scope_required_hint'|trans({}, 'admin') }}">
+                                <i class="ti ti-lock me-1" style="font-size: 9px;"></i>{{ 'admin.client.form.scope_required'|trans({}, 'admin') }}
+                            </span>
+                        {% elseif badge %}
+                            <span class="badge {{ badge_class }} text-uppercase" style="font-size: 0.65rem; letter-spacing: 0.025em;">{{ badge }}</span>
+                        {% endif %}
+                        {% if indicator_icon %}
+                            <span class="badge {{ indicator_class }}"{% if indicator_title %} title="{{ indicator_title|trans({}, translation_domain) }}"{% endif %}>
+                                <i class="ti ti-{{ indicator_icon }}" style="font-size: 10px;"></i>
+                            </span>
+                        {% endif %}
+                    </div>
+                    {% if code %}
+                        <code class="text-secondary small">{{ code }}</code>
+                    {% endif %}
+                    {% if description %}
+                        <div class="text-secondary small mt-1">{{ description }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </label>
+    </div>
+{% endblock %}

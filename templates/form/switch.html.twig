@@ -1,0 +1,43 @@
+{#
+    DE: Tabler Switch Form Theme - Rendert SwitchType als Tabler Switch mit Label und Hint.
+        Teil des Tabler Design System.
+
+    EN: Tabler Switch Form Theme - Renders SwitchType as Tabler switch with label and hint.
+        Part of the Tabler Design System.
+
+    Verwendung / Usage:
+        use Jostkleigrewe\TablerBundle\Form\Type\SwitchType;
+
+        ->add('isActive', SwitchType::class, [
+            'label' => 'my.label.key',
+            'help' => 'my.hint.key',
+        ])
+
+    Das Theme muss in twig.yaml registriert werden:
+        twig:
+            form_themes:
+                - '@Tabler/form/switch.html.twig'
+#}
+
+{% block tabler_switch_row %}
+    <div class="mb-3 {{ row_attr.class|default('') }}">
+        <label class="form-check form-switch mb-0">
+            <input type="checkbox"
+                   class="form-check-input"
+                   id="{{ id }}"
+                   name="{{ full_name }}"
+                   {% if value is defined and value is not null %}value="{{ value }}"{% endif %}
+                   {% if checked %}checked{% endif %}
+                   {% if disabled %}disabled{% endif %}
+                   {% if required %}required{% endif %}
+                   {{ block('attributes') }}>
+            {% if label is not same as(false) %}
+                <span class="form-check-label fw-semibold">{{ label|trans(label_translation_parameters, translation_domain) }}</span>
+            {% endif %}
+        </label>
+        {% if help is defined and help is not null %}
+            <div class="text-secondary small mt-1">{{ help|trans(help_translation_parameters, translation_domain) }}</div>
+        {% endif %}
+        {{ form_errors(form) }}
+    </div>
+{% endblock %}
