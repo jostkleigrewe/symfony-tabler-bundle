@@ -1,6 +1,6 @@
 # Tabler Bundle for Symfony
 
-Symfony Bundle providing FormTypes and Twig Components following the [Tabler](https://tabler.io) Design System.
+Symfony Bundle providing FormTypes following the [Tabler](https://tabler.io) Design System.
 
 ## Features
 
@@ -9,7 +9,6 @@ Symfony Bundle providing FormTypes and Twig Components following the [Tabler](ht
 - **ChoiceCardType** - Card-based choice selection with icons and badges
 - **EntityCardType** - Like ChoiceCardType, but for Doctrine entities
 - **CardSelectType** - Generic card-based multiple selection
-- **Tabler:FloatingInput** - Standalone TwigComponent for login forms etc.
 
 ## Requirements
 
@@ -22,24 +21,28 @@ This bundle requires **Tabler** to be installed in your application:
 
 ## Installation
 
+### Step 1: Install via Composer
+
 ```bash
 composer require jostkleigrewe/symfony-tabler-bundle
 ```
 
-### Register Bundle
+### Step 2: Register Bundle
+
+If not using Symfony Flex, add to `config/bundles.php`:
 
 ```php
-// config/bundles.php
 return [
     // ...
     Jostkleigrewe\TablerBundle\TablerBundle::class => ['all' => true],
 ];
 ```
 
-### Register Form Themes
+### Step 3: Register Form Themes
+
+Add to `config/packages/twig.yaml`:
 
 ```yaml
-# config/packages/twig.yaml
 twig:
     form_themes:
         - 'bootstrap_5_layout.html.twig'
@@ -49,9 +52,9 @@ twig:
         - '@Tabler/form/card_select.html.twig'
 ```
 
-### Include CSS
+### Step 4: Include CSS
 
-Copy `assets/styles/tabler-forms.css` to your project or include it via Asset Mapper:
+Copy `assets/styles/tabler-forms.css` from this bundle to your project's public directory, or include it via Asset Mapper:
 
 ```twig
 {# templates/base.html.twig #}
@@ -62,18 +65,28 @@ Copy `assets/styles/tabler-forms.css` to your project or include it via Asset Ma
 
 ### FloatingUnderlineType
 
+Material Design inspired input with floating label and animated underline.
+
 ```php
 use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
 
 $builder->add('email', FloatingUnderlineType::class, [
     'label' => 'Email Address',
-    'icon' => 'mail',              // Tabler Icon name
+    'icon' => 'mail',              // Tabler Icon name (without ti- prefix)
     'input_type' => 'email',       // text, email, password, tel, url, search
     'help' => 'Your business email',
 ]);
 ```
 
+**Options:**
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `icon` | string\|null | null | Tabler Icon name |
+| `input_type` | string | 'text' | HTML input type |
+
 ### SwitchType
+
+Renders a checkbox as a Tabler switch toggle.
 
 ```php
 use Jostkleigrewe\TablerBundle\Form\Type\SwitchType;
@@ -86,6 +99,8 @@ $builder->add('isActive', SwitchType::class, [
 
 ### ChoiceCardType
 
+Card-based choice selection with icons, badges, and descriptions.
+
 ```php
 use Jostkleigrewe\TablerBundle\Form\Type\ChoiceCardType;
 
@@ -94,9 +109,9 @@ $builder->add('grantTypes', ChoiceCardType::class, [
         'Authorization Code' => 'authorization_code',
         'Client Credentials' => 'client_credentials',
     ],
-    'icon' => 'key',
-    'icon_color' => 'azure',
-    'columns' => 2,  // 1, 2, 3, or 4
+    'icon' => 'key',           // Global icon for all choices
+    'icon_color' => 'azure',   // Global icon color
+    'columns' => 2,            // Grid columns: 1, 2, 3, or 4
     'choice_attr' => fn($value) => match($value) {
         'client_credentials' => [
             'data-badge' => 'M2M',
@@ -108,7 +123,16 @@ $builder->add('grantTypes', ChoiceCardType::class, [
 ]);
 ```
 
+**Options:**
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `icon` | string\|null | null | Global icon for all choices |
+| `icon_color` | string | 'secondary' | Global icon color |
+| `columns` | int | 2 | Grid columns (1-4) |
+
 ### EntityCardType
+
+Like ChoiceCardType, but for Doctrine entities.
 
 ```php
 use Jostkleigrewe\TablerBundle\Form\Type\EntityCardType;
@@ -128,57 +152,76 @@ $builder->add('scopes', EntityCardType::class, [
 ]);
 ```
 
-### Tabler:FloatingInput (TwigComponent)
+### CardSelectType
 
-For standalone use outside Symfony Forms (e.g. login pages):
+Generic card-based multiple selection (extends EntityType).
 
-```twig
-<twig:Tabler:FloatingInput
-    name="_username"
-    type="email"
-    label="Email Address"
-    icon="mail"
-    :value="last_username"
-    autocomplete="email"
-    required
-/>
+```php
+use Jostkleigrewe\TablerBundle\Form\Type\CardSelectType;
 
-<twig:Tabler:FloatingInput
-    name="_password"
-    type="password"
-    label="Password"
-    icon="lock"
-    required
-/>
+$builder->add('roles', CardSelectType::class, [
+    'class' => Role::class,
+    'choice_label' => 'name',
+    'choice_attr' => fn(Role $r) => [
+        'data-icon' => 'shield',
+        'data-description' => $r->getDescription(),
+    ],
+]);
 ```
 
 ## Data Attributes for Cards
 
+Use these in `choice_attr` to customize card appearance:
+
 | Attribute | Description |
 |-----------|-------------|
 | `data-icon` | Tabler Icon name (without `ti-` prefix) |
-| `data-icon-color` | Color: azure, green, purple, orange, etc. |
-| `data-description` | Description text |
-| `data-badge` | Badge text |
-| `data-badge-class` | Badge CSS class (e.g. `bg-azure-lt`) |
-| `data-code` | Technical code (monospace) |
-| `data-required` | `"1"` for required entries (not deselectable) |
+| `data-icon-color` | Color: azure, green, purple, orange, red, etc. |
+| `data-description` | Description text below the label |
+| `data-badge` | Badge text (e.g., "M2M", "OIDC") |
+| `data-badge-class` | Badge CSS class (e.g., `bg-azure-lt`, `bg-purple-lt`) |
+| `data-code` | Technical code displayed in monospace |
+| `data-required` | Set to `"1"` for required entries (not deselectable) |
+| `data-indicator-icon` | Additional indicator icon |
+| `data-indicator-class` | Indicator CSS class |
+| `data-indicator-title` | Tooltip for indicator |
 
-## Configuration
+## Example: Login Form
 
-```yaml
-# config/packages/tabler.yaml
-tabler:
-    register_twig_components: true  # Set to false if not using TwigComponents
+```php
+// src/Form/LoginFormType.php
+use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
+
+class LoginFormType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('_username', FloatingUnderlineType::class, [
+                'label' => 'Email',
+                'icon' => 'mail',
+                'input_type' => 'email',
+            ])
+            ->add('_password', FloatingUnderlineType::class, [
+                'label' => 'Password',
+                'icon' => 'lock',
+                'input_type' => 'password',
+            ]);
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return ''; // No prefix for Security form fields
+    }
+}
 ```
 
 ## Requirements
 
 - PHP 8.4+
 - Symfony 7.0+ or 8.0+
-- Tabler CSS Framework
-- Tabler Icons CSS
-- Optional: symfony/ux-twig-component (for TwigComponents)
+- Tabler CSS Framework (not included)
+- Tabler Icons CSS (not included)
 - Optional: doctrine/orm (for EntityCardType)
 
 ## License
