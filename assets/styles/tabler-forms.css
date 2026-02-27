@@ -770,3 +770,131 @@
 .tabler-code-block__pre::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
 }
+
+/* =================================================================
+   PASSWORD TOGGLE
+   Auge-Icon zum Ein-/Ausblenden von Passwörtern
+   ================================================================= */
+
+.tabler-fl-wrap--with-toggle .tabler-fl-input {
+    padding-right: 2.5rem;
+}
+
+.tabler-fl-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--tabler-form-muted);
+    cursor: pointer;
+    transition: color 0.2s ease;
+    z-index: 3;
+}
+
+.tabler-fl-toggle:hover {
+    color: var(--tabler-form-primary);
+}
+
+.tabler-fl-toggle:focus {
+    outline: none;
+    color: var(--tabler-form-primary);
+}
+
+.tabler-fl-toggle .ti {
+    font-size: 1.125rem;
+}
+
+/* Active state when password is visible */
+.tabler-fl-wrap:focus-within .tabler-fl-toggle {
+    color: var(--tabler-form-text);
+}
+
+/* Error state */
+.tabler-fl-wrap--error .tabler-fl-toggle {
+    color: var(--tabler-form-danger);
+}
+
+/* Dark mode */
+[data-bs-theme="dark"] .tabler-fl-toggle {
+    color: var(--tblr-secondary, #a1a1aa);
+}
+
+[data-bs-theme="dark"] .tabler-fl-toggle:hover,
+[data-bs-theme="dark"] .tabler-fl-wrap:focus-within .tabler-fl-toggle {
+    color: var(--tblr-body-color, #f8fafc);
+}
+
+/* =================================================================
+   PASSWORD STRENGTH METER
+   Visuelle Stärke-Anzeige für Passwort-Felder
+   ================================================================= */
+
+.tabler-fl-strength {
+    display: flex;
+    gap: 4px;
+    margin-top: 0.5rem;
+    height: 4px;
+}
+
+.tabler-fl-strength-bar {
+    flex: 1;
+    background: var(--tblr-border-color, #e6e7e9);
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+}
+
+/* DE: Aktive Balken mit Farbe basierend auf Stärke */
+/* EN: Active bars with color based on strength */
+.tabler-fl-strength.strength-weak .tabler-fl-strength-bar.active {
+    background: var(--tblr-danger, #d63939);
+}
+
+.tabler-fl-strength.strength-fair .tabler-fl-strength-bar.active {
+    background: var(--tblr-warning, #f59f00);
+}
+
+.tabler-fl-strength.strength-strong .tabler-fl-strength-bar.active {
+    background: var(--tblr-success, #2fb344);
+}
+
+.tabler-fl-strength.strength-very-strong .tabler-fl-strength-bar.active {
+    background: var(--tblr-success, #2fb344);
+}
+
+/* Strength label */
+.tabler-fl-strength-label {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    color: var(--tabler-form-muted);
+    transition: color 0.2s ease;
+}
+
+.tabler-fl-strength-label.strength-weak {
+    color: var(--tblr-danger, #d63939);
+}
+
+.tabler-fl-strength-label.strength-fair {
+    color: var(--tblr-warning, #f59f00);
+}
+
+.tabler-fl-strength-label.strength-strong {
+    color: var(--tblr-success, #2fb344);
+}
+
+.tabler-fl-strength-label.strength-very-strong {
+    color: var(--tblr-success, #2fb344);
+}
+
+/* Dark mode */
+[data-bs-theme="dark"] .tabler-fl-strength-bar {
+    background: rgba(255, 255, 255, 0.15);
+}

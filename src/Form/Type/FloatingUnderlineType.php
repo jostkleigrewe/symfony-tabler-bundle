@@ -34,6 +34,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  *         'label' => 'Passwort',
  *         'icon' => 'lock',
  *         'input_type' => 'password',
+ *         'password_toggle' => true,     // Auge-Icon zum Ein-/Ausblenden (default: true bei password)
+ *         'strength_meter' => true,      // Stärke-Anzeige (default: true bei password)
  *     ])
  */
 class FloatingUnderlineType extends AbstractType
@@ -43,10 +45,14 @@ class FloatingUnderlineType extends AbstractType
         $resolver->setDefaults([
             'icon' => null,
             'input_type' => 'text',
+            'password_toggle' => null, // null = auto (true bei password, false sonst)
+            'strength_meter' => null,  // null = auto (true bei password, false sonst)
         ]);
 
         $resolver->setAllowedTypes('icon', ['null', 'string']);
         $resolver->setAllowedTypes('input_type', 'string');
+        $resolver->setAllowedTypes('password_toggle', ['null', 'bool']);
+        $resolver->setAllowedTypes('strength_meter', ['null', 'bool']);
         $resolver->setAllowedValues('input_type', ['text', 'email', 'password', 'tel', 'url', 'search']);
     }
 
@@ -54,6 +60,24 @@ class FloatingUnderlineType extends AbstractType
     {
         $view->vars['icon'] = $options['icon'];
         $view->vars['input_type'] = $options['input_type'];
+
+        $isPassword = $options['input_type'] === 'password';
+
+        // DE: Auto-Aktivierung für Password-Felder, explizit überschreibbar
+        // EN: Auto-enable for password fields, can be explicitly overridden
+        $showToggle = $options['password_toggle'];
+        if ($showToggle === null) {
+            $showToggle = $isPassword;
+        }
+        $view->vars['password_toggle'] = $showToggle;
+
+        // DE: Stärke-Meter - standardmäßig für Password-Felder aktiv
+        // EN: Strength meter - enabled by default for password fields
+        $showStrength = $options['strength_meter'];
+        if ($showStrength === null) {
+            $showStrength = $isPassword;
+        }
+        $view->vars['strength_meter'] = $showStrength;
     }
 
     public function getParent(): string

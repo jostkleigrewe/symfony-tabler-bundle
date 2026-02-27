@@ -15,6 +15,14 @@
             'help' => 'Hilfetext hier',
         ])
 
+        ->add('password', FloatingUnderlineType::class, [
+            'label' => 'Passwort',
+            'icon' => 'lock',
+            'input_type' => 'password',
+            'password_toggle' => true,  // Auge-Icon zum Ein-/Ausblenden
+            'strength_meter' => true,   // Stärke-Anzeige mit 4 Balken
+        ])
+
     Das Theme muss in twig.yaml registriert werden:
         twig:
             form_themes:
@@ -23,9 +31,24 @@
 
 {% block tabler_floating_underline_row %}
     {% set has_errors = errors|length > 0 %}
+    {% set show_toggle = password_toggle|default(false) %}
+    {% set show_strength = strength_meter|default(false) %}
+
+    {# DE: Controller-Liste dynamisch aufbauen // EN: Build controller list dynamically #}
+    {% set controllers = [] %}
+    {% if show_toggle %}
+        {% set controllers = controllers|merge(['jostkleigrewe--tabler-bundle--password-toggle']) %}
+    {% endif %}
+    {% if show_strength %}
+        {% set controllers = controllers|merge(['jostkleigrewe--tabler-bundle--password-strength']) %}
+    {% endif %}
 
     <div class="mb-3 {{ row_attr.class|default('') }}">
-        <div class="tabler-fl-wrap {{ icon is not null ? '' : 'tabler-fl-wrap--no-icon' }} {{ has_errors ? 'tabler-fl-wrap--error' : '' }}">
+        <div class="tabler-fl-wrap {{ icon is not null ? '' : 'tabler-fl-wrap--no-icon' }} {{ has_errors ? 'tabler-fl-wrap--error' : '' }} {{ show_toggle ? 'tabler-fl-wrap--with-toggle' : '' }}"
+            {% if controllers|length > 0 %}
+                data-controller="{{ controllers|join(' ') }}"
+            {% endif %}
+        >
             {# Icon #}
             {% if icon is not null %}
                 <i class="ti ti-{{ icon }} tabler-fl-icon"></i>
@@ -44,6 +67,12 @@
                 {% for attrname, attrvalue in attr %}
                     {{ attrname }}="{{ attrvalue }}"
                 {% endfor %}
+                {% if show_toggle %}
+                    data-jostkleigrewe--tabler-bundle--password-toggle-target="input"
+                {% endif %}
+                {% if show_strength %}
+                    data-jostkleigrewe--tabler-bundle--password-strength-target="input"
+                {% endif %}
             >
 
             {# Floating Label #}
@@ -54,9 +83,34 @@
                 </label>
             {% endif %}
 
+            {# Password Toggle Button #}
+            {% if show_toggle %}
+                <button
+                    type="button"
+                    class="tabler-fl-toggle"
+                    data-action="jostkleigrewe--tabler-bundle--password-toggle#toggle"
+                    aria-label="{{ 'form.password.show'|trans({}, 'tabler')|default('Passwort anzeigen') }}"
+                    aria-pressed="false"
+                    tabindex="-1"
+                >
+                    <i class="ti ti-eye-off" data-jostkleigrewe--tabler-bundle--password-toggle-target="icon"></i>
+                </button>
+            {% endif %}
+
             {# Animated Underline #}
             <span class="tabler-fl-line"></span>
         </div>
+
+        {# Password Strength Meter #}
+        {% if show_strength %}
+            <div class="tabler-fl-strength" data-jostkleigrewe--tabler-bundle--password-strength-target="meter">
+                <div class="tabler-fl-strength-bar"></div>
+                <div class="tabler-fl-strength-bar"></div>
+                <div class="tabler-fl-strength-bar"></div>
+                <div class="tabler-fl-strength-bar"></div>
+            </div>
+            <span class="tabler-fl-strength-label" data-jostkleigrewe--tabler-bundle--password-strength-target="label"></span>
+        {% endif %}
 
         {# Help text #}
         {% if help is defined and help is not null and help is not empty %}
