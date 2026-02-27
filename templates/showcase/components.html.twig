@@ -1,11 +1,11 @@
 {% extends '@Tabler/showcase/layout.html.twig' %}
 
-{% block title %}TwigComponents - Tabler Bundle{% endblock %}
+{% block title %}UI Components - Tabler Bundle{% endblock %}
 
 {% block page_header %}
     <twig:Tabler:PageHeader
-        title="TwigComponents"
-        pretitle="Showcase"
+        title="UI Components"
+        pretitle="TwigComponents"
         subtitle="Reusable UI components with PHP classes"
         icon="components"
         iconColor="green"
@@ -13,36 +13,25 @@
 {% endblock %}
 
 {% block content %}
-    {# PageHeader #}
-    <div class="card mb-4">
-        <div class="card-header">
-            <h3 class="card-title">PageHeader</h3>
-        </div>
-        <div class="card-body">
-            <p class="text-secondary mb-3">
-                Page header with icon, title, subtitle and optional action buttons.
-            </p>
-            <div class="bg-light rounded p-3 mb-3">
-                <twig:Tabler:PageHeader
-                    title="Users"
-                    pretitle="Administration"
-                    subtitle="Manage your team members"
-                    icon="users"
-                    iconColor="blue"
-                />
-            </div>
-            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
-    title="Users"
-    pretitle="Administration"
-    subtitle="Manage your team members"
-    icon="users"
-    iconColor="blue"
-/&gt;</code></pre>
+    {# Quick Navigation #}
+    <div class="mb-4">
+        <div class="btn-group flex-wrap">
+            <a href="#statcard" class="btn btn-outline-secondary btn-sm">StatCard</a>
+            <a href="#actionlist" class="btn btn-outline-secondary btn-sm">ActionList</a>
+            <a href="#codeblock" class="btn btn-outline-secondary btn-sm">CodeBlock</a>
+            <a href="#panel" class="btn btn-outline-secondary btn-sm">Panel</a>
+            <a href="#alert" class="btn btn-outline-secondary btn-sm">Alert</a>
+            <a href="#emptystate" class="btn btn-outline-secondary btn-sm">EmptyState</a>
+            <a href="#helptooltip" class="btn btn-outline-secondary btn-sm">HelpTooltip</a>
+            <a href="#themeswitch" class="btn btn-outline-secondary btn-sm">ThemeSwitch</a>
+            <a href="#stepper" class="btn btn-outline-secondary btn-sm">Stepper</a>
+            <a href="#featurecard" class="btn btn-outline-secondary btn-sm">FeatureCard</a>
+            <a href="#collapsiblepanel" class="btn btn-outline-secondary btn-sm">CollapsiblePanel</a>
         </div>
     </div>
 
     {# StatCard #}
-    <div class="card mb-4">
+    <div id="statcard" class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">StatCard</h3>
         </div>
@@ -50,7 +39,7 @@
             <p class="text-secondary mb-3">
                 Statistics card for dashboards with trend indicators.
             </p>
-            <div class="row row-cards mb-3">
+            <div class="row row-cards mb-4">
                 <div class="col-md-4">
                     <twig:Tabler:StatCard
                         label="Active Users"
@@ -81,19 +70,169 @@
                     />
                 </div>
             </div>
-            <pre class="mb-0"><code>&lt;twig:Tabler:StatCard
+{% set statcard_code %}{% verbatim %}
+<twig:Tabler:StatCard
     label="Active Users"
     value="2,847"
     icon="users"
-    iconColor="blue"
     trend="up"
     hint="+15% this week"
-/&gt;</code></pre>
+/>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="statcard_code" />
+        </div>
+    </div>
+
+    {# ActionList & ActionItem #}
+    <div id="actionlist" class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">
+                ActionList & ActionItem
+                <span class="badge bg-green-lt text-green ms-2">Neu</span>
+            </h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Schnellzugriff-Listen für Navigation und Aktionen. ActionList ist der Wrapper, ActionItem sind die Einträge.
+            </p>
+            <div class="row row-cards mb-4">
+                <div class="col-md-6">
+                    <twig:Tabler:ActionList title="Schnellzugriff">
+                        <twig:Tabler:ActionItem
+                            label="Profil"
+                            description="Persönliche Daten bearbeiten"
+                            url="#"
+                            icon="user"
+                            iconColor="blue"
+                        />
+                        <twig:Tabler:ActionItem
+                            label="Sicherheit"
+                            description="MFA, Passwort, Sessions"
+                            url="#"
+                            icon="shield"
+                            iconColor="green"
+                        />
+                        <twig:Tabler:ActionItem
+                            label="Benachrichtigungen"
+                            description="E-Mail-Einstellungen"
+                            url="#"
+                            icon="bell"
+                            iconColor="yellow"
+                            badge="3"
+                            badgeColor="red"
+                        />
+                    </twig:Tabler:ActionList>
+                </div>
+                <div class="col-md-6">
+                    <twig:Tabler:ActionList title="Mit verschiedenen Farben">
+                        <twig:Tabler:ActionItem label="Standard" url="#" icon="home" />
+                        <twig:Tabler:ActionItem label="Erfolg" url="#" icon="check" iconColor="green" />
+                        <twig:Tabler:ActionItem label="Warnung" url="#" icon="alert-triangle" iconColor="yellow" />
+                        <twig:Tabler:ActionItem label="Fehler" url="#" icon="x" iconColor="red" />
+                        <twig:Tabler:ActionItem label="Deaktiviert" url="#" icon="lock" :disabled="true" />
+                    </twig:Tabler:ActionList>
+                </div>
+            </div>
+{% set actionlist_code %}{% verbatim %}
+<twig:Tabler:ActionList title="Schnellzugriff">
+    <twig:Tabler:ActionItem
+        label="Profil"
+        description="Persönliche Daten"
+        url="/profile"
+        icon="user"
+    />
+    <twig:Tabler:ActionItem
+        label="Benachrichtigungen"
+        url="/notifications"
+        icon="bell"
+        badge="3"
+        badgeColor="red"
+    />
+</twig:Tabler:ActionList>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="actionlist_code" />
+        </div>
+    </div>
+
+    {# CodeBlock #}
+    <div id="codeblock" class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">
+                CodeBlock
+                <span class="badge bg-purple-lt text-purple ms-2">Prism.js</span>
+            </h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Code-Anzeige mit <strong>Syntax-Highlighting via Prism.js</strong>, optionalem Titel und Copy-to-Clipboard Button.
+                Unterstützt PHP, Twig, HTML, CSS, JavaScript, JSON, YAML, Bash und SQL.
+            </p>
+            <div class="row mb-4">
+                <div class="col-md-6">
+{% set php_code %}
+$user = $userRepository->find($id);
+
+if ($user === null) {
+    throw new NotFoundHttpException();
+}
+
+return $this->render('user/show.html.twig', [
+    'user' => $user,
+]);
+{% endset %}
+                    <twig:Tabler:CodeBlock language="php" title="PHP Example" :code="php_code" />
+                </div>
+                <div class="col-md-6">
+{% set twig_code %}
+{% verbatim %}{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>{{ user.name }}</h1>
+    <p>{{ user.email }}</p>
+{% endblock %}{% endverbatim %}
+{% endset %}
+                    <twig:Tabler:CodeBlock language="twig" title="Twig Template" :code="twig_code" />
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-6">
+{% set bash_code %}
+# Install dependencies
+composer install
+
+# Run quality checks
+composer cs:fix && composer stan && composer test
+
+# Start Docker
+docker compose up -d
+{% endset %}
+                    <twig:Tabler:CodeBlock language="bash" title="Bash Commands" :code="bash_code" />
+                </div>
+                <div class="col-md-6">
+{% set json_code %}
+{
+    "name": "eurip/sso",
+    "type": "project",
+    "require": {
+        "php": ">=8.2",
+        "symfony/framework-bundle": "^7.0"
+    }
+}
+{% endset %}
+                    <twig:Tabler:CodeBlock language="json" title="JSON Example" :code="json_code" />
+                </div>
+            </div>
+{% set codeblock_code %}{% verbatim %}
+<twig:Tabler:CodeBlock language="php" title="Controller">
+$builder->add('email', EmailType::class);
+</twig:Tabler:CodeBlock>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="codeblock_code" />
         </div>
     </div>
 
     {# Panel #}
-    <div class="card mb-4">
+    <div id="panel" class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Panel</h3>
         </div>
@@ -101,7 +240,7 @@
             <p class="text-secondary mb-3">
                 Generic panel/card with title, optional icon and content slot.
             </p>
-            <div class="row row-cards mb-3">
+            <div class="row row-cards mb-4">
                 <div class="col-md-6">
                     <twig:Tabler:Panel title="Login" subtitle="Enter your credentials" icon="login" iconColor="azure">
                         <p class="text-secondary text-center mb-0">Form content goes here...</p>
@@ -113,14 +252,17 @@
                     </twig:Tabler:Panel>
                 </div>
             </div>
-            <pre class="mb-0"><code>&lt;twig:Tabler:Panel title="Login" subtitle="Enter your credentials" icon="login"&gt;
+{% set panel_code %}{% verbatim %}
+<twig:Tabler:Panel title="Login" subtitle="Enter your credentials" icon="login">
     Form content here...
-&lt;/twig:Tabler:Panel&gt;</code></pre>
+</twig:Tabler:Panel>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="panel_code" />
         </div>
     </div>
 
     {# Alert #}
-    <div class="card mb-4">
+    <div id="alert" class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">Alert</h3>
         </div>
@@ -142,14 +284,17 @@
             <div class="mb-3">
                 <twig:Tabler:Alert type="danger" title="Error" text="Something went wrong." :important="true" />
             </div>
-            <pre class="mb-0"><code>&lt;twig:Tabler:Alert type="success" title="Success!" text="Saved." /&gt;
-&lt;twig:Tabler:Alert type="warning" :dismissible="true" title="Warning" /&gt;
-&lt;twig:Tabler:Alert type="danger" :important="true" title="Error" /&gt;</code></pre>
+{% set alert_code %}{% verbatim %}
+<twig:Tabler:Alert type="success" title="Success!" text="Saved." />
+<twig:Tabler:Alert type="warning" :dismissible="true" title="Warning" />
+<twig:Tabler:Alert type="danger" :important="true" title="Error" />
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="alert_code" />
         </div>
     </div>
 
     {# EmptyState #}
-    <div class="card mb-4">
+    <div id="emptystate" class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">EmptyState</h3>
         </div>
@@ -157,7 +302,7 @@
             <p class="text-secondary mb-3">
                 Empty state for lists without entries or search results.
             </p>
-            <div class="row row-cards mb-3">
+            <div class="row row-cards mb-4">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
@@ -184,18 +329,21 @@
                     </div>
                 </div>
             </div>
-            <pre class="mb-0"><code>&lt;twig:Tabler:EmptyState
+{% set emptystate_code %}{% verbatim %}
+<twig:Tabler:EmptyState
     title="No users yet"
     text="Add your first user to get started"
     icon="users"
     actionUrl="/users/new"
     actionLabel="Add User"
-/&gt;</code></pre>
+/>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="emptystate_code" />
         </div>
     </div>
 
     {# HelpTooltip #}
-    <div class="card mb-4">
+    <div id="helptooltip" class="card mb-4">
         <div class="card-header">
             <h3 class="card-title">HelpTooltip</h3>
         </div>
@@ -203,15 +351,473 @@
             <p class="text-secondary mb-3">
                 Contextual help tooltips with info icons.
             </p>
-            <p class="mb-3">
+            <p class="mb-4">
                 Hover over these icons:
                 <twig:Tabler:HelpTooltip text="This is a simple tooltip" />
                 <twig:Tabler:HelpTooltip text="The URI where users are redirected after login" title="Redirect URI" />
                 <twig:Tabler:HelpTooltip text="Custom icon tooltip" icon="question-mark" color="azure" />
             </p>
-            <pre class="mb-0"><code>&lt;twig:Tabler:HelpTooltip text="Simple tooltip" /&gt;
-&lt;twig:Tabler:HelpTooltip text="With title" title="Redirect URI" /&gt;
-&lt;twig:Tabler:HelpTooltip text="Custom" icon="question-mark" color="azure" /&gt;</code></pre>
+{% set helptooltip_code %}{% verbatim %}
+<twig:Tabler:HelpTooltip text="Simple tooltip" />
+<twig:Tabler:HelpTooltip text="With title" title="Redirect URI" />
+<twig:Tabler:HelpTooltip text="Custom" icon="question-mark" color="azure" />
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="helptooltip_code" />
+        </div>
+    </div>
+
+    {# ThemeSwitch #}
+    <div id="themeswitch" class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">ThemeSwitch</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Day/Night toggle for light/dark mode. Saves preference to localStorage.
+            </p>
+
+            {# Standard Toggle (2-State) #}
+            <h5 class="mb-3">Standard Toggle <small class="text-secondary">(Light / Dark)</small></h5>
+            <div class="d-flex align-items-center gap-4 mb-4">
+                <div>
+                    <span class="text-secondary d-block small mb-1">Normal</span>
+                    <twig:Tabler:ThemeSwitch />
+                </div>
+                <div>
+                    <span class="text-secondary d-block small mb-1">Compact</span>
+                    <twig:Tabler:ThemeSwitch size="compact" />
+                </div>
+            </div>
+
+            {# Tristate (Option A) #}
+            <h5 class="mb-3">Tristate <small class="text-secondary">(Light / Auto / Dark)</small></h5>
+            <div class="d-flex align-items-center gap-4 mb-4">
+                <twig:Tabler:ThemeSwitch variant="tristate" />
+            </div>
+
+            {# Cycle (Option B) #}
+            <h5 class="mb-3">Cycle <small class="text-secondary">(Durchklicken)</small></h5>
+            <div class="d-flex align-items-center gap-4 mb-4">
+                <twig:Tabler:ThemeSwitch variant="cycle" />
+                <twig:Tabler:ThemeSwitch variant="cycle" size="compact" />
+            </div>
+
+{% set themeswitch_code %}{% verbatim %}
+<twig:Tabler:ThemeSwitch />
+<twig:Tabler:ThemeSwitch variant="tristate" />
+<twig:Tabler:ThemeSwitch variant="cycle" size="compact" />
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="themeswitch_code" />
+        </div>
+    </div>
+
+    {# Stepper #}
+    <div id="stepper" class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">
+                Stepper
+                <span class="badge bg-green-lt text-green ms-2">Neu</span>
+            </h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Step-by-step progress indicator mit verschiedenen Varianten. Ideal für Wizards, Onboarding oder Prozess-Dokumentation.
+            </p>
+
+            {# Default Variant #}
+            <h5 class="mb-3">Default <small class="text-secondary">(Karten mit Icons)</small></h5>
+            <div class="mb-4">
+                <twig:Tabler:Stepper
+                    :steps="[
+                        { title: 'Account erstellen', description: 'E-Mail und Passwort', icon: 'user-plus', status: 'completed' },
+                        { title: 'Profil ausfüllen', description: 'Persönliche Daten', icon: 'forms', status: 'current' },
+                        { title: 'Verifizierung', description: 'E-Mail bestätigen', icon: 'mail-check', status: 'pending' },
+                        { title: 'Fertig', description: 'Bereit zur Nutzung', icon: 'check', status: 'pending' }
+                    ]"
+                    :columns="4"
+                />
+            </div>
+
+            {# Horizontal Variant #}
+            <h5 class="mb-3">Horizontal <small class="text-secondary">(Inline mit Connectors)</small></h5>
+            <div class="mb-4">
+                <twig:Tabler:Stepper
+                    variant="horizontal"
+                    :showConnectors="true"
+                    :steps="[
+                        { title: 'Anfrage', status: 'completed' },
+                        { title: 'Prüfung', status: 'current' },
+                        { title: 'Genehmigung', status: 'pending' },
+                        { title: 'Abschluss', status: 'pending' }
+                    ]"
+                />
+            </div>
+
+            {# Compact Variant #}
+            <h5 class="mb-3">Compact <small class="text-secondary">(Nummerierte Liste)</small></h5>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <twig:Tabler:Stepper
+                        variant="compact"
+                        :steps="[
+                            { title: 'Client registrieren', status: 'completed' },
+                            { title: 'Redirect URIs konfigurieren', status: 'completed' },
+                            { title: 'Scopes auswählen', status: 'current' },
+                            { title: 'Secret generieren', status: 'pending' },
+                            { title: 'Integration testen', status: 'pending' }
+                        ]"
+                    />
+                </div>
+            </div>
+
+{% set stepper_code %}{% verbatim %}
+<twig:Tabler:Stepper
+    :steps="[
+        { title: 'Schritt 1', description: 'Beschreibung', icon: 'user', status: 'completed' },
+        { title: 'Schritt 2', status: 'current' },
+        { title: 'Schritt 3', status: 'pending' }
+    ]"
+    variant="default"
+    :columns="4"
+/>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="stepper_code" />
+
+            {# Props Table #}
+            <h5 class="mt-4 mb-3">Props</h5>
+            <div class="table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr><th>Prop</th><th>Type</th><th>Default</th><th>Beschreibung</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>steps</code></td><td>array</td><td>[]</td><td>Array mit Steps (title, description, icon, status)</td></tr>
+                        <tr><td><code>variant</code></td><td>string</td><td>'default'</td><td>'default', 'horizontal', 'compact'</td></tr>
+                        <tr><td><code>columns</code></td><td>int</td><td>4</td><td>Spalten pro Zeile (nur default)</td></tr>
+                        <tr><td><code>showNumbers</code></td><td>bool</td><td>true</td><td>Schritt-Nummern anzeigen</td></tr>
+                        <tr><td><code>showConnectors</code></td><td>bool</td><td>false</td><td>Verbindungslinien (nur horizontal)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# FeatureCard #}
+    <div id="featurecard" class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">
+                FeatureCard
+                <span class="badge bg-green-lt text-green ms-2">Neu</span>
+            </h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Feature-Karten für Landing Pages, Marketing und Übersichten. Mehrere Varianten für verschiedene Layouts.
+            </p>
+
+            {# Default Variant #}
+            <h5 class="mb-3">Default <small class="text-secondary">(Zentriert mit Icon)</small></h5>
+            <div class="row row-cards mb-4">
+                <div class="col-md-4">
+                    <twig:Tabler:FeatureCard
+                        title="Single Sign-On"
+                        text="Ein Login für alle Anwendungen. Sicher und komfortabel."
+                        icon="login"
+                        iconColor="blue"
+                        linkUrl="#"
+                        linkText="Mehr erfahren"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <twig:Tabler:FeatureCard
+                        title="OIDC-Standard"
+                        text="OpenID Connect für sichere Authentifizierung nach Industriestandard."
+                        icon="shield-check"
+                        iconColor="green"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <twig:Tabler:FeatureCard
+                        title="MFA-Schutz"
+                        text="Zwei-Faktor-Authentifizierung mit TOTP und Backup-Codes."
+                        icon="device-mobile"
+                        iconColor="purple"
+                    />
+                </div>
+            </div>
+
+            {# Highlight Variant #}
+            <h5 class="mb-3">Highlight <small class="text-secondary">(Farbiger Hintergrund)</small></h5>
+            <div class="row row-cards mb-4">
+                <div class="col-md-6">
+                    <twig:Tabler:FeatureCard
+                        variant="highlight"
+                        title="Enterprise Ready"
+                        text="Skalierbar für tausende Nutzer mit hoher Verfügbarkeit."
+                        icon="building"
+                        iconColor="azure"
+                    />
+                </div>
+                <div class="col-md-6">
+                    <twig:Tabler:FeatureCard
+                        variant="highlight"
+                        title="DSGVO-konform"
+                        text="Datenschutz nach europäischen Standards. Hosting in Deutschland."
+                        icon="lock"
+                        iconColor="green"
+                    />
+                </div>
+            </div>
+
+            {# Horizontal Variant #}
+            <h5 class="mb-3">Horizontal <small class="text-secondary">(Icon links)</small></h5>
+            <div class="row row-cards mb-4">
+                <div class="col-md-6">
+                    <twig:Tabler:FeatureCard
+                        variant="horizontal"
+                        title="API-Dokumentation"
+                        text="Vollständige REST API mit OpenAPI/Swagger Dokumentation."
+                        icon="api"
+                        iconColor="orange"
+                        linkUrl="#"
+                        linkText="API Docs"
+                    />
+                </div>
+                <div class="col-md-6">
+                    <twig:Tabler:FeatureCard
+                        variant="horizontal"
+                        title="Audit-Logging"
+                        text="Alle sicherheitsrelevanten Ereignisse werden protokolliert."
+                        icon="list-check"
+                        iconColor="cyan"
+                    />
+                </div>
+            </div>
+
+            {# Minimal Variant #}
+            <h5 class="mb-3">Minimal <small class="text-secondary">(Ohne Card)</small></h5>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <twig:Tabler:FeatureCard
+                        variant="minimal"
+                        title="Schnelle Integration"
+                        text="In wenigen Minuten eingerichtet."
+                        icon="rocket"
+                        iconColor="red"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <twig:Tabler:FeatureCard
+                        variant="minimal"
+                        title="Open Source"
+                        text="Transparenter Code, Community-driven."
+                        icon="brand-github"
+                        iconColor="dark"
+                    />
+                </div>
+                <div class="col-md-4">
+                    <twig:Tabler:FeatureCard
+                        variant="minimal"
+                        title="24/7 Support"
+                        text="Hilfe wenn Sie sie brauchen."
+                        icon="headset"
+                        iconColor="pink"
+                    />
+                </div>
+            </div>
+
+{% set featurecard_code %}{% verbatim %}
+<twig:Tabler:FeatureCard
+    title="Feature Name"
+    text="Beschreibung des Features"
+    icon="star"
+    iconColor="blue"
+    variant="default"
+    linkUrl="/mehr"
+    linkText="Mehr erfahren"
+/>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="featurecard_code" />
+
+            {# Props Table #}
+            <h5 class="mt-4 mb-3">Props</h5>
+            <div class="table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr><th>Prop</th><th>Type</th><th>Default</th><th>Beschreibung</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>title</code></td><td>string</td><td>-</td><td>Titel der Feature-Card (required)</td></tr>
+                        <tr><td><code>text</code></td><td>string</td><td>-</td><td>Beschreibungstext (required)</td></tr>
+                        <tr><td><code>icon</code></td><td>string</td><td>null</td><td>Tabler Icon Name (ohne ti-)</td></tr>
+                        <tr><td><code>iconColor</code></td><td>string</td><td>'primary'</td><td>Icon-Farbe (blue, green, etc.)</td></tr>
+                        <tr><td><code>variant</code></td><td>string</td><td>'default'</td><td>'default', 'highlight', 'horizontal', 'minimal'</td></tr>
+                        <tr><td><code>linkUrl</code></td><td>string</td><td>null</td><td>Link URL</td></tr>
+                        <tr><td><code>linkText</code></td><td>string</td><td>null</td><td>Link Text</td></tr>
+                        <tr><td><code>fullHeight</code></td><td>bool</td><td>true</td><td>h-100 für gleiche Höhe in Rows</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# CollapsiblePanel #}
+    <div id="collapsiblepanel" class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">
+                CollapsiblePanel
+                <span class="badge bg-green-lt text-green ms-2">Neu</span>
+                <span class="badge bg-purple-lt text-purple ms-2">Stimulus</span>
+            </h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Ausklappbares Panel mit ARIA-Attributen für Accessibility. Ideal für FAQ, Hilfe-Sektionen oder optionale Informationen.
+            </p>
+
+            {# Default Variant #}
+            <h5 class="mb-3">Default <small class="text-secondary">(Einfach)</small></h5>
+            <div class="mb-4">
+                <twig:Tabler:CollapsiblePanel title="Was ist OIDC?">
+                    <p class="mb-0">
+                        OpenID Connect (OIDC) ist ein Authentifizierungsprotokoll, das auf OAuth 2.0 aufbaut.
+                        Es ermöglicht Clients, die Identität eines Benutzers zu verifizieren und grundlegende Profilinformationen zu erhalten.
+                    </p>
+                </twig:Tabler:CollapsiblePanel>
+            </div>
+
+            {# With Icon #}
+            <h5 class="mb-3">Mit Icon <small class="text-secondary">(+ initial expanded)</small></h5>
+            <div class="mb-4">
+                <twig:Tabler:CollapsiblePanel
+                    title="Sicherheitshinweis"
+                    subtitle="Wichtige Information für Entwickler"
+                    icon="shield-check"
+                    iconColor="green"
+                    :expanded="true"
+                >
+                    <p class="mb-0">
+                        Speichern Sie niemals Client Secrets im Frontend-Code. Verwenden Sie den Authorization Code Flow
+                        mit PKCE für Single-Page-Applications und native Apps.
+                    </p>
+                </twig:Tabler:CollapsiblePanel>
+            </div>
+
+            {# Bordered Variant #}
+            <h5 class="mb-3">Bordered <small class="text-secondary">(Mit Rahmen)</small></h5>
+            <div class="mb-4">
+                <twig:Tabler:CollapsiblePanel
+                    title="Erweiterte Optionen"
+                    icon="settings"
+                    iconColor="purple"
+                    variant="bordered"
+                >
+                    <p class="mb-2">Hier können zusätzliche Einstellungen konfiguriert werden:</p>
+                    <ul class="mb-0">
+                        <li>Token-Lebensdauer anpassen</li>
+                        <li>Refresh-Token aktivieren</li>
+                        <li>Custom Claims konfigurieren</li>
+                    </ul>
+                </twig:Tabler:CollapsiblePanel>
+            </div>
+
+            {# Card Variant #}
+            <h5 class="mb-3">Card <small class="text-secondary">(Als Karte)</small></h5>
+            <div class="mb-4">
+                <twig:Tabler:CollapsiblePanel
+                    title="API-Beispiel"
+                    icon="code"
+                    iconColor="azure"
+                    variant="card"
+                >
+                    <pre class="mb-0"><code>curl -X POST https://sso.example.com/oidc/token \
+  -d "grant_type=authorization_code" \
+  -d "code=AUTH_CODE" \
+  -d "redirect_uri=https://app.example.com/callback"</code></pre>
+                </twig:Tabler:CollapsiblePanel>
+            </div>
+
+            {# Subtle Variant #}
+            <h5 class="mb-3">Subtle <small class="text-secondary">(Dezenter Hintergrund)</small></h5>
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <twig:Tabler:CollapsiblePanel
+                        title="Hinweis für Admins"
+                        icon="info-circle"
+                        iconColor="cyan"
+                        variant="subtle"
+                    >
+                        <p class="mb-0 small">
+                            Diese Einstellung wirkt sich auf alle Clients aus. Änderungen werden sofort wirksam.
+                        </p>
+                    </twig:Tabler:CollapsiblePanel>
+                </div>
+            </div>
+
+{% set collapsible_code %}{% verbatim %}
+<twig:Tabler:CollapsiblePanel
+    title="Panel Titel"
+    subtitle="Optionaler Untertitel"
+    icon="help"
+    iconColor="blue"
+    variant="default"
+    :expanded="false"
+>
+    Inhalt des Panels...
+</twig:Tabler:CollapsiblePanel>
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" title="Usage" :code="collapsible_code" />
+
+            {# Props Table #}
+            <h5 class="mt-4 mb-3">Props</h5>
+            <div class="table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr><th>Prop</th><th>Type</th><th>Default</th><th>Beschreibung</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>title</code></td><td>string</td><td>-</td><td>Panel-Titel (required)</td></tr>
+                        <tr><td><code>subtitle</code></td><td>string</td><td>null</td><td>Hilfetext unter dem Titel</td></tr>
+                        <tr><td><code>icon</code></td><td>string</td><td>null</td><td>Tabler Icon Name</td></tr>
+                        <tr><td><code>iconColor</code></td><td>string</td><td>'primary'</td><td>Icon-Farbe</td></tr>
+                        <tr><td><code>expanded</code></td><td>bool</td><td>false</td><td>Initial ausgeklappt</td></tr>
+                        <tr><td><code>variant</code></td><td>string</td><td>'default'</td><td>'default', 'bordered', 'card', 'subtle'</td></tr>
+                        <tr><td><code>panelId</code></td><td>string</td><td>null</td><td>Eindeutige ID (auto-generiert)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {# ARIA Info #}
+            <div class="alert alert-info mt-4">
+                <div class="d-flex">
+                    <div><i class="ti ti-accessibility ti-lg me-2"></i></div>
+                    <div>
+                        <h4 class="alert-title">Accessibility</h4>
+                        <div class="text-secondary">
+                            CollapsiblePanel verwendet <code>aria-expanded</code>, <code>aria-controls</code> und <code>role="region"</code>
+                            für vollständige Screenreader-Unterstützung. Der Stimulus Controller synchronisiert diese Attribute automatisch.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# PageHeader Reference #}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">PageHeader</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-0">
+                Der PageHeader hat eine eigene Showcase-Seite mit vielen Varianten (Breadcrumbs, Tabs, Avatar, Status, Progress).
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('tabler_showcase_page_headers') }}" class="btn btn-azure">
+                <i class="ti ti-arrow-right me-1"></i>
+                PageHeader Showcase
+            </a>
         </div>
     </div>
 {% endblock %}

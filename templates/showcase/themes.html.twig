@@ -1,0 +1,284 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}Themes - Tabler Bundle{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="Themes & Dark Mode"
+        pretitle="Farbschemata"
+        subtitle="Wechsle zwischen verschiedenen Farbschemata und Dark/Light-Modus"
+        icon="palette"
+        iconColor="purple"
+    />
+{% endblock %}
+
+{% block content %}
+    {# Introduction #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Theme-System</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-8">
+                    <p class="text-secondary mb-3">
+                        Das Tabler Bundle unterstützt zwei unabhängige Konzepte:
+                    </p>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <div class="card bg-azure-lt">
+                                <div class="card-body">
+                                    <h4 class="mb-2"><i class="ti ti-palette me-2"></i>Theme (Farbschema)</h4>
+                                    <p class="text-secondary small mb-0">
+                                        Ändert die Primär-, Sekundär- und Akzentfarben der Anwendung.
+                                        Jedes Theme hat eine eigene Farbpalette.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-yellow-lt">
+                                <div class="card-body">
+                                    <h4 class="mb-2"><i class="ti ti-sun-moon me-2"></i>Dark/Light Mode</h4>
+                                    <p class="text-secondary small mb-0">
+                                        Ändert Hintergrundfarben, Textfarben und Kontraste.
+                                        Unabhängig vom gewählten Theme.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Live-Test</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-secondary small mb-3">
+                                Nutze den Picker oben rechts oder hier:
+                            </p>
+                            <twig:Tabler:ThemePicker />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Theme Cards #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Verfügbare Themes</h3>
+        </div>
+        <div class="card-body">
+            <div class="row row-cards">
+                {% for key, theme in themes %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-link card-lift"
+                             style="cursor: pointer"
+                             data-controller="theme-picker"
+                             data-action="click->theme-picker#selectTheme"
+                             data-theme="{{ key }}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="d-flex gap-1 me-auto">
+                                        {% for color in theme.colors %}
+                                            <span class="avatar avatar-xs avatar-rounded"
+                                                  style="background-color: {{ color }}"></span>
+                                        {% endfor %}
+                                    </div>
+                                    <span class="badge bg-secondary-lt">{{ key }}</span>
+                                </div>
+                                <h3 class="mb-1">{{ theme.name }}</h3>
+                                <p class="text-secondary small mb-0">{{ theme.description }}</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <div class="d-flex align-items-center">
+                                    <code class="small">data-theme="{{ key }}"</code>
+                                    <span class="ms-auto text-secondary small">
+                                        <i class="ti ti-click me-1"></i>Klicken zum Aktivieren
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {# Usage Examples #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Usage</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="mb-3">1. CSS einbinden</h4>
+{% set css_code %}
+{# In deinem base.html.twig #}
+<link rel="stylesheet" href="{{ '{{ asset(\'bundles/tabler/styles/tabler-themes.css\') }}' }}">
+{% endset %}
+            <twig:Tabler:CodeBlock language="twig" :code="css_code" />
+
+            <h4 class="mt-4 mb-3">2. Theme setzen</h4>
+{% set html_code %}
+{# Theme via data-Attribut auf html/body setzen #}
+<html data-theme="eurip" data-bs-theme="light">
+
+{# Oder dynamisch per JavaScript #}
+document.documentElement.setAttribute('data-theme', 'forest');
+document.documentElement.setAttribute('data-bs-theme', 'dark');
+{% endset %}
+            <twig:Tabler:CodeBlock language="html" :code="html_code" />
+
+            <h4 class="mt-4 mb-3">3. ThemePicker-Komponente</h4>
+{% set picker_code %}{% verbatim %}
+{# Komplett (Mode + Themes) #}
+<twig:Tabler:ThemePicker />
+
+{# Nur Mode-Toggle #}
+<twig:Tabler:ThemePicker :showThemeSelector="false" />
+
+{# Kompakte Variante #}
+<twig:Tabler:ThemePicker variant="compact" />
+{% endverbatim %}{% endset %}
+            <twig:Tabler:CodeBlock language="twig" :code="picker_code" />
+
+            <h4 class="mt-4 mb-3">4. Theme-aware Komponenten</h4>
+{% set component_code %}
+{# Button mit Theme-Farbe #}
+<button class="btn btn-theme">Theme Button</button>
+<button class="btn btn-theme-gradient">Gradient Button</button>
+
+{# Badge mit Theme-Farbe #}
+<span class="badge badge-theme">Theme Badge</span>
+<span class="badge badge-theme-light">Light Badge</span>
+
+{# Card mit Theme-Border #}
+<div class="card card-theme-border">...</div>
+{% endset %}
+            <twig:Tabler:CodeBlock language="html" :code="component_code" />
+        </div>
+    </div>
+
+    {# Component Preview #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Theme-aware Komponenten Preview</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-4">
+                Diese Komponenten passen sich automatisch dem aktiven Theme an:
+            </p>
+
+            <div class="row g-4">
+                {# Buttons #}
+                <div class="col-md-6">
+                    <h5 class="mb-3">Buttons</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-theme">Theme</button>
+                        <button class="btn btn-theme-gradient">Gradient</button>
+                        <button class="btn btn-outline-primary">Outline</button>
+                    </div>
+                </div>
+
+                {# Badges #}
+                <div class="col-md-6">
+                    <h5 class="mb-3">Badges</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge badge-theme">Theme</span>
+                        <span class="badge badge-theme-light">Light</span>
+                        <span class="badge bg-primary">Primary</span>
+                    </div>
+                </div>
+
+                {# Cards #}
+                <div class="col-md-6">
+                    <h5 class="mb-3">Card mit Theme-Border</h5>
+                    <div class="card card-theme-border">
+                        <div class="card-body">
+                            <p class="mb-0">Diese Card hat einen farbigen linken Rand im Theme-Farbton.</p>
+                        </div>
+                    </div>
+                </div>
+
+                {# Progress #}
+                <div class="col-md-6">
+                    <h5 class="mb-3">Progress</h5>
+                    <div class="progress progress-theme mb-2">
+                        <div class="progress-bar" style="width: 65%">65%</div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" style="width: 45%">45%</div>
+                    </div>
+                </div>
+
+                {# Links #}
+                <div class="col-md-6">
+                    <h5 class="mb-3">Links</h5>
+                    <p>
+                        <a href="#" class="link-theme">Theme Link</a> |
+                        <a href="#" class="link-primary">Primary Link</a> |
+                        <a href="#">Default Link</a>
+                    </p>
+                </div>
+
+                {# Alert #}
+                <div class="col-md-6">
+                    <h5 class="mb-3">Hero Section</h5>
+                    <div class="hero-theme rounded p-3 text-center">
+                        <span class="text-white">Hero mit Theme-Gradient</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# CSS Variables #}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">CSS Variables</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-4">
+                Jedes Theme definiert folgende CSS-Variablen, die du in deinem CSS verwenden kannst:
+            </p>
+
+{% set vars_code %}
+/* Primärfarbe und Varianten */
+var(--theme-primary)        /* Hauptfarbe */
+var(--theme-primary-rgb)    /* Als RGB für rgba() */
+var(--theme-primary-light)  /* Hellere Variante */
+var(--theme-primary-dark)   /* Dunklere Variante */
+
+/* Sekundär- und Akzentfarbe */
+var(--theme-secondary)
+var(--theme-accent)
+
+/* Gradienten */
+var(--theme-gradient-start)
+var(--theme-gradient-end)
+var(--theme-hero-from)
+var(--theme-hero-to)
+
+/* Surface Tints */
+var(--theme-surface-tint)       /* Subtiler Hintergrund */
+var(--theme-surface-tint-hover) /* Hover-Zustand */
+
+/* Beispiel: Eigene Komponente */
+.my-component {
+    background: var(--theme-surface-tint);
+    border-left: 3px solid var(--theme-primary);
+    color: var(--theme-primary-dark);
+}
+
+.my-component:hover {
+    background: var(--theme-surface-tint-hover);
+    box-shadow: 0 4px 12px rgba(var(--theme-primary-rgb), 0.2);
+}
+{% endset %}
+            <twig:Tabler:CodeBlock language="css" :code="vars_code" />
+        </div>
+    </div>
+{% endblock %}

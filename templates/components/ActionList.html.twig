@@ -1,0 +1,25 @@
+{#
+    DE: ActionList - Wrapper für ActionItem-Listen
+    EN: ActionList - Wrapper for ActionItem lists
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\ActionList
+#}
+{% if card %}
+<div class="card">
+    {% if title %}
+        <div class="card-header">
+            <h3 class="card-title">{{ title }}</h3>
+        </div>
+    {% endif %}
+    <div class="list-group list-group-{{ flush ? 'flush' : '' }}">
+        {{ block('content') }}
+    </div>
+</div>
+{% else %}
+    {% if title %}
+        <h3 class="mb-3">{{ title }}</h3>
+    {% endif %}
+    <div class="list-group">
+        {{ block('content') }}
+    </div>
+{% endif %}

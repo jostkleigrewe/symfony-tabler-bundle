@@ -1,36 +1,143 @@
 {#
-    DE: Page Header Component mit Icon, Titel und Actions
-    EN: Page header component with icon, title and actions
+    DE: Page Header Component - Vielseitiger Seitenkopf
+    EN: Page header component - Versatile page header
+
+    Varianten:
+    - default: Standard-Layout
+    - bordered: Mit Unterstrich-Linie
+    - compact: Reduzierter Abstand
+
+    Slots:
+    - actions: Buttons/Links rechts
+    - search: Such-Input
+    - tabs: Tab-Navigation
+    - meta: Custom Meta-Bereich
 
     @see Jostkleigrewe\TablerBundle\Twig\Components\PageHeader
 #}
-<div class="page-header d-print-none">
-    <div class="container-xl">
+<div class="{{ this.headerClass }}">
+    {% if this.containerClass %}<div class="{{ this.containerClass }}">{% endif %}
+
+        {# === Breadcrumbs === #}
+        {% if breadcrumbs is not empty %}
+            <nav aria-label="Breadcrumb" class="mb-2">
+                <ol class="breadcrumb">
+                    {% for crumb in breadcrumbs %}
+                        {% if loop.last %}
+                            <li class="breadcrumb-item active" aria-current="page">{{ crumb.label }}</li>
+                        {% else %}
+                            <li class="breadcrumb-item">
+                                {% if crumb.url is defined and crumb.url %}
+                                    <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+                                {% else %}
+                                    {{ crumb.label }}
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+            </nav>
+        {% elseif block('breadcrumbs') is defined %}
+            <nav aria-label="Breadcrumb" class="mb-2">
+                {% block breadcrumbs %}{% endblock %}
+            </nav>
+        {% endif %}
+
+        {# === Main Header Row === #}
         <div class="row g-2 align-items-center">
+            {# Left: Visual + Title #}
             <div class="col">
                 <div class="d-flex align-items-center">
-                    {% if icon %}
-                        <span class="avatar avatar-lg bg-{{ iconColor }}-lt me-3">
+                    {# Avatar oder Icon #}
+                    {% if this.hasAvatar %}
+                        <span class="avatar avatar-{{ avatarSize }} me-3{% if not avatar %} bg-{{ iconColor }}-lt{% endif %}">
+                            {% if avatar %}
+                                <img src="{{ avatar }}" alt="{{ title }}">
+                            {% else %}
+                                {{ avatarInitials }}
+                            {% endif %}
+                        </span>
+                    {% elseif icon %}
+                        <span class="avatar avatar-{{ avatarSize }} bg-{{ iconColor }}-lt me-3">
                             <i class="ti ti-{{ icon }} fs-1"></i>
                         </span>
                     {% endif %}
+
                     <div>
+                        {# Pretitle #}
                         {% if pretitle %}
                             <div class="page-pretitle">{{ pretitle }}</div>
                         {% endif %}
-                        <h2 class="page-title mb-0">{{ title }}</h2>
+
+                        {# Title + Status #}
+                        <h2 class="page-title mb-0">
+                            {{ title }}
+                            {% if status %}
+                                <span class="badge bg-{{ statusColor }} ms-2">{{ status }}</span>
+                            {% endif %}
+                        </h2>
+
+                        {# Subtitle #}
                         {% if subtitle %}
                             <div class="text-secondary mt-1">{{ subtitle }}</div>
+                        {% endif %}
+
+                        {# Meta Row #}
+                        {% if meta is not empty %}
+                            <div class="mt-2 d-flex flex-wrap gap-3 text-secondary small">
+                                {% for item in meta %}
+                                    {% if item.url is defined and item.url %}
+                                        <a href="{{ item.url }}" class="text-reset text-decoration-none">
+                                            {% if item.icon is defined %}<i class="ti ti-{{ item.icon }} me-1"></i>{% endif %}
+                                            {{ item.text }}
+                                        </a>
+                                    {% else %}
+                                        <span>
+                                            {% if item.icon is defined %}<i class="ti ti-{{ item.icon }} me-1"></i>{% endif %}
+                                            {{ item.text }}
+                                        </span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% elseif block('meta') is defined %}
+                            <div class="mt-2">
+                                {% block meta %}{% endblock %}
+                            </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
 
+            {# Search Slot #}
+            {% if block('search') is defined %}
+                <div class="col-auto">
+                    {% block search %}{% endblock %}
+                </div>
+            {% endif %}
+
+            {# Actions Slot #}
             {% if block('actions') is defined %}
                 <div class="col-auto ms-auto d-print-none">
-                    {% block actions %}{% endblock %}
+                    <div class="btn-list">
+                        {% block actions %}{% endblock %}
+                    </div>
                 </div>
             {% endif %}
         </div>
-    </div>
+
+        {# === Progress Bar === #}
+        {% if progress is not null %}
+            <div class="progress progress-sm mt-3" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar bg-{{ progressColor }}" style="width: {{ progress }}%"></div>
+            </div>
+        {% endif %}
+
+        {# === Tabs Slot === #}
+        {% if block('tabs') is defined %}
+            <div class="mt-3">
+                {% block tabs %}{% endblock %}
+            </div>
+        {% endif %}
+
+    {% if this.containerClass %}</div>{% endif %}
 </div>

@@ -30,7 +30,7 @@
             <div class="row mb-4">
                 <div class="col-md-6">
                     <div class="tabler-fl-wrap">
-                        <i class="ti ti-mail tabler-fl-icon"></i>
+                        <i class="ti ti-at tabler-fl-icon"></i>
                         <input type="email" class="tabler-fl-input" placeholder=" " value="">
                         <label class="tabler-fl-label">Email Address</label>
                         <span class="tabler-fl-line"></span>
@@ -46,13 +46,15 @@
                 </div>
             </div>
 
-            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
+            <twig:Tabler:CodeBlock language="php" title="FormType Usage">
+use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
 
 $builder->add('email', FloatingUnderlineType::class, [
     'label' => 'Email Address',
-    'icon' => 'mail',
+    'icon' => 'at',
     'input_type' => 'email',
-]);</code></pre>
+]);
+            </twig:Tabler:CodeBlock>
         </div>
     </div>
 
@@ -74,12 +76,14 @@ $builder->add('email', FloatingUnderlineType::class, [
                 <div class="form-hint">User can log in to the system</div>
             </div>
 
-            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\SwitchType;
+            <twig:Tabler:CodeBlock language="php" title="FormType Usage">
+use Jostkleigrewe\TablerBundle\Form\Type\SwitchType;
 
 $builder->add('isActive', SwitchType::class, [
     'label' => 'Active',
     'help' => 'User can log in to the system',
-]);</code></pre>
+]);
+            </twig:Tabler:CodeBlock>
         </div>
     </div>
 
@@ -104,7 +108,7 @@ $builder->add('isActive', SwitchType::class, [
                             <div class="choice-card-content">
                                 <div class="choice-card-header">
                                     <span class="choice-card-label">Authorization Code</span>
-                                    <span class="badge bg-green-lt choice-card-badge">Recommended</span>
+                                    <span class="badge bg-green-lt text-green choice-card-badge">Recommended</span>
                                 </div>
                                 <span class="choice-card-description">Standard OAuth2 flow for web apps</span>
                             </div>
@@ -124,7 +128,7 @@ $builder->add('isActive', SwitchType::class, [
                             <div class="choice-card-content">
                                 <div class="choice-card-header">
                                     <span class="choice-card-label">Client Credentials</span>
-                                    <span class="badge bg-purple-lt choice-card-badge">M2M</span>
+                                    <span class="badge bg-purple-lt text-purple choice-card-badge">M2M</span>
                                 </div>
                                 <span class="choice-card-description">Server-to-server communication</span>
                             </div>
@@ -136,7 +140,8 @@ $builder->add('isActive', SwitchType::class, [
                 </div>
             </div>
 
-            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\ChoiceCardType;
+            <twig:Tabler:CodeBlock language="php" title="FormType Usage">
+use Jostkleigrewe\TablerBundle\Form\Type\ChoiceCardType;
 
 $builder->add('grantTypes', ChoiceCardType::class, [
     'choices' => [
@@ -152,7 +157,8 @@ $builder->add('grantTypes', ChoiceCardType::class, [
         ],
         default => [],
     },
-]);</code></pre>
+]);
+            </twig:Tabler:CodeBlock>
         </div>
     </div>
 
@@ -166,7 +172,8 @@ $builder->add('grantTypes', ChoiceCardType::class, [
                 Like ChoiceCardType, but for Doctrine entities.
             </p>
 
-            <pre class="mb-0"><code>use Jostkleigrewe\TablerBundle\Form\Type\EntityCardType;
+            <twig:Tabler:CodeBlock language="php" title="FormType Usage">
+use Jostkleigrewe\TablerBundle\Form\Type\EntityCardType;
 
 $builder->add('scopes', EntityCardType::class, [
     'class' => Scope::class,
@@ -177,7 +184,8 @@ $builder->add('scopes', EntityCardType::class, [
         'data-icon' => $s->getIcon(),
         'data-description' => $s->getDescription(),
     ],
-]);</code></pre>
+]);
+            </twig:Tabler:CodeBlock>
         </div>
     </div>
 {% endblock %}

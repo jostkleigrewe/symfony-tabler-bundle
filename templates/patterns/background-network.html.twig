@@ -1,0 +1,142 @@
+{#
+    Network Background Pattern
+    ==========================
+
+    Einfach in base.html.twig nach <body> einfügen:
+    {% include '@Tabler/patterns/background-network.html.twig' %}
+
+    Optionale Parameter:
+    {% include '@Tabler/patterns/background-network.html.twig' with {
+        theme: 'dark',        // dark, light
+        intensity: 'medium',  // subtle, medium, intense
+        fixed: true           // true = fixed, false = absolute
+    } %}
+#}
+{% set theme = theme|default('dark') %}
+{% set intensity = intensity|default('medium') %}
+{% set fixed = fixed|default(true) %}
+
+<style>
+.pattern-global-bg {
+    position: {{ fixed ? 'fixed' : 'absolute' }};
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+    {% if theme == 'dark' %}
+    background: linear-gradient(135deg, var(--pattern-bg-dark, #0a1f44) 0%, #1a1a2e 100%);
+    {% else %}
+    background: linear-gradient(135deg, var(--pattern-bg-light, #eef4ff) 0%, #e8f0fe 100%);
+    {% endif %}
+}
+
+.pattern-global-bg .node {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    {% if theme == 'dark' %}
+    background: var(--pattern-secondary, #1f74ff);
+    box-shadow: 0 0 15px var(--pattern-secondary, #1f74ff);
+    {% else %}
+    background: var(--pattern-primary, #0f3d91);
+    box-shadow: 0 0 10px rgba(15,61,145,0.4);
+    {% endif %}
+    border-radius: 50%;
+    {% if intensity == 'subtle' %}
+    opacity: 0.4;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.9;
+    {% else %}
+    opacity: 0.6;
+    {% endif %}
+    animation: node-pulse 4s ease-in-out infinite;
+}
+
+.pattern-global-bg .edge {
+    position: absolute;
+    height: 1px;
+    {% if theme == 'dark' %}
+    background: linear-gradient(90deg, var(--pattern-secondary, #1f74ff), transparent);
+    {% else %}
+    background: linear-gradient(90deg, var(--pattern-primary, #0f3d91), transparent);
+    {% endif %}
+    {% if intensity == 'subtle' %}
+    opacity: 0.1;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.4;
+    {% else %}
+    opacity: 0.2;
+    {% endif %}
+}
+
+@keyframes node-pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+        box-shadow: 0 0 10px var(--pattern-secondary, #1f74ff);
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+        box-shadow: 0 0 25px var(--pattern-secondary, #1f74ff);
+    }
+}
+
+/* Node Positions */
+.pattern-global-bg .n1 { top: 15%; left: 20%; animation-delay: 0s; }
+.pattern-global-bg .n2 { top: 25%; left: 50%; animation-delay: -0.5s; }
+.pattern-global-bg .n3 { top: 20%; left: 80%; animation-delay: -1s; }
+.pattern-global-bg .n4 { top: 50%; left: 10%; animation-delay: -1.5s; }
+.pattern-global-bg .n5 { top: 55%; left: 45%; animation-delay: -2s; }
+.pattern-global-bg .n6 { top: 45%; left: 75%; animation-delay: -2.5s; }
+.pattern-global-bg .n7 { top: 80%; left: 25%; animation-delay: -3s; }
+.pattern-global-bg .n8 { top: 75%; left: 60%; animation-delay: -3.5s; }
+.pattern-global-bg .n9 { top: 85%; left: 85%; animation-delay: -4s; }
+.pattern-global-bg .n10 { top: 35%; left: 35%; animation-delay: -0.25s; }
+.pattern-global-bg .n11 { top: 65%; left: 90%; animation-delay: -1.25s; }
+.pattern-global-bg .n12 { top: 90%; left: 45%; animation-delay: -2.25s; }
+
+/* Edge Positions */
+.pattern-global-bg .e1 { width: 250px; top: 20%; left: 22%; transform: rotate(5deg); }
+.pattern-global-bg .e2 { width: 220px; top: 23%; left: 52%; transform: rotate(-18deg); }
+.pattern-global-bg .e3 { width: 180px; top: 52%; left: 12%; transform: rotate(28deg); }
+.pattern-global-bg .e4 { width: 200px; top: 50%; left: 47%; transform: rotate(8deg); }
+.pattern-global-bg .e5 { width: 160px; top: 78%; left: 27%; transform: rotate(12deg); }
+.pattern-global-bg .e6 { width: 190px; top: 58%; left: 62%; transform: rotate(-8deg); }
+.pattern-global-bg .e7 { width: 150px; top: 38%; left: 72%; transform: rotate(22deg); }
+.pattern-global-bg .e8 { width: 170px; top: 70%; left: 48%; transform: rotate(-5deg); }
+.pattern-global-bg .e9 { width: 140px; top: 82%; left: 65%; transform: rotate(15deg); }
+
+@media (prefers-reduced-motion: reduce) {
+    .pattern-global-bg .node {
+        animation: none;
+    }
+}
+</style>
+
+<div class="pattern-global-bg" aria-hidden="true">
+    {# Network Edges (Connections) #}
+    <div class="edge e1"></div>
+    <div class="edge e2"></div>
+    <div class="edge e3"></div>
+    <div class="edge e4"></div>
+    <div class="edge e5"></div>
+    <div class="edge e6"></div>
+    <div class="edge e7"></div>
+    <div class="edge e8"></div>
+    <div class="edge e9"></div>
+
+    {# Network Nodes #}
+    <div class="node n1"></div>
+    <div class="node n2"></div>
+    <div class="node n3"></div>
+    <div class="node n4"></div>
+    <div class="node n5"></div>
+    <div class="node n6"></div>
+    <div class="node n7"></div>
+    <div class="node n8"></div>
+    <div class="node n9"></div>
+    <div class="node n10"></div>
+    <div class="node n11"></div>
+    <div class="node n12"></div>
+</div>

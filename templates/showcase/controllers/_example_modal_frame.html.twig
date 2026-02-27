@@ -1,0 +1,71 @@
+<h5 class="mb-3">Grundlegende Verwendung</h5>
+<p class="text-secondary small">Der Controller lädt Content dynamisch in ein Bootstrap Modal:</p>
+
+{% set modal_basic %}
+{# Link der Modal öffnet #}
+<a href="/path/to/content"
+   data-controller="modal-frame"
+   data-modal-frame-modal-value="#detailModal"
+   data-modal-frame-container-value="modal-content"
+   data-action="click->modal-frame#open"
+   data-turbo="false">
+    Details anzeigen
+</a>
+
+{# Modal Struktur #}
+<div class="modal modal-blur fade" id="detailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="modal-content">
+            {# Content wird hier dynamisch geladen #}
+        </div>
+    </div>
+</div>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="modal_basic" />
+
+<h5 class="mt-4 mb-3">In einer Tabelle</h5>
+<p class="text-secondary small">Typischer Anwendungsfall: Detail-Ansicht für Tabellenzeilen</p>
+
+{% set modal_table %}
+<table class="table">
+    <tbody>
+        {% verbatim %}{% for item in items %}{% endverbatim %}
+            <tr>
+                <td>{% verbatim %}{{ item.name }}{% endverbatim %}</td>
+                <td class="text-end">
+                    <a href="{% verbatim %}{{ path('item_detail_modal', {id: item.id}) }}{% endverbatim %}"
+                       data-controller="modal-frame"
+                       data-modal-frame-modal-value="#itemModal"
+                       data-modal-frame-container-value="item-modal-content"
+                       data-action="click->modal-frame#open"
+                       class="btn btn-ghost-secondary btn-sm">
+                        <i class="ti ti-eye"></i>
+                    </a>
+                </td>
+            </tr>
+        {% verbatim %}{% endfor %}{% endverbatim %}
+    </tbody>
+</table>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="modal_table" />
+
+<h5 class="mt-4 mb-3">Event Listener</h5>
+{% set modal_event %}
+{# Event abfangen wenn Content geladen wurde #}
+<div data-controller="my-controller"
+     data-action="modal-frame:loaded->my-controller#onContentLoaded">
+
+    <a href="/content" data-controller="modal-frame" ...>Open</a>
+</div>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="modal_event" />
+
+<div class="alert alert-warning mt-4">
+    <div class="d-flex">
+        <i class="ti ti-alert-triangle me-2"></i>
+        <div>
+            <h4 class="alert-title">Wichtig</h4>
+            <p class="mb-0"><code>data-turbo="false"</code> verhindert, dass Turbo den Link abfängt. Ohne dieses Attribut würde Turbo die Seite navigieren statt das Modal zu öffnen.</p>
+        </div>
+    </div>
+</div>

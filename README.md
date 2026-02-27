@@ -1,54 +1,119 @@
 # Tabler Bundle for Symfony
 
-Symfony Bundle providing FormTypes and TwigComponents for the [Tabler](https://tabler.io) Design System.
+[![PHP Version](https://img.shields.io/badge/PHP-%3E%3D8.4-blue)](https://php.net)
+[![Symfony Version](https://img.shields.io/badge/Symfony-7.x%20%7C%208.x-black)](https://symfony.com)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-## Features
+Symfony bundle providing **FormTypes**, **TwigComponents**, and **Stimulus Controllers** for the [Tabler](https://tabler.io) Design System.
 
-### FormTypes
-- **FloatingUnderlineType** - Elegant input with floating label and animated underline
-- **SwitchType** - Checkbox rendered as Tabler switch
-- **ChoiceCardType** - Card-based choice selection with icons and badges
-- **EntityCardType** - Like ChoiceCardType, but for Doctrine entities
-- **CardSelectType** - Generic card-based multiple selection
+> **Note:** This bundle does **not** ship Tabler assets. You must install [Tabler CSS](https://tabler.io) and [Tabler Icons](https://tabler.io/icons) in your application.
 
-### TwigComponents
-- **PageHeader** - Page header with icon, title, subtitle and action buttons
-- **StatCard** - Statistics card for dashboards with trend indicators
-- **Panel** - Generic card/panel with title and content slot
-- **Alert** - Notification alerts (success, info, warning, danger)
-- **EmptyState** - Empty state for lists without entries
-- **HelpTooltip** - Contextual help tooltip with info icon
+---
 
-## Requirements
+<details>
+<summary>Deutsche Kurzfassung</summary>
 
-This bundle requires **Tabler** to be installed in your application:
+### Beschreibung
 
-- [Tabler](https://tabler.io) CSS Framework
-- [Tabler Icons](https://tabler.io/icons) (for icon support)
-- [Symfony UX TwigComponent](https://symfony.com/bundles/ux-twig-component) (for TwigComponents)
+Symfony Bundle mit **FormTypes**, **TwigComponents** und **Stimulus Controllern** für das [Tabler](https://tabler.io) Design System. Tabler CSS und Icons müssen separat installiert werden.
 
-**The bundle does NOT ship Tabler assets** - you need to install them yourself.
-
-## Installation
-
-### Step 1: Install via Composer
+### Schnellinstallation
 
 ```bash
 composer require jostkleigrewe/symfony-tabler-bundle
+npm install @tabler/core @tabler/icons-webfont
 ```
 
-### Step 2: Register Bundle
+Form Themes in `config/packages/twig.yaml` registrieren und CSS einbinden — siehe [Installationsanleitung](docs/installation.de.md).
 
-If not using Symfony Flex, add to `config/bundles.php`:
+### Dokumentation (Deutsch)
 
-```php
-return [
-    // ...
-    Jostkleigrewe\TablerBundle\TablerBundle::class => ['all' => true],
-];
+| Thema | Link |
+|-------|------|
+| Installation | [Installationsanleitung](docs/installation.de.md) |
+| Formular-Typen | [FormTypes](docs/form-types.de.md) |
+| Twig-Komponenten | [Komponenten](docs/components.de.md) |
+| Stimulus Controller | [Controller](docs/stimulus-controllers.de.md) |
+| Theming & CSS | [Theming](docs/theming.de.md) |
+| Card Data-Attribute | [Data-Attribute](docs/data-attributes.de.md) |
+| Showcase / Demo | [Showcase](docs/showcase.de.md) |
+
+</details>
+
+---
+
+## Features
+
+### FormTypes (5)
+
+Custom Symfony form types with Tabler styling.
+
+- **FloatingUnderlineType** — Material-style floating label input with icon support
+- **SwitchType** — Checkbox rendered as toggle switch
+- **ChoiceCardType** — Card grid for choices with icons, badges, descriptions
+- **EntityCardType** — Card grid for Doctrine entities
+- **CardSelectType** — Generic multi-select cards
+
+[Full documentation](docs/form-types.en.md) | [Data attributes reference](docs/data-attributes.en.md)
+
+### TwigComponents (15)
+
+Reusable Symfony UX components with `<twig:Tabler:*>` prefix.
+
+| Category | Components |
+|----------|------------|
+| Layout | PageHeader, Panel, CollapsiblePanel |
+| Data Display | StatCard, FeatureCard, CodeBlock |
+| Feedback | Alert, EmptyState, HelpTooltip |
+| Navigation | ActionList, ActionItem, Stepper |
+| Theming | ThemeSwitch, ThemePicker |
+| Decorative | PatternBackground (14 animated patterns) |
+
+[Full documentation](docs/components.en.md)
+
+### Stimulus Controllers (6)
+
+Interactive JavaScript controllers auto-discovered via StimulusBundle.
+
+- **theme** — Dark/light mode + color theme switching with localStorage
+- **clipboard** — Copy-to-clipboard with fallback
+- **sidebar** — Sidebar collapse with mobile backdrop
+- **modal-frame** — Dynamic modal content loading
+- **required-checkbox** — Prevent unchecking required cards
+- **collapsible** — Expandable panels with ARIA support
+
+[Full documentation](docs/stimulus-controllers.en.md)
+
+### Theming
+
+6 built-in color themes (EURIP, Forest, Sunset, Ocean, Purple, Rose) with dark/light mode support.
+
+[Full documentation](docs/theming.en.md)
+
+---
+
+## Requirements
+
+- **PHP** >= 8.4
+- **Symfony** 7.0+ or 8.0+
+- **Tabler CSS** (not included — [install separately](https://tabler.io))
+- **Tabler Icons** (not included — [install separately](https://tabler.io/icons))
+- **symfony/ux-twig-component** (for TwigComponents)
+- *Optional:* `symfony/stimulus-bundle` (for Stimulus controllers)
+- *Optional:* `doctrine/orm` (for EntityCardType / CardSelectType)
+
+---
+
+## Quick Start
+
+### 1. Install
+
+```bash
+composer require jostkleigrewe/symfony-tabler-bundle
+npm install @tabler/core @tabler/icons-webfont
 ```
 
-### Step 3: Register Form Themes
+### 2. Register Form Themes
 
 Add to `config/packages/twig.yaml`:
 
@@ -62,254 +127,61 @@ twig:
         - '@Tabler/form/card_select.html.twig'
 ```
 
-### Step 4: Include CSS
+### 3. Include CSS
 
-Copy `assets/styles/tabler-forms.css` from this bundle to your project's public directory, or include it via Asset Mapper:
+CSS files are auto-registered with AssetMapper:
 
 ```twig
-{# templates/base.html.twig #}
-<link rel="stylesheet" href="{{ asset('path/to/tabler-forms.css') }}">
+<link rel="stylesheet" href="{{ asset('@jostkleigrewe/tabler-bundle/styles/tabler-forms.css') }}">
 ```
 
-### Step 5 (Optional): Enable Showcase Routes
+### 4. Use
 
-To see the bundle showcase at `/tabler/showcase`, add to `config/routes/tabler.yaml`:
+```twig
+{# TwigComponent #}
+<twig:Tabler:StatCard label="Users" value="1,234" icon="users" trend="up" />
+
+{# FormType (in your form class) #}
+$builder->add('email', FloatingUnderlineType::class, [
+    'label' => 'Email',
+    'icon' => 'mail',
+    'input_type' => 'email',
+]);
+```
+
+[Detailed installation guide](docs/installation.en.md)
+
+---
+
+## Documentation
+
+| Topic | EN | DE |
+|-------|----|----|
+| Installation | [Installation Guide](docs/installation.en.md) | [Installationsanleitung](docs/installation.de.md) |
+| Form Types | [Form Types](docs/form-types.en.md) | [Formular-Typen](docs/form-types.de.md) |
+| Twig Components | [Components](docs/components.en.md) | [Komponenten](docs/components.de.md) |
+| Stimulus Controllers | [Controllers](docs/stimulus-controllers.en.md) | [Controller](docs/stimulus-controllers.de.md) |
+| Theming & CSS | [Theming](docs/theming.en.md) | [Theming](docs/theming.de.md) |
+| Card Data Attributes | [Data Attributes](docs/data-attributes.en.md) | [Data-Attribute](docs/data-attributes.de.md) |
+| Showcase / Demo | [Showcase](docs/showcase.en.md) | [Showcase](docs/showcase.de.md) |
+
+---
+
+## Showcase
+
+The bundle includes a built-in demo at `/tabler/showcase` showing all components and form types in action.
+
+To enable, add to `config/routes/tabler.yaml`:
 
 ```yaml
 tabler_bundle:
     resource: '@TablerBundle/config/routes.yaml'
 ```
 
-## TwigComponents Usage
+[Showcase documentation](docs/showcase.en.md)
 
-### PageHeader
-
-```twig
-<twig:Tabler:PageHeader
-    title="Dashboard"
-    pretitle="Overview"
-    subtitle="Welcome back!"
-    icon="dashboard"
-    iconColor="azure"
->
-    <twig:block name="actions">
-        <a href="#" class="btn btn-primary">Add New</a>
-    </twig:block>
-</twig:Tabler:PageHeader>
-```
-
-### StatCard
-
-```twig
-<twig:Tabler:StatCard
-    label="Total Users"
-    value="1,234"
-    icon="users"
-    iconColor="blue"
-    trend="up"
-    hint="+12% this month"
-/>
-```
-
-### Panel
-
-```twig
-<twig:Tabler:Panel title="Login" subtitle="Enter your credentials" icon="login">
-    <form>...</form>
-</twig:Tabler:Panel>
-```
-
-### Alert
-
-```twig
-<twig:Tabler:Alert type="success" title="Saved!" text="Your changes have been saved." />
-<twig:Tabler:Alert type="warning" :dismissible="true" title="Warning" />
-<twig:Tabler:Alert type="danger" :important="true" title="Error" />
-```
-
-### EmptyState
-
-```twig
-<twig:Tabler:EmptyState
-    title="No users yet"
-    text="Add your first user to get started"
-    icon="users"
-    actionUrl="/users/new"
-    actionLabel="Add User"
-/>
-```
-
-### HelpTooltip
-
-```twig
-<twig:Tabler:HelpTooltip text="Explanation here" />
-<twig:Tabler:HelpTooltip text="With title" title="Redirect URI" />
-```
-
-## FormTypes Usage
-
-### FloatingUnderlineType
-
-Material Design inspired input with floating label and animated underline.
-
-```php
-use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
-
-$builder->add('email', FloatingUnderlineType::class, [
-    'label' => 'Email Address',
-    'icon' => 'mail',              // Tabler Icon name (without ti- prefix)
-    'input_type' => 'email',       // text, email, password, tel, url, search
-    'help' => 'Your business email',
-]);
-```
-
-**Options:**
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `icon` | string\|null | null | Tabler Icon name |
-| `input_type` | string | 'text' | HTML input type |
-
-### SwitchType
-
-Renders a checkbox as a Tabler switch toggle.
-
-```php
-use Jostkleigrewe\TablerBundle\Form\Type\SwitchType;
-
-$builder->add('isActive', SwitchType::class, [
-    'label' => 'Active',
-    'help' => 'User can log in',
-]);
-```
-
-### ChoiceCardType
-
-Card-based choice selection with icons, badges, and descriptions.
-
-```php
-use Jostkleigrewe\TablerBundle\Form\Type\ChoiceCardType;
-
-$builder->add('grantTypes', ChoiceCardType::class, [
-    'choices' => [
-        'Authorization Code' => 'authorization_code',
-        'Client Credentials' => 'client_credentials',
-    ],
-    'icon' => 'key',           // Global icon for all choices
-    'icon_color' => 'azure',   // Global icon color
-    'columns' => 2,            // Grid columns: 1, 2, 3, or 4
-    'choice_attr' => fn($value) => match($value) {
-        'client_credentials' => [
-            'data-badge' => 'M2M',
-            'data-badge-class' => 'bg-purple-lt',
-            'data-description' => 'For server-to-server communication',
-        ],
-        default => [],
-    },
-]);
-```
-
-**Options:**
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `icon` | string\|null | null | Global icon for all choices |
-| `icon_color` | string | 'secondary' | Global icon color |
-| `columns` | int | 2 | Grid columns (1-4) |
-
-### EntityCardType
-
-Like ChoiceCardType, but for Doctrine entities.
-
-```php
-use Jostkleigrewe\TablerBundle\Form\Type\EntityCardType;
-
-$builder->add('scopes', EntityCardType::class, [
-    'class' => Scope::class,
-    'query_builder' => fn($repo) => $repo->createQueryBuilder('s')
-        ->where('s.active = true'),
-    'choice_label' => fn(Scope $s) => $s->getDisplayName(),
-    'choice_attr' => fn(Scope $s) => [
-        'data-icon' => $s->getIcon() ?? 'lock',
-        'data-icon-color' => $s->getIconColor() ?? 'azure',
-        'data-description' => $s->getDescription(),
-        'data-badge' => $s->isStandard() ? 'OIDC' : null,
-    ],
-    'columns' => 2,
-]);
-```
-
-### CardSelectType
-
-Generic card-based multiple selection (extends EntityType).
-
-```php
-use Jostkleigrewe\TablerBundle\Form\Type\CardSelectType;
-
-$builder->add('roles', CardSelectType::class, [
-    'class' => Role::class,
-    'choice_label' => 'name',
-    'choice_attr' => fn(Role $r) => [
-        'data-icon' => 'shield',
-        'data-description' => $r->getDescription(),
-    ],
-]);
-```
-
-## Data Attributes for Cards
-
-Use these in `choice_attr` to customize card appearance:
-
-| Attribute | Description |
-|-----------|-------------|
-| `data-icon` | Tabler Icon name (without `ti-` prefix) |
-| `data-icon-color` | Color: azure, green, purple, orange, red, etc. |
-| `data-description` | Description text below the label |
-| `data-badge` | Badge text (e.g., "M2M", "OIDC") |
-| `data-badge-class` | Badge CSS class (e.g., `bg-azure-lt`, `bg-purple-lt`) |
-| `data-code` | Technical code displayed in monospace |
-| `data-required` | Set to `"1"` for required entries (not deselectable) |
-| `data-indicator-icon` | Additional indicator icon |
-| `data-indicator-class` | Indicator CSS class |
-| `data-indicator-title` | Tooltip for indicator |
-
-## Example: Login Form
-
-```php
-// src/Form/LoginFormType.php
-use Jostkleigrewe\TablerBundle\Form\Type\FloatingUnderlineType;
-
-class LoginFormType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
-            ->add('_username', FloatingUnderlineType::class, [
-                'label' => 'Email',
-                'icon' => 'mail',
-                'input_type' => 'email',
-            ])
-            ->add('_password', FloatingUnderlineType::class, [
-                'label' => 'Password',
-                'icon' => 'lock',
-                'input_type' => 'password',
-            ]);
-    }
-
-    public function getBlockPrefix(): string
-    {
-        return ''; // No prefix for Security form fields
-    }
-}
-```
-
-## Requirements
-
-- PHP 8.4+
-- Symfony 7.0+ or 8.0+
-- Symfony UX TwigComponent (for TwigComponents)
-- Tabler CSS Framework (not included)
-- Tabler Icons CSS (not included)
-- Optional: doctrine/orm (for EntityCardType)
+---
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file.
+MIT License — see [LICENSE](LICENSE) file.

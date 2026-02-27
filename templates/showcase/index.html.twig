@@ -1,79 +1,217 @@
 {% extends '@Tabler/showcase/layout.html.twig' %}
 
-{% block title %}Tabler Bundle - Overview{% endblock %}
+{% block title %}Tabler Bundle - Showcase{% endblock %}
 
 {% block page_header %}
     <twig:Tabler:PageHeader
-        title="Tabler Bundle Showcase"
+        title="Tabler Bundle"
         pretitle="Symfony Bundle"
-        subtitle="FormTypes and TwigComponents for the Tabler Design System"
-        icon="layout-dashboard"
+        subtitle="FormTypes und TwigComponents für das Tabler Design System"
+        icon="package"
         iconColor="azure"
     />
 {% endblock %}
 
 {% block content %}
-    {# Alerts #}
-    <div class="mb-4">
-        <twig:Tabler:Alert type="info" title="Welcome!">
-            This showcase demonstrates all features of the Tabler Bundle.
-            Use the navigation on the left to explore FormTypes and TwigComponents.
-        </twig:Tabler:Alert>
-    </div>
-
     {# Stats Row #}
     <div class="row row-deck row-cards mb-4">
-        {% for stat in stats %}
-            <div class="col-sm-6 col-lg-3">
-                <twig:Tabler:StatCard
-                    :label="stat.label"
-                    :value="stat.value"
-                    :icon="stat.icon"
-                    :trend="stat.trend|default(null)"
-                    :hint="stat.hint|default(null)"
-                />
-            </div>
-        {% endfor %}
+        <div class="col-sm-6 col-lg-3">
+            <twig:Tabler:StatCard
+                label="TwigComponents"
+                value="10"
+                icon="components"
+                iconColor="green"
+                hint="UI & Layout"
+            />
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <twig:Tabler:StatCard
+                label="FormTypes"
+                value="5"
+                icon="forms"
+                iconColor="purple"
+                hint="Custom Inputs"
+            />
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <twig:Tabler:StatCard
+                label="Patterns"
+                value="14"
+                icon="background"
+                iconColor="cyan"
+                hint="Backgrounds"
+            />
+        </div>
+        <div class="col-sm-6 col-lg-3">
+            <twig:Tabler:StatCard
+                label="Form Themes"
+                value="2"
+                icon="palette"
+                iconColor="orange"
+                hint="Bootstrap & Tabler"
+            />
+        </div>
     </div>
 
-    {# Feature Cards #}
+    {# Component Overview #}
     <div class="row row-cards">
-        <div class="col-md-6">
-            <twig:Tabler:Panel title="FormTypes" icon="forms" iconColor="purple" :centered="false">
-                <p class="text-secondary">
-                    Beautiful form inputs following the Tabler Design System.
-                </p>
-                <ul class="list-unstyled mb-3">
-                    <li><i class="ti ti-check text-success me-2"></i>FloatingUnderlineType</li>
-                    <li><i class="ti ti-check text-success me-2"></i>SwitchType</li>
-                    <li><i class="ti ti-check text-success me-2"></i>ChoiceCardType</li>
-                    <li><i class="ti ti-check text-success me-2"></i>EntityCardType</li>
-                    <li><i class="ti ti-check text-success me-2"></i>CardSelectType</li>
-                </ul>
-                <a href="{{ path('tabler_showcase_form_types') }}" class="btn btn-purple">
-                    <i class="ti ti-arrow-right me-1"></i>
-                    View FormTypes
-                </a>
-            </twig:Tabler:Panel>
+        {# TwigComponents Card #}
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="ti ti-components text-green me-2"></i>
+                        TwigComponents
+                    </h3>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{ path('tabler_showcase_components') }}#statcard" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-blue-lt text-blue me-3"><i class="ti ti-chart-bar"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">StatCard</div>
+                            <div class="text-secondary small">Dashboard-Statistiken mit Trend</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_components') }}#actionlist" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-teal-lt text-teal me-3"><i class="ti ti-list"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">ActionList / ActionItem</div>
+                            <div class="text-secondary small">Schnellzugriff-Listen</div>
+                        </div>
+                        <span class="badge bg-green-lt text-green me-2">Neu</span>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_components') }}#panel" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-purple-lt text-purple me-3"><i class="ti ti-layout-cards"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">Panel</div>
+                            <div class="text-secondary small">Card mit Header und Icon</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_components') }}#alert" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-yellow-lt text-yellow me-3"><i class="ti ti-alert-circle"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">Alert</div>
+                            <div class="text-secondary small">Benachrichtigungen</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_components') }}#emptystate" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-secondary-lt text-secondary me-3"><i class="ti ti-inbox"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">EmptyState</div>
+                            <div class="text-secondary small">Leere Listen/Zustände</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('tabler_showcase_components') }}" class="btn btn-green w-100">
+                        <i class="ti ti-arrow-right me-1"></i>
+                        Alle UI Components
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-6">
-            <twig:Tabler:Panel title="TwigComponents" icon="components" iconColor="green" :centered="false">
-                <p class="text-secondary">
-                    Reusable UI components for rapid development.
-                </p>
-                <ul class="list-unstyled mb-3">
-                    <li><i class="ti ti-check text-success me-2"></i>PageHeader</li>
-                    <li><i class="ti ti-check text-success me-2"></i>StatCard</li>
-                    <li><i class="ti ti-check text-success me-2"></i>Panel</li>
-                    <li><i class="ti ti-check text-success me-2"></i>Alert</li>
-                    <li><i class="ti ti-check text-success me-2"></i>EmptyState, HelpTooltip</li>
-                </ul>
-                <a href="{{ path('tabler_showcase_components') }}" class="btn btn-green">
-                    <i class="ti ti-arrow-right me-1"></i>
-                    View Components
-                </a>
-            </twig:Tabler:Panel>
+        {# Layout Components Card #}
+        <div class="col-lg-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="ti ti-layout text-azure me-2"></i>
+                        Layout Components
+                    </h3>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{ path('tabler_showcase_page_headers') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-azure-lt text-azure me-3"><i class="ti ti-layout-navbar"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">PageHeader</div>
+                            <div class="text-secondary small">Seitenkopf mit Icon, Breadcrumbs, Actions</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_components') }}#themeswitch" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-indigo-lt text-indigo me-3"><i class="ti ti-sun-moon"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">ThemeSwitch</div>
+                            <div class="text-secondary small">Light/Dark/Auto Toggle</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_patterns') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-cyan-lt text-cyan me-3"><i class="ti ti-background"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">PatternBackground</div>
+                            <div class="text-secondary small">14 animierte Hintergrund-Patterns</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_components') }}#helptooltip" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-pink-lt text-pink me-3"><i class="ti ti-help-circle"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">HelpTooltip</div>
+                            <div class="text-secondary small">Kontexthilfe-Icons</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                </div>
+            </div>
+
+            {# FormTypes Card #}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="ti ti-forms text-purple me-2"></i>
+                        FormTypes
+                    </h3>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="{{ path('tabler_showcase_form_types') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-purple-lt text-purple me-3"><i class="ti ti-text-size"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">FloatingUnderlineType</div>
+                            <div class="text-secondary small">Material Design Input</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_form_types') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-green-lt text-green me-3"><i class="ti ti-toggle-right"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">SwitchType</div>
+                            <div class="text-secondary small">Toggle Switches</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                    <a href="{{ path('tabler_showcase_form_types') }}" class="list-group-item list-group-item-action d-flex align-items-center">
+                        <span class="avatar avatar-sm bg-orange-lt text-orange me-3"><i class="ti ti-cards"></i></span>
+                        <div class="flex-fill">
+                            <div class="fw-semibold">ChoiceCardType</div>
+                            <div class="text-secondary small">Card-basierte Auswahl</div>
+                        </div>
+                        <i class="ti ti-chevron-right text-secondary"></i>
+                    </a>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('tabler_showcase_form_types') }}" class="btn btn-purple w-100">
+                        <i class="ti ti-arrow-right me-1"></i>
+                        Alle FormTypes
+                    </a>
+                </div>
+            </div>
         </div>
+    </div>
+
+    {# Installation Hint #}
+    <div class="mt-4">
+        <twig:Tabler:Alert type="info" title="Installation">
+            <code>composer require jostkleigrewe/symfony-tabler-bundle</code>
+            <div class="mt-2 small">
+                Erfordert: PHP 8.2+, Symfony 7+, Tabler CSS/JS in der Host-App
+            </div>
+        </twig:Tabler:Alert>
     </div>
 {% endblock %}

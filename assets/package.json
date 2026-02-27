@@ -1,0 +1,47 @@
+{
+    "name": "@jostkleigrewe/tabler-bundle",
+    "version": "1.0.0",
+    "description": "Symfony UX Tabler Bundle - FormTypes, UI Components and Stimulus Controllers",
+    "license": "MIT",
+    "keywords": ["symfony-ux"],
+    "symfony": {
+        "controllers": {
+            "theme": {
+                "main": "controllers/theme_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "clipboard": {
+                "main": "controllers/clipboard_controller.js",
+                "fetch": "lazy",
+                "enabled": true
+            },
+            "sidebar": {
+                "main": "controllers/sidebar_controller.js",
+                "fetch": "lazy",
+                "enabled": true
+            },
+            "modal-frame": {
+                "main": "controllers/modal-frame_controller.js",
+                "fetch": "lazy",
+                "enabled": true
+            },
+            "required-checkbox": {
+                "main": "controllers/required_checkbox_controller.js",
+                "fetch": "lazy",
+                "enabled": true
+            },
+            "collapsible": {
+                "main": "controllers/collapsible_controller.js",
+                "fetch": "lazy",
+                "enabled": true
+            }
+        },
+        "importmap": {
+            "@hotwired/stimulus": "^3.0.0"
+        }
+    },
+    "peerDependencies": {
+        "@hotwired/stimulus": "^3.0.0"
+    }
+}

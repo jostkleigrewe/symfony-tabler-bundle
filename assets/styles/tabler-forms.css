@@ -45,12 +45,12 @@
 .tabler-fl-icon {
     position: absolute;
     left: 0;
-    bottom: 0.65rem;
-    font-size: 1.25rem;
-    color: var(--tblr-body-color, #1d273b);
-    opacity: 0.6;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.35rem;
+    color: var(--tabler-form-muted);
     pointer-events: none;
-    transition: color 0.2s ease, opacity 0.2s ease;
+    transition: color 0.2s ease;
     z-index: 2;
 }
 
@@ -99,7 +99,6 @@
 /* Icon active state */
 .tabler-fl-wrap:focus-within .tabler-fl-icon {
     color: var(--tabler-form-primary);
-    opacity: 1;
 }
 
 /* Animated underline */
@@ -294,11 +293,6 @@
 
 [data-bs-theme="dark"] .tabler-fl-icon {
     color: var(--tblr-body-color, #f8fafc);
-    opacity: 0.7;
-}
-
-[data-bs-theme="dark"] .tabler-fl-wrap:focus-within .tabler-fl-icon {
-    opacity: 1;
 }
 
 [data-bs-theme="dark"] .choice-card {
@@ -308,4 +302,471 @@
 
 [data-bs-theme="dark"] .choice-card-input:checked + .choice-card-body {
     background: rgba(31, 116, 255, 0.1);
+}
+
+/* =================================================================
+   THEME SWITCH
+   Day/Night Toggle für Light/Dark Mode
+   ================================================================= */
+
+.tabler-theme-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: var(--tblr-bg-surface, #f8fafc);
+    border: 1px solid var(--tblr-border-color, #e6e7e9);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 6px;
+}
+
+.tabler-theme-switch:hover {
+    border-color: var(--tabler-form-primary);
+}
+
+.tabler-theme-switch:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(31, 116, 255, 0.2);
+}
+
+/* Sliding indicator */
+.tabler-theme-switch::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: var(--tabler-form-primary);
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+/* Dark mode: indicator slides to right */
+:root[data-bs-theme="dark"] .tabler-theme-switch::before {
+    left: 32px;
+}
+
+/* Sun icon */
+.tabler-theme-switch .ti-sun {
+    position: absolute;
+    left: 8px;
+    font-size: 14px;
+    color: var(--tblr-yellow, #f59f00);
+    z-index: 0;
+}
+
+/* Moon icon */
+.tabler-theme-switch .ti-moon {
+    position: absolute;
+    right: 8px;
+    font-size: 14px;
+    color: var(--tblr-azure, #4299e1);
+    z-index: 0;
+}
+
+/* Compact variant (50x26px) */
+.tabler-theme-switch-compact {
+    width: 50px;
+    height: 26px;
+    border-radius: 13px;
+    padding: 0;
+}
+
+.tabler-theme-switch-compact::before {
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    left: 2px;
+}
+
+:root[data-bs-theme="dark"] .tabler-theme-switch-compact::before {
+    left: 26px;
+}
+
+.tabler-theme-switch-compact .ti-sun {
+    left: 6px;
+    font-size: 11px;
+}
+
+.tabler-theme-switch-compact .ti-moon {
+    right: 6px;
+    font-size: 11px;
+}
+
+/* Dark mode background */
+:root[data-bs-theme="dark"] .tabler-theme-switch {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* =================================================================
+   THEME SWITCH - TRISTATE VARIANT (Option A)
+   Drei-Positionen-Slider: Light / Auto / Dark
+   ================================================================= */
+
+.tabler-theme-switch--tristate {
+    width: 90px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: default;
+}
+
+.tabler-theme-switch--tristate::before {
+    display: none; /* Remove default indicator */
+}
+
+.tabler-theme-switch__btn {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--tblr-secondary);
+    transition: all 0.2s ease;
+    z-index: 2;
+    position: relative;
+}
+
+.tabler-theme-switch__btn:hover {
+    color: var(--tabler-form-primary);
+}
+
+.tabler-theme-switch__btn .ti {
+    font-size: 14px;
+}
+
+.tabler-theme-switch__btn .ti-sun {
+    color: var(--tblr-yellow, #f59f00);
+}
+
+.tabler-theme-switch__btn .ti-moon {
+    color: var(--tblr-azure, #4299e1);
+}
+
+.tabler-theme-switch__btn .ti-device-desktop {
+    color: var(--tblr-secondary);
+}
+
+/* Tristate indicator */
+.tabler-theme-switch__indicator {
+    position: absolute;
+    width: 28px;
+    height: 26px;
+    background: var(--tabler-form-primary);
+    border-radius: 13px;
+    top: 2px;
+    left: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+}
+
+/* Position: Light (left) */
+:root[data-bs-theme="light"]:not([data-theme-mode="auto"]) .tabler-theme-switch__indicator,
+.tabler-theme-switch--tristate[data-mode="light"] .tabler-theme-switch__indicator {
+    left: 2px;
+}
+
+/* Position: Auto (center) */
+:root[data-theme-mode="auto"] .tabler-theme-switch__indicator,
+.tabler-theme-switch--tristate[data-mode="auto"] .tabler-theme-switch__indicator {
+    left: 31px;
+}
+
+/* Position: Dark (right) */
+:root[data-bs-theme="dark"]:not([data-theme-mode="auto"]) .tabler-theme-switch__indicator,
+.tabler-theme-switch--tristate[data-mode="dark"] .tabler-theme-switch__indicator {
+    left: 60px;
+}
+
+/* Active button styling */
+.tabler-theme-switch__btn[aria-pressed="true"] .ti {
+    color: #fff;
+}
+
+/* =================================================================
+   THEME SWITCH - CYCLE VARIANT (Option B)
+   Durchklicken: Light → Dark → Auto → ...
+   ================================================================= */
+
+.tabler-theme-switch--cycle {
+    /* Same base as toggle */
+}
+
+.tabler-theme-switch--cycle .tabler-theme-switch__auto-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.tabler-theme-switch--cycle .tabler-theme-switch__auto-indicator .ti {
+    font-size: 10px;
+    color: #fff;
+}
+
+/* Auto mode: Show indicator in center */
+:root[data-theme-mode="auto"] .tabler-theme-switch--cycle .tabler-theme-switch__auto-indicator {
+    opacity: 1;
+}
+
+/* Auto mode: Indicator goes to center */
+:root[data-theme-mode="auto"] .tabler-theme-switch--cycle::before {
+    left: 17px;
+    background: var(--tblr-purple, #ae3ec9);
+}
+
+:root[data-theme-mode="auto"] .tabler-theme-switch-compact.tabler-theme-switch--cycle::before {
+    left: 14px;
+}
+
+/* Auto mode: Dim sun and moon */
+:root[data-theme-mode="auto"] .tabler-theme-switch--cycle .ti-sun,
+:root[data-theme-mode="auto"] .tabler-theme-switch--cycle .ti-moon {
+    opacity: 0.3;
+}
+
+/* =================================================================
+   PAGE HEADER VARIANTS
+   Ergänzende Styles für PageHeader TwigComponent
+   ================================================================= */
+
+/* Bordered variant - Tabler native, nur als Referenz */
+.page-header-border {
+    border-bottom: 1px solid var(--tblr-border-color, #e6e7e9);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Compact variant - Reduzierter Abstand */
+.page-header-compact {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.page-header-compact .page-title {
+    font-size: 1.25rem;
+}
+
+.page-header-compact .page-pretitle {
+    font-size: 0.75rem;
+    margin-bottom: 0.125rem;
+}
+
+.page-header-compact .avatar-lg {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.page-header-compact .avatar-lg .ti {
+    font-size: 1.25rem;
+}
+
+/* =================================================================
+   CODE BLOCK
+   Code-Anzeige mit Syntax-Highlighting und Copy-Button
+   ================================================================= */
+
+.tabler-code-block {
+    background: var(--tblr-bg-surface-dark, #1e293b);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.tabler-code-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tabler-code-block__title {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tabler-code-block__language {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.tabler-code-block__language-inline {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.tabler-code-block__container {
+    position: relative;
+}
+
+/* DE: Copy-Button als Overlay oben rechts über dem Code */
+/* EN: Copy button as overlay top-right above the code */
+.tabler-code-block__copy {
+    position: absolute !important;
+    top: 0.5rem !important;
+    right: 0.5rem !important;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    background: rgba(30, 41, 59, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.375rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    backdrop-filter: blur(4px);
+}
+
+.tabler-code-block__copy:hover {
+    background: rgba(59, 130, 246, 0.9);
+    color: #fff;
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tabler-code-block__copy:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.tabler-code-block__copy .ti {
+    font-size: 0.875rem;
+}
+
+.tabler-code-block__copy-text {
+    transition: color 0.15s ease;
+}
+
+/* DE: Variante ohne Header - Button hat mehr Platz */
+/* EN: No header variant - button has more space */
+.tabler-code-block--no-header .tabler-code-block__copy {
+    top: 0.75rem;
+    right: 0.75rem;
+}
+
+.tabler-code-block__pre {
+    margin: 0;
+    padding: 1rem;
+    overflow-x: auto;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.tabler-code-block__code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    white-space: pre;
+    display: block;
+}
+
+/* Compact variant */
+.tabler-code-block--compact .tabler-code-block__header {
+    padding: 0.25rem 0.5rem;
+}
+
+.tabler-code-block--compact .tabler-code-block__pre {
+    padding: 0.75rem;
+}
+
+.tabler-code-block--compact .tabler-code-block__code {
+    font-size: 0.75rem;
+}
+
+/* Line numbers */
+.tabler-code-block__pre--line-numbers {
+    counter-reset: line;
+}
+
+.tabler-code-block__pre--line-numbers .tabler-code-block__code {
+    display: block;
+}
+
+/* Basic syntax highlighting colors */
+.tabler-code-block__code .keyword,
+.tabler-code-block__code .tag {
+    color: #f472b6; /* pink */
+}
+
+.tabler-code-block__code .string {
+    color: #a5d6a7; /* green */
+}
+
+.tabler-code-block__code .comment {
+    color: #78909c; /* gray */
+    font-style: italic;
+}
+
+.tabler-code-block__code .number {
+    color: #ffcc80; /* orange */
+}
+
+.tabler-code-block__code .function {
+    color: #90caf9; /* blue */
+}
+
+.tabler-code-block__code .variable {
+    color: #ce93d8; /* purple */
+}
+
+/* Dark mode adjustments */
+[data-bs-theme="dark"] .tabler-code-block {
+    background: var(--tblr-bg-surface-dark, #0f172a);
+}
+
+/* Scrollbar styling */
+.tabler-code-block__pre::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tabler-code-block__pre::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tabler-code-block__pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.tabler-code-block__pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }

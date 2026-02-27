@@ -1,0 +1,28 @@
+{#
+    DE: Code-Block mit Syntax-Highlighting (Prism.js) und Copy-Button
+    EN: Code block with syntax highlighting (Prism.js) and copy button
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\CodeBlock
+#}
+<div class="tabler-code-block {{ compact ? 'tabler-code-block--compact' : '' }} {{ title ? '' : 'tabler-code-block--no-header' }}"
+     data-controller="clipboard">
+    {% if title %}
+        <div class="tabler-code-block__header">
+            <span class="tabler-code-block__title">
+                <i class="ti ti-{{ this.languageIcon }} me-1"></i>
+                {{ title }}
+            </span>
+            <span class="tabler-code-block__language badge bg-secondary-lt">{{ language }}</span>
+        </div>
+    {% endif %}
+    <div class="tabler-code-block__container">
+        <button type="button"
+                class="tabler-code-block__copy"
+                data-action="click->clipboard#copy"
+                title="In Zwischenablage kopieren">
+            <i class="ti ti-copy" data-clipboard-target="icon"></i>
+            <span class="tabler-code-block__copy-text" data-clipboard-target="text">Kopieren</span>
+        </button>
+        <pre class="tabler-code-block__pre {{ lineNumbers ? 'tabler-code-block__pre--line-numbers' : '' }}"><code class="tabler-code-block__code {{ this.languageClass }}" data-clipboard-target="source">{{ code is not null ? code|trim : block('content')|trim }}</code></pre>
+    </div>
+</div>

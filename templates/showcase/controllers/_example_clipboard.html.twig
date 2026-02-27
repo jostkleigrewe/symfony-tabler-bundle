@@ -1,0 +1,53 @@
+<h5 class="mb-3">Einfach: Aus Text-Value kopieren</h5>
+{% set clipboard_simple %}
+<button data-controller="clipboard"
+        data-clipboard-text-value="Text zum Kopieren"
+        data-action="click->clipboard#copy">
+    Kopieren
+</button>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="clipboard_simple" />
+
+<h5 class="mt-4 mb-3">Aus Element kopieren</h5>
+{% set clipboard_element %}
+<div data-controller="clipboard">
+    <pre data-clipboard-target="source">Code hier</pre>
+    <button data-action="click->clipboard#copy">Kopieren</button>
+</div>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="clipboard_element" />
+
+<h5 class="mt-4 mb-3">Mit Icon/Text Feedback (CodeBlock-Stil)</h5>
+{% set clipboard_feedback %}
+<div data-controller="clipboard">
+    <pre data-clipboard-target="source">const app = startStimulusApp();</pre>
+    <button data-action="click->clipboard#copy">
+        <i data-clipboard-target="icon" class="ti ti-copy"></i>
+        <span data-clipboard-target="text">Kopieren</span>
+    </button>
+</div>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="clipboard_feedback" />
+
+<h5 class="mt-4 mb-3">Mehrere Sources (code + curl)</h5>
+{% set clipboard_multi %}
+<div data-controller="clipboard">
+    <pre data-clipboard-target="source">GET /api/users</pre>
+    <pre data-clipboard-target="sourceCurl" class="d-none">curl -X GET https://api.example.com/users</pre>
+
+    <button data-action="click->clipboard#copy" data-clipboard-mode-param="code">
+        Copy Code
+    </button>
+    <button data-action="click->clipboard#copy" data-clipboard-mode-param="curl">
+        Copy cURL
+    </button>
+</div>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="clipboard_multi" />
+
+<h5 class="mt-4 mb-3">Mit der CodeBlock-Komponente</h5>
+<p class="text-secondary small">Die Komponente nutzt den Clipboard Controller intern:</p>
+{% set clipboard_component %}{% verbatim %}
+<twig:Tabler:CodeBlock language="php" :code="phpCode" title="Beispiel" />
+{% endverbatim %}{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="clipboard_component" />

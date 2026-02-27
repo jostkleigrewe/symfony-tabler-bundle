@@ -1,0 +1,247 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}{{ controller.name }} - Tabler Bundle{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="{{ controller.name }}"
+        pretitle="Stimulus Controller"
+        subtitle="{{ controller.description }}"
+        icon="{{ controller.icon }}"
+        iconColor="{{ controller.color }}"
+    >
+        <twig:block name="actions">
+            <a href="{{ path('tabler_showcase_controllers') }}" class="btn btn-outline-secondary">
+                <i class="ti ti-arrow-left me-1"></i>Alle Controller
+            </a>
+        </twig:block>
+    </twig:Tabler:PageHeader>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {# Left Column: API Reference #}
+        <div class="col-lg-8">
+            {# Quick Info #}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <span class="avatar bg-{{ controller.color }}-lt me-3">
+                                    <i class="ti ti-{{ controller.icon }} text-{{ controller.color }}"></i>
+                                </span>
+                                <div>
+                                    <div class="text-secondary small">Controller Name</div>
+                                    <code class="fs-5">{{ key }}</code>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <span class="avatar bg-secondary-lt me-3">
+                                    <i class="ti ti-file-code"></i>
+                                </span>
+                                <div>
+                                    <div class="text-secondary small">Datei</div>
+                                    <code>{{ controller.file }}</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Targets #}
+            {% if controller.targets is not empty %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="ti ti-target me-2"></i>Targets</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Attribut</th>
+                                    <th>Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for name, description in controller.targets %}
+                                    <tr>
+                                        <td><code>{{ name }}</code></td>
+                                        <td><code class="text-secondary">data-{{ key }}-target="{{ name }}"</code></td>
+                                        <td class="text-secondary">{{ description }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Values #}
+            {% if controller.values is not empty %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="ti ti-variable me-2"></i>Values</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Typ</th>
+                                    <th>Default</th>
+                                    <th>Attribut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for name, info in controller.values %}
+                                    <tr>
+                                        <td><code>{{ name }}</code></td>
+                                        <td><span class="badge bg-secondary-lt">{{ info.type }}</span></td>
+                                        <td><code class="text-secondary">{{ info.default }}</code></td>
+                                        <td><code class="text-secondary small">data-{{ key }}-{{ name|replace({'([A-Z])': '-$1'})|lower }}-value</code></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Actions #}
+            {% if controller.actions is not empty %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="ti ti-click me-2"></i>Actions</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Verwendung</th>
+                                    <th>Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for name, description in controller.actions %}
+                                    <tr>
+                                        <td><code>{{ key }}#{{ name }}</code></td>
+                                        <td><code class="text-secondary">data-action="click->{{ key }}#{{ name }}"</code></td>
+                                        <td class="text-secondary">{{ description }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Events #}
+            {% if controller.events is not empty %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="ti ti-broadcast me-2"></i>Events</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Event</th>
+                                    <th>Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for name, description in controller.events %}
+                                    <tr>
+                                        <td><code>{{ name }}</code></td>
+                                        <td class="text-secondary">{{ description }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Usage Examples #}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="ti ti-code me-2"></i>Verwendung</h3>
+                </div>
+                <div class="card-body">
+                    {% if key == 'theme' %}
+                        {% include '@Tabler/showcase/controllers/_example_theme.html.twig' %}
+                    {% elseif key == 'clipboard' %}
+                        {% include '@Tabler/showcase/controllers/_example_clipboard.html.twig' %}
+                    {% elseif key == 'sidebar' %}
+                        {% include '@Tabler/showcase/controllers/_example_sidebar.html.twig' %}
+                    {% elseif key == 'modal-frame' %}
+                        {% include '@Tabler/showcase/controllers/_example_modal_frame.html.twig' %}
+                    {% elseif key == 'required-checkbox' %}
+                        {% include '@Tabler/showcase/controllers/_example_required_checkbox.html.twig' %}
+                    {% else %}
+                        <p class="text-secondary">Keine Beispiele verfügbar.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {# Right Column: Navigation & Demo #}
+        <div class="col-lg-4">
+            {# Live Demo #}
+            {% if key == 'theme' %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="ti ti-player-play me-2"></i>Live Demo</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-secondary small mb-3">Klicke um Theme und Modus zu wechseln:</p>
+                        <twig:Tabler:ThemePicker />
+                    </div>
+                </div>
+            {% elseif key == 'clipboard' %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="ti ti-player-play me-2"></i>Live Demo</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-secondary small mb-3">Klicke "Kopieren" um den Code zu kopieren:</p>
+{% set demo_code %}
+app.register('clipboard', ClipboardController);
+{% endset %}
+                        <twig:Tabler:CodeBlock language="javascript" :code="demo_code" />
+                    </div>
+                </div>
+            {% endif %}
+
+            {# Other Controllers #}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Andere Controller</h3>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for otherKey, other in controllers %}
+                        {% if otherKey != key %}
+                            <a href="{{ path('tabler_showcase_controller_detail', {key: otherKey}) }}" class="list-group-item list-group-item-action">
+                                <div class="d-flex align-items-center">
+                                    <span class="avatar avatar-sm bg-{{ other.color }}-lt me-2">
+                                        <i class="ti ti-{{ other.icon }} text-{{ other.color }}"></i>
+                                    </span>
+                                    <div>
+                                        <div>{{ other.name }}</div>
+                                        <code class="text-secondary small">{{ otherKey }}</code>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

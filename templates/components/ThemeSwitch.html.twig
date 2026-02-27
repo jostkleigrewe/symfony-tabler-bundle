@@ -1,0 +1,85 @@
+{#
+    DE: ThemeSwitch TwigComponent - Day/Night Toggle für Light/Dark Mode
+    EN: ThemeSwitch TwigComponent - Day/Night toggle for light/dark mode
+
+    Props:
+        variant: 'toggle' | 'tristate' | 'cycle' (default: 'toggle')
+        size: 'normal' | 'compact' (default: 'normal')
+        title: string (default: 'Theme wechseln')
+        showLabel: bool (default: false)
+        label: string (default: 'Theme')
+        class: string (default: '')
+
+    Usage:
+        <twig:Tabler:ThemeSwitch />
+        <twig:Tabler:ThemeSwitch variant="tristate" />
+        <twig:Tabler:ThemeSwitch variant="cycle" />
+#}
+
+{% if showLabel %}
+<div class="d-inline-flex align-items-center gap-2 {{ class }}">
+    <span class="text-secondary small">{{ label }}</span>
+{% endif %}
+
+{% if variant == 'tristate' %}
+    {# Variante A: Drei-Positionen-Slider (Light / Auto / Dark) #}
+    <div class="{{ this.cssClass }}{% if not showLabel and class %} {{ class }}{% endif %}"
+         data-controller="theme"
+         title="{{ title }}"
+         role="group"
+         aria-label="{{ title }}">
+        <button type="button"
+                class="tabler-theme-switch__btn"
+                data-theme-value="light"
+                data-action="click->theme#choose"
+                aria-label="Hell">
+            <i class="ti ti-sun"></i>
+        </button>
+        <button type="button"
+                class="tabler-theme-switch__btn"
+                data-theme-value="auto"
+                data-action="click->theme#choose"
+                aria-label="Auto">
+            <i class="ti ti-device-desktop"></i>
+        </button>
+        <button type="button"
+                class="tabler-theme-switch__btn"
+                data-theme-value="dark"
+                data-action="click->theme#choose"
+                aria-label="Dunkel">
+            <i class="ti ti-moon"></i>
+        </button>
+        <span class="tabler-theme-switch__indicator" data-theme-target="indicator"></span>
+    </div>
+
+{% elseif variant == 'cycle' %}
+    {# Variante B: Cycle-Toggle (durchklicken: Light → Dark → Auto → ...) #}
+    <button type="button"
+            class="{{ this.cssClass }}{% if not showLabel and class %} {{ class }}{% endif %}"
+            data-controller="theme"
+            data-action="click->theme#cycle"
+            title="{{ title }}"
+            aria-label="{{ title }}">
+        <i class="ti ti-sun"></i>
+        <i class="ti ti-moon"></i>
+        <span class="tabler-theme-switch__auto-indicator" data-theme-target="autoIndicator">
+            <i class="ti ti-device-desktop"></i>
+        </span>
+    </button>
+
+{% else %}
+    {# Standard: 2-State Toggle (Light / Dark) #}
+    <button type="button"
+            class="{{ this.cssClass }}{% if not showLabel and class %} {{ class }}{% endif %}"
+            data-controller="theme"
+            data-action="click->theme#toggle"
+            title="{{ title }}"
+            aria-label="{{ title }}">
+        <i class="ti ti-sun"></i>
+        <i class="ti ti-moon"></i>
+    </button>
+{% endif %}
+
+{% if showLabel %}
+</div>
+{% endif %}

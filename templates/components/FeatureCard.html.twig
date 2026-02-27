@@ -1,0 +1,40 @@
+{#
+    DE: Feature-Card für Marketing-Seiten und Feature-Listen
+    EN: Feature card for marketing pages and feature lists
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\FeatureCard
+#}
+{% set card_classes = ['card'] %}
+{% if fullHeight %}{% set card_classes = card_classes|merge(['h-100']) %}{% endif %}
+{% if variant == 'highlight' %}{% set card_classes = card_classes|merge(['card-highlight', 'border-' ~ iconColor]) %}{% endif %}
+{% if variant == 'minimal' %}{% set card_classes = card_classes|merge(['border-0', 'shadow-none']) %}{% endif %}
+
+<div class="{{ card_classes|join(' ') }}">
+    <div class="card-body{{ variant == 'horizontal' ? ' d-flex gap-3' : '' }}">
+        {% if icon %}
+            <div class="{{ variant == 'horizontal' ? 'flex-shrink-0' : 'mb-3' }}">
+                {% if variant == 'minimal' %}
+                    <span class="text-{{ iconColor }}">
+                        <i class="ti ti-{{ icon }} icon-lg"></i>
+                    </span>
+                {% else %}
+                    <span class="avatar avatar-lg bg-{{ iconColor }}-lt text-{{ iconColor }}">
+                        <i class="ti ti-{{ icon }} icon-lg"></i>
+                    </span>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="{{ variant == 'horizontal' ? 'flex-grow-1' : '' }}">
+            <h3 class="card-title{{ variant == 'minimal' ? ' h5' : '' }}">{{ title }}</h3>
+            <p class="text-secondary{{ linkUrl ? '' : ' mb-0' }}">{{ text }}</p>
+
+            {% if linkUrl %}
+                <a href="{{ linkUrl }}" class="btn btn-{{ variant == 'highlight' ? iconColor : 'outline-' ~ iconColor }} btn-sm">
+                    {{ linkText|default('Mehr erfahren') }}
+                    <i class="ti ti-arrow-right ms-1"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

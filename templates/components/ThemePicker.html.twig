@@ -1,0 +1,77 @@
+{#
+    DE: Theme-Picker für Farbschema und Dark/Light-Modus
+    EN: Theme picker for color scheme and dark/light mode
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\ThemePicker
+#}
+<div class="theme-picker {{ variant == 'compact' ? 'theme-picker--compact' : '' }} {{ variant == 'inline' ? 'theme-picker--inline' : '' }}"
+     data-controller="theme"
+     data-theme-themes-value="{{ this.themeNames|json_encode }}">
+
+    {% if showModeToggle %}
+        <div class="theme-picker__mode">
+            {% if variant == 'compact' %}
+                {# Compact: Single toggle button #}
+                <button type="button"
+                        class="theme-picker__mode-toggle btn btn-ghost-secondary btn-icon"
+                        data-action="click->theme#toggle"
+                        title="Dark/Light Mode wechseln">
+                    <i class="ti ti-sun"></i>
+                </button>
+            {% else %}
+                {# Default: Labeled toggle #}
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-secondary small">Modus:</span>
+                    <div class="btn-group btn-group-sm">
+                        <button type="button"
+                                class="btn btn-ghost-secondary"
+                                data-action="click->theme#choose"
+                                data-theme-value="light"
+                                data-theme-target="option"
+                                title="Hell">
+                            <i class="ti ti-sun"></i>
+                        </button>
+                        <button type="button"
+                                class="btn btn-ghost-secondary"
+                                data-action="click->theme#choose"
+                                data-theme-value="auto"
+                                data-theme-target="option"
+                                title="Automatisch">
+                            <i class="ti ti-device-desktop"></i>
+                        </button>
+                        <button type="button"
+                                class="btn btn-ghost-secondary"
+                                data-action="click->theme#choose"
+                                data-theme-value="dark"
+                                data-theme-target="option"
+                                title="Dunkel">
+                            <i class="ti ti-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if showThemeSelector %}
+        <div class="theme-picker__themes">
+            {% if variant != 'compact' %}
+                <span class="text-secondary small me-2">Theme:</span>
+            {% endif %}
+            <div class="theme-selector" role="radiogroup" aria-label="Theme auswählen">
+                {% for name, theme in themes %}
+                    <button type="button"
+                            class="theme-selector__option theme-selector__option--{{ name }}"
+                            style="background-color: {{ theme.color }}"
+                            data-theme-target="themeOption"
+                            data-action="click->theme#selectTheme"
+                            data-theme="{{ name }}"
+                            role="radio"
+                            aria-label="{{ theme.label }}"
+                            title="{{ theme.label }}">
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</div>

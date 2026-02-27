@@ -1,0 +1,65 @@
+<h5 class="mb-3">Grundlegende Verwendung</h5>
+<p class="text-secondary small">Verhindert das Abwählen einer Pflicht-Checkbox:</p>
+
+{% set required_basic %}
+<label data-controller="required-checkbox"
+       data-action="click->required-checkbox#prevent">
+    <input type="checkbox"
+           data-required-checkbox-target="checkbox"
+           data-action="change->required-checkbox#enforce"
+           checked>
+    Pflichtfeld (kann nicht abgewählt werden)
+</label>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="required_basic" />
+
+<h5 class="mt-4 mb-3">Mit ChoiceCardType (automatisch)</h5>
+<p class="text-secondary small">Bei Verwendung des <code>ChoiceCardType</code> FormTypes wird der Controller automatisch für Pflicht-Einträge aktiviert:</p>
+
+{% set required_formtype %}
+// Im FormType
+$builder->add('grantTypes', ChoiceCardType::class, [
+    'choices' => [
+        'Authorization Code' => 'authorization_code',
+        'Refresh Token' => 'refresh_token',
+    ],
+    'choice_attr' => function ($choice) {
+        // Pflicht-Eintrag markieren
+        if ($choice === 'authorization_code') {
+            return ['data-required' => '1'];
+        }
+        return [];
+    },
+]);
+{% endset %}
+<twig:Tabler:CodeBlock language="php" :code="required_formtype" />
+
+<h5 class="mt-4 mb-3">Warum zwei Actions?</h5>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><code>prevent</code></h4>
+                <p class="text-secondary mb-0">Wird beim <code>click</code> Event aufgerufen. Verhindert das Abwählen, bevor der Browser die Checkbox ändert.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><code>enforce</code></h4>
+                <p class="text-secondary mb-0">Wird beim <code>change</code> Event aufgerufen. Setzt die Checkbox zurück, falls sie programmatisch geändert wurde.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info mt-4">
+    <div class="d-flex">
+        <i class="ti ti-info-circle me-2"></i>
+        <div>
+            <h4 class="alert-title">Anwendungsfall</h4>
+            <p class="mb-0">Typischerweise bei OAuth Scopes, bei denen bestimmte Berechtigungen (z.B. <code>openid</code>) immer aktiv sein müssen.</p>
+        </div>
+    </div>
+</div>

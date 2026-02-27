@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle;
 
+use Symfony\Component\AssetMapper\AssetMapperInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
@@ -32,5 +33,45 @@ final class TablerBundle extends AbstractBundle
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->import('../config/services.yaml');
+    }
+
+    /**
+     * DE: Registriert Bundle-Assets für AssetMapper.
+     * EN: Registers bundle assets for AssetMapper.
+     */
+    public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
+    {
+        if (!$this->isAssetMapperAvailable($builder)) {
+            return;
+        }
+
+        $builder->prependExtensionConfig('framework', [
+            'asset_mapper' => [
+                'paths' => [
+                    __DIR__ . '/../assets/controllers' => '@jostkleigrewe/tabler-bundle',
+                    __DIR__ . '/../assets/styles' => '@jostkleigrewe/tabler-bundle/styles',
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * DE: Prüft ob AssetMapper verfügbar ist.
+     * EN: Checks if AssetMapper is available.
+     */
+    private function isAssetMapperAvailable(ContainerBuilder $builder): bool
+    {
+        if (!interface_exists(AssetMapperInterface::class)) {
+            return false;
+        }
+
+        // @phpstan-ignore-next-line
+        $bundlesMetadata = $builder->getParameter('kernel.bundles_metadata');
+
+        if (!\is_array($bundlesMetadata) || !isset($bundlesMetadata['FrameworkBundle'])) {
+            return false;
+        }
+
+        return is_file($bundlesMetadata['FrameworkBundle']['path'] . '/Resources/config/asset_mapper.php');
     }
 }

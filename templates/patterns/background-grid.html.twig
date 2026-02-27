@@ -1,0 +1,116 @@
+{#
+    Tech Grid Background Pattern
+    ============================
+
+    Einfach in base.html.twig nach <body> einfügen:
+    {% include '@Tabler/patterns/background-grid.html.twig' %}
+
+    Optionale Parameter:
+    {% include '@Tabler/patterns/background-grid.html.twig' with {
+        intensity: 'medium',  // subtle, medium, intense
+        fixed: true           // true = fixed, false = absolute
+    } %}
+#}
+{% set intensity = intensity|default('medium') %}
+{% set fixed = fixed|default(true) %}
+
+<style>
+.pattern-global-bg {
+    position: {{ fixed ? 'fixed' : 'absolute' }};
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+    background: #030712;
+}
+
+.pattern-global-bg .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(31, 116, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(31, 116, 255, 0.08) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 75%);
+}
+
+.pattern-global-bg .scan {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--pattern-secondary, #1f74ff), transparent);
+    {% if intensity == 'subtle' %}
+    opacity: 0.3;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.8;
+    {% else %}
+    opacity: 0.5;
+    {% endif %}
+    animation: grid-scan 4s ease-in-out infinite;
+}
+
+.pattern-global-bg .sc1 { top: 25%; }
+.pattern-global-bg .sc2 { top: 55%; animation-delay: -2s; opacity: 0.3; }
+.pattern-global-bg .sc3 { top: 80%; animation-delay: -3s; opacity: 0.2; }
+
+.pattern-global-bg .dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--pattern-secondary, #1f74ff);
+    border-radius: 50%;
+    {% if intensity == 'subtle' %}
+    box-shadow: 0 0 10px var(--pattern-secondary, #1f74ff);
+    {% elseif intensity == 'intense' %}
+    box-shadow: 0 0 30px var(--pattern-secondary, #1f74ff);
+    {% else %}
+    box-shadow: 0 0 20px var(--pattern-secondary, #1f74ff);
+    {% endif %}
+    animation: grid-dot-pulse 3s ease-in-out infinite;
+}
+
+@keyframes grid-scan {
+    0%, 100% { opacity: 0; transform: translateY(-30px); }
+    50% { opacity: 0.6; transform: translateY(30px); }
+}
+
+@keyframes grid-dot-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(2); opacity: 1; }
+}
+
+/* Dot Positions */
+.pattern-global-bg .d1 { top: 20%; left: 25%; animation-delay: 0s; }
+.pattern-global-bg .d2 { top: 40%; left: 75%; animation-delay: -1s; }
+.pattern-global-bg .d3 { top: 70%; left: 30%; animation-delay: -2s; }
+.pattern-global-bg .d4 { top: 50%; left: 60%; animation-delay: -0.5s; }
+.pattern-global-bg .d5 { top: 80%; left: 80%; animation-delay: -1.5s; }
+.pattern-global-bg .d6 { top: 15%; left: 55%; animation-delay: -2.5s; }
+.pattern-global-bg .d7 { top: 65%; left: 15%; animation-delay: -0.75s; }
+.pattern-global-bg .d8 { top: 35%; left: 90%; animation-delay: -1.75s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pattern-global-bg .scan,
+    .pattern-global-bg .dot {
+        animation: none;
+    }
+}
+</style>
+
+<div class="pattern-global-bg" aria-hidden="true">
+    <div class="grid"></div>
+
+    <div class="scan sc1"></div>
+    <div class="scan sc2"></div>
+    <div class="scan sc3"></div>
+
+    <div class="dot d1"></div>
+    <div class="dot d2"></div>
+    <div class="dot d3"></div>
+    <div class="dot d4"></div>
+    <div class="dot d5"></div>
+    <div class="dot d6"></div>
+    <div class="dot d7"></div>
+    <div class="dot d8"></div>
+</div>

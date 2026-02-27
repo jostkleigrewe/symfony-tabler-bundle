@@ -1,0 +1,166 @@
+{#
+    Particles Background Pattern
+    ============================
+
+    Einfach in base.html.twig nach <body> einfügen:
+    {% include '@Tabler/patterns/background-particles.html.twig' %}
+
+    Optionale Parameter:
+    {% include '@Tabler/patterns/background-particles.html.twig' with {
+        theme: 'dark',        // dark, light
+        intensity: 'medium',  // subtle, medium, intense
+        fixed: true           // true = fixed, false = absolute
+    } %}
+#}
+{% set theme = theme|default('dark') %}
+{% set intensity = intensity|default('medium') %}
+{% set fixed = fixed|default(true) %}
+
+<style>
+.pattern-global-bg {
+    position: {{ fixed ? 'fixed' : 'absolute' }};
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+    {% if theme == 'dark' %}
+    background: linear-gradient(180deg, var(--pattern-bg-dark, #0a1f44) 0%, color-mix(in srgb, var(--pattern-bg-dark, #0a1f44) 80%, var(--pattern-primary, #0f3d91)) 100%);
+    {% else %}
+    background: linear-gradient(180deg, var(--pattern-bg-light, #eef4ff) 0%, var(--pattern-bg-surface, #ffffff) 100%);
+    {% endif %}
+}
+
+.pattern-global-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(31,116,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(15,61,145,0.15) 0%, transparent 40%);
+}
+
+.pattern-global-bg .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    {% if intensity == 'subtle' %}
+    opacity: 0.2;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.5;
+    {% else %}
+    opacity: 0.35;
+    {% endif %}
+}
+
+.pattern-global-bg .glow-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--pattern-primary, #0f3d91);
+    top: -100px;
+    left: -100px;
+}
+
+.pattern-global-bg .glow-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--pattern-secondary, #1f74ff);
+    bottom: -50px;
+    right: -50px;
+}
+
+.pattern-global-bg .glow-3 {
+    width: 200px;
+    height: 200px;
+    background: var(--pattern-accent, #0a1f44);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.2;
+}
+
+.pattern-global-bg .particle {
+    position: absolute;
+    border-radius: 50%;
+    {% if theme == 'dark' %}
+    background: var(--pattern-secondary, #1f74ff);
+    {% else %}
+    background: var(--pattern-primary, #0f3d91);
+    {% endif %}
+    {% if intensity == 'subtle' %}
+    opacity: 0.3;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.8;
+    {% else %}
+    opacity: 0.5;
+    {% endif %}
+    animation: particle-float 20s ease-in-out infinite;
+}
+
+@keyframes particle-float {
+    0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+    25% { transform: translate(30px, -30px); opacity: 0.7; }
+    50% { transform: translate(0, -60px); opacity: 0.3; }
+    75% { transform: translate(-30px, -30px); opacity: 0.6; }
+}
+
+/* 20 Particle Positions */
+.pattern-global-bg .p1 { width: 6px; height: 6px; top: 8%; left: 12%; animation-delay: 0s; }
+.pattern-global-bg .p2 { width: 8px; height: 8px; top: 18%; left: 28%; animation-delay: -2s; }
+.pattern-global-bg .p3 { width: 4px; height: 4px; top: 12%; left: 48%; animation-delay: -4s; }
+.pattern-global-bg .p4 { width: 10px; height: 10px; top: 28%; left: 65%; animation-delay: -6s; }
+.pattern-global-bg .p5 { width: 5px; height: 5px; top: 8%; left: 78%; animation-delay: -8s; }
+.pattern-global-bg .p6 { width: 7px; height: 7px; top: 22%; left: 88%; animation-delay: -10s; }
+.pattern-global-bg .p7 { width: 6px; height: 6px; top: 48%; left: 18%; animation-delay: -1s; }
+.pattern-global-bg .p8 { width: 9px; height: 9px; top: 58%; left: 38%; animation-delay: -3s; }
+.pattern-global-bg .p9 { width: 4px; height: 4px; top: 52%; left: 58%; animation-delay: -5s; }
+.pattern-global-bg .p10 { width: 8px; height: 8px; top: 68%; left: 72%; animation-delay: -7s; }
+.pattern-global-bg .p11 { width: 5px; height: 5px; top: 62%; left: 92%; animation-delay: -9s; }
+.pattern-global-bg .p12 { width: 6px; height: 6px; top: 78%; left: 22%; animation-delay: -11s; }
+.pattern-global-bg .p13 { width: 7px; height: 7px; top: 82%; left: 52%; animation-delay: -13s; }
+.pattern-global-bg .p14 { width: 5px; height: 5px; top: 72%; left: 82%; animation-delay: -15s; }
+.pattern-global-bg .p15 { width: 8px; height: 8px; top: 38%; left: 8%; animation-delay: -17s; }
+.pattern-global-bg .p16 { width: 3px; height: 3px; top: 5%; left: 38%; animation-delay: -0.5s; }
+.pattern-global-bg .p17 { width: 5px; height: 5px; top: 32%; left: 95%; animation-delay: -2.5s; }
+.pattern-global-bg .p18 { width: 7px; height: 7px; top: 42%; left: 42%; animation-delay: -4.5s; }
+.pattern-global-bg .p19 { width: 4px; height: 4px; top: 88%; left: 68%; animation-delay: -6.5s; }
+.pattern-global-bg .p20 { width: 6px; height: 6px; top: 92%; left: 12%; animation-delay: -8.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pattern-global-bg .particle {
+        animation: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .pattern-global-bg .glow {
+        transform: scale(0.6);
+    }
+}
+</style>
+
+<div class="pattern-global-bg" aria-hidden="true">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+    <div class="particle p7"></div>
+    <div class="particle p8"></div>
+    <div class="particle p9"></div>
+    <div class="particle p10"></div>
+    <div class="particle p11"></div>
+    <div class="particle p12"></div>
+    <div class="particle p13"></div>
+    <div class="particle p14"></div>
+    <div class="particle p15"></div>
+    <div class="particle p16"></div>
+    <div class="particle p17"></div>
+    <div class="particle p18"></div>
+    <div class="particle p19"></div>
+    <div class="particle p20"></div>
+</div>

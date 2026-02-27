@@ -1,0 +1,41 @@
+{#
+    DE: ActionItem - Klickbares Element für Schnellzugriff-Listen
+    EN: ActionItem - Clickable element for quick access lists
+
+    Varianten:
+    - size: sm, md, lg
+    - Mit/ohne Icon
+    - Mit/ohne Badge
+    - Mit/ohne Pfeil
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\ActionItem
+#}
+{% set tag = url ? 'a' : 'div' %}
+{% set attrs = url ? 'href="' ~ url ~ '"' : '' %}
+
+<{{ tag }} {{ attrs|raw }} class="list-group-item list-group-item-action d-flex align-items-center{{ disabled ? ' disabled' : '' }}">
+    {# Icon #}
+    {% if icon %}
+        <span class="avatar avatar-{{ this.avatarSize }} bg-{{ iconColor }}-lt text-{{ iconColor }} me-3">
+            <i class="ti ti-{{ icon }}"></i>
+        </span>
+    {% endif %}
+
+    {# Content #}
+    <div class="flex-fill">
+        <div class="fw-semibold{% if size == 'sm' %} small{% endif %}">{{ label }}</div>
+        {% if description %}
+            <div class="text-secondary small">{{ description }}</div>
+        {% endif %}
+    </div>
+
+    {# Badge #}
+    {% if badge %}
+        <span class="badge bg-{{ badgeColor }}-lt text-{{ badgeColor }} ms-2">{{ badge }}</span>
+    {% endif %}
+
+    {# Arrow #}
+    {% if arrow and url %}
+        <i class="ti ti-chevron-right text-secondary ms-2"></i>
+    {% endif %}
+</{{ tag }}>

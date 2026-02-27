@@ -1,0 +1,56 @@
+<h5 class="mb-3">Grundlegende Verwendung</h5>
+<p class="text-secondary small">Der Controller wird typischerweise auf <code>&lt;body&gt;</code> oder einem Container-Element platziert:</p>
+
+{% set sidebar_basic %}
+<body data-controller="sidebar"
+      data-sidebar-storage-key-value="my-app-sidebar"
+      data-sidebar-menu-id-value="sidebar-menu">
+
+    {# Toggle Button #}
+    <button data-action="click->sidebar#toggle">
+        <i class="ti ti-menu-2"></i>
+    </button>
+
+    {# Sidebar #}
+    <aside class="navbar navbar-vertical">
+        <div id="sidebar-menu" class="collapse navbar-collapse">
+            <!-- Navigation Items -->
+        </div>
+    </aside>
+
+    {# Main Content #}
+    <main>
+        <!-- Page Content -->
+    </main>
+</body>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="sidebar_basic" />
+
+<h5 class="mt-4 mb-3">Konfigurierbare Values</h5>
+{% set sidebar_values %}
+{# Alle Values sind optional und haben sinnvolle Defaults #}
+<body data-controller="sidebar"
+      data-sidebar-storage-key-value="my-app-sidebar"
+      data-sidebar-menu-id-value="sidebar-menu"
+      data-sidebar-collapsed-class-value="sidebar-collapsed"
+      data-sidebar-breakpoint-value="992">
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="sidebar_values" />
+
+<h5 class="mt-4 mb-3">Separate Actions</h5>
+{% set sidebar_actions %}
+{# Explizit expand/collapse statt toggle #}
+<button data-action="click->sidebar#expand">Ausklappen</button>
+<button data-action="click->sidebar#collapse">Einklappen</button>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="sidebar_actions" />
+
+<div class="alert alert-info mt-4">
+    <div class="d-flex">
+        <i class="ti ti-info-circle me-2"></i>
+        <div>
+            <h4 class="alert-title">Hinweis</h4>
+            <p class="mb-0">Der Controller speichert den Zustand im LocalStorage und stellt ihn beim nächsten Seitenaufruf wieder her. Mobile Navigation wird automatisch mit Backdrop unterstützt.</p>
+        </div>
+    </div>
+</div>

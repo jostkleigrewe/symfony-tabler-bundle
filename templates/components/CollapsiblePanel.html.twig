@@ -1,0 +1,53 @@
+{#
+    DE: Ausklappbares Panel mit ARIA-Attributen für Accessibility
+    EN: Collapsible panel with ARIA attributes for accessibility
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\CollapsiblePanel
+#}
+{% set panel_id = panelId ?? ('collapsible-' ~ random()) %}
+{% set content_id = panel_id ~ '-content' %}
+
+{% set wrapper_classes = ['collapsible-panel'] %}
+{% if variant == 'bordered' %}{% set wrapper_classes = wrapper_classes|merge(['collapsible-panel-bordered', 'border', 'rounded']) %}{% endif %}
+{% if variant == 'card' %}{% set wrapper_classes = wrapper_classes|merge(['card']) %}{% endif %}
+{% if variant == 'subtle' %}{% set wrapper_classes = wrapper_classes|merge(['collapsible-panel-subtle', 'bg-light', 'rounded']) %}{% endif %}
+
+<div class="{{ wrapper_classes|join(' ') }}" data-controller="collapsible" data-collapsible-expanded-value="{{ expanded ? 'true' : 'false' }}">
+    <button
+        type="button"
+        class="collapsible-panel-header btn btn-link text-reset text-start w-100 p-3 d-flex align-items-center gap-2"
+        aria-expanded="{{ expanded ? 'true' : 'false' }}"
+        aria-controls="{{ content_id }}"
+        data-action="click->collapsible#toggle"
+        data-collapsible-target="button"
+    >
+        {% if icon %}
+            <span class="avatar avatar-sm bg-{{ iconColor }}-lt text-{{ iconColor }}">
+                <i class="ti ti-{{ icon }}"></i>
+            </span>
+        {% endif %}
+
+        <span class="flex-grow-1">
+            <span class="fw-semibold d-block">{{ title }}</span>
+            {% if subtitle %}
+                <span class="text-secondary small">{{ subtitle }}</span>
+            {% endif %}
+        </span>
+
+        <span class="collapsible-panel-chevron" data-collapsible-target="chevron">
+            <i class="ti ti-chevron-down"></i>
+        </span>
+    </button>
+
+    <div
+        id="{{ content_id }}"
+        class="collapsible-panel-content{{ expanded ? '' : ' d-none' }}"
+        role="region"
+        aria-labelledby="{{ panel_id }}"
+        data-collapsible-target="content"
+    >
+        <div class="collapsible-panel-body p-3 pt-0">
+            {% block content %}{{ content|default('') }}{% endblock %}
+        </div>
+    </div>
+</div>

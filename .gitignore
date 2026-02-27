@@ -10,6 +10,7 @@
 # OS
 .DS_Store
 Thumbs.db
+*:Zone.Identifier
 
 # PHP
 composer.lock
@@ -20,3 +21,6 @@ phpunit.xml
 # Build
 /build/
 /dist/
+
+# Claude Code
+CLAUDE.md

@@ -1,0 +1,972 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}Pattern Backgrounds - Tabler Bundle{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="Pattern Backgrounds"
+        pretitle="Showcase"
+        subtitle="Animierte Hintergrund-Patterns für Hero-Sections, Headers, Footers, Cards und mehr"
+        icon="background"
+        iconColor="purple"
+    />
+{% endblock %}
+
+{% block content %}
+    {# CSS für Pattern-Backgrounds #}
+    <style>
+        {{ source('@Tabler/styles/pattern-backgrounds.css.twig') }}
+    </style>
+
+    {# Info Alert #}
+    <div class="alert alert-info mb-4">
+        <div class="d-flex">
+            <div class="me-3"><i class="ti ti-info-circle icon"></i></div>
+            <div>
+                <h4 class="alert-title">Verwendung</h4>
+                <p class="mb-2">
+                    <strong>Twig Component:</strong><br>
+                    <code>&lt;twig:PatternBackground pattern="particles-sso" theme="dark" size="hero"&gt;...&lt;/twig:PatternBackground&gt;</code>
+                </p>
+                <p class="mb-0">
+                    <strong>CSS-Klassen:</strong><br>
+                    <code>&lt;section class="pattern-bg pattern-particles-sso pattern-dark pattern-hero"&gt;</code>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {# ================================================================
+       Alle Patterns - Dark Theme
+       ================================================================ #}
+    <h2 class="mb-3">Patterns (Dark Theme)</h2>
+
+    <div class="row row-cards mb-5">
+        {% for key, pattern in patterns %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card">
+                    <div class="pattern-bg pattern-{{ key }} pattern-dark pattern-card pattern-hover-play">
+                        <div class="pattern-layer">
+                            {# Pattern Layer - manuell da Twig-Komponente nicht verfügbar sein könnte #}
+                            {% if key == 'particles' %}
+                                <div class="glow glow-1"></div>
+                                <div class="glow glow-2"></div>
+                                {% for i in 1..15 %}
+                                    <div class="particle p{{ i }}"></div>
+                                {% endfor %}
+                            {% elseif key == 'particles-sso' %}
+                                <div class="glow glow-1"></div>
+                                <div class="glow glow-2"></div>
+                                {% for i in 1..5 %}
+                                    <div class="line l{{ i }}"></div>
+                                {% endfor %}
+                                <i class="ti ti-shield-lock icon i1"></i>
+                                <i class="ti ti-key icon i2"></i>
+                                <i class="ti ti-lock icon i3"></i>
+                                <i class="ti ti-shield-check icon i4"></i>
+                                <i class="ti ti-fingerprint icon i5"></i>
+                                <i class="ti ti-user-check icon i6"></i>
+                                <i class="ti ti-certificate icon i7"></i>
+                                <i class="ti ti-shield icon i8"></i>
+                                <i class="ti ti-lock-access icon i9"></i>
+                                <i class="ti ti-user-shield icon i10"></i>
+                            {% elseif key == 'particles-network' %}
+                                {# SVG-basierte Verbindungslinien #}
+                                <div class="connection-lines">
+                                    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                                        <line x1="20" y1="15" x2="50" y2="25" />
+                                        <line x1="50" y1="25" x2="80" y2="20" />
+                                        <line x1="20" y1="15" x2="10" y2="50" />
+                                        <line x1="50" y1="25" x2="35" y2="35" />
+                                        <line x1="80" y1="20" x2="75" y2="45" />
+                                        <line x1="10" y1="50" x2="45" y2="55" />
+                                        <line x1="35" y1="35" x2="45" y2="55" />
+                                        <line x1="75" y1="45" x2="90" y2="65" />
+                                        <line x1="45" y1="55" x2="60" y2="75" />
+                                        <line x1="25" y1="80" x2="60" y2="75" />
+                                        <line x1="60" y1="75" x2="85" y2="85" />
+                                    </svg>
+                                </div>
+                                {% for i in 1..12 %}
+                                    <div class="node n{{ i }}"></div>
+                                {% endfor %}
+                            {% elseif key == 'waves' %}
+                                <div class="wave-container">
+                                    <svg class="wave w1" viewBox="0 0 1440 150" preserveAspectRatio="none">
+                                        <path fill="rgba(255,255,255,0.3)" d="M0,50 C360,150 1080,0 1440,100 L1440,150 L0,150 Z M1440,50 C1800,150 2520,0 2880,100 L2880,150 L1440,150 Z"></path>
+                                    </svg>
+                                    <svg class="wave w2" viewBox="0 0 1440 150" preserveAspectRatio="none">
+                                        <path fill="rgba(255,255,255,0.2)" d="M0,80 C320,20 720,120 1080,60 L1440,60 L1440,150 L0,150 Z M1440,80 C1760,20 2160,120 2520,60 L2880,60 L2880,150 L1440,150 Z"></path>
+                                    </svg>
+                                </div>
+                            {% elseif key == 'geometric' %}
+                                <div class="shape s1"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                                <div class="shape s3"><svg viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                                <div class="shape s4"><svg viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" stroke-width="2" rx="5"/></svg></div>
+                            {% elseif key == 'blob' %}
+                                <div class="blob b1"></div>
+                                <div class="blob b2"></div>
+                                <div class="blob b3"></div>
+                            {% elseif key == 'grid' %}
+                                <div class="grid"></div>
+                                <div class="scan sc1"></div>
+                                <div class="scan sc2"></div>
+                                {% for i in 1..5 %}
+                                    <div class="dot d{{ i }}"></div>
+                                {% endfor %}
+                            {% elseif key == 'topo' %}
+                                <div class="topo"></div>
+                                <div class="accent"></div>
+                            {% elseif key == 'dots' %}
+                                <div class="dots-grid"></div>
+                            {% elseif key == 'circuit' %}
+                                <div class="circuit"></div>
+                            {% elseif key == 'stream' %}
+                                {% for i in 1..24 %}
+                                    <div class="stream-particle sp{{ i }}"></div>
+                                {% endfor %}
+                            {% elseif key == 'rain' %}
+                                {% for i in 1..25 %}
+                                    <div class="raindrop rd{{ i }}"></div>
+                                {% endfor %}
+                                {% for i in 1..5 %}
+                                    <div class="splash sp{{ i }}"></div>
+                                {% endfor %}
+                            {% elseif key == 'sandstorm' %}
+                                {% for i in 1..18 %}
+                                    <div class="sand s{{ i }}"></div>
+                                {% endfor %}
+                                {% for i in 1..3 %}
+                                    <div class="dust d{{ i }}"></div>
+                                {% endfor %}
+                            {% elseif key == 'autumn' %}
+                                {% for i in 1..18 %}
+                                    <div class="leaf lf{{ i }}"></div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="pattern-content d-flex align-items-center justify-content-center h-100 text-white text-center p-3">
+                            <div>
+                                <h4 class="mb-1">{{ pattern.name }}</h4>
+                                <small class="opacity-75">{{ pattern.description }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <code class="text-primary">pattern-{{ key }}</code>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# ================================================================
+       Particles SSO - Variationen
+       ================================================================ #}
+    <h2 class="mb-3">Particles SSO - Variationen</h2>
+    <p class="text-secondary mb-4">Das SSO-Pattern mit verschiedenen Einstellungen für Hero, Header, Footer etc.</p>
+
+    {# Hero Size #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Hero (pattern-hero)</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="pattern-bg pattern-particles-sso pattern-dark pattern-hero">
+                <div class="pattern-layer">
+                    <div class="glow glow-1"></div>
+                    <div class="glow glow-2"></div>
+                    {% for i in 1..5 %}
+                        <div class="line l{{ i }}"></div>
+                    {% endfor %}
+                    <i class="ti ti-shield-lock icon i1"></i>
+                    <i class="ti ti-key icon i2"></i>
+                    <i class="ti ti-lock icon i3"></i>
+                    <i class="ti ti-shield-check icon i4"></i>
+                    <i class="ti ti-fingerprint icon i5"></i>
+                    <i class="ti ti-user-check icon i6"></i>
+                    <i class="ti ti-certificate icon i7"></i>
+                    <i class="ti ti-shield icon i8"></i>
+                    <i class="ti ti-lock-access icon i9"></i>
+                    <i class="ti ti-user-shield icon i10"></i>
+                    <i class="ti ti-key icon i11"></i>
+                    <i class="ti ti-shield-lock icon i12"></i>
+                    <i class="ti ti-lock icon i13"></i>
+                    <i class="ti ti-certificate icon i14"></i>
+                    <i class="ti ti-fingerprint icon i15"></i>
+                </div>
+                <div class="pattern-content">
+                    <div class="container py-5">
+                        <div class="row align-items-center">
+                            <div class="col-lg-7">
+                                <span class="badge bg-white bg-opacity-15 text-white mb-3 px-3 py-2">
+                                    <i class="ti ti-shield-check me-1"></i> Enterprise SSO
+                                </span>
+                                <h1 class="text-white display-5 fw-bold mb-3">
+                                    Sichere Authentifizierung für alle Ihre Apps.
+                                </h1>
+                                <p class="text-white opacity-75 lead mb-4">
+                                    Ein Login, volle Kontrolle. OIDC-konform, audit-fähig und in Minuten integriert.
+                                </p>
+                                <div class="d-flex gap-3 flex-wrap">
+                                    <button class="btn btn-light btn-lg">
+                                        <i class="ti ti-login me-2"></i> Jetzt starten
+                                    </button>
+                                    <button class="btn btn-outline-light btn-lg">
+                                        <i class="ti ti-book me-2"></i> Dokumentation
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Header Size #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Header (pattern-header)</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="pattern-bg pattern-particles-sso pattern-dark pattern-header">
+                <div class="pattern-layer">
+                    <div class="glow glow-1"></div>
+                    <div class="glow glow-2"></div>
+                    <i class="ti ti-shield-lock icon i1"></i>
+                    <i class="ti ti-key icon i2"></i>
+                    <i class="ti ti-lock icon i3"></i>
+                    <i class="ti ti-shield-check icon i4"></i>
+                    <i class="ti ti-fingerprint icon i5"></i>
+                </div>
+                <div class="pattern-content">
+                    <div class="container d-flex align-items-center justify-content-between h-100">
+                        <div>
+                            <h2 class="text-white mb-1">Dashboard</h2>
+                            <p class="text-white opacity-75 mb-0">Willkommen zurück, Admin</p>
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-light">
+                                <i class="ti ti-settings me-2"></i> Einstellungen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Footer Size #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Footer (pattern-footer, pattern-subtle)</h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="pattern-bg pattern-particles-sso pattern-dark pattern-footer pattern-subtle">
+                <div class="pattern-layer">
+                    <div class="glow glow-1"></div>
+                    <i class="ti ti-shield-lock icon i1"></i>
+                    <i class="ti ti-key icon i2"></i>
+                    <i class="ti ti-lock icon i3"></i>
+                </div>
+                <div class="pattern-content">
+                    <div class="container d-flex align-items-center justify-content-between h-100">
+                        <div class="text-white opacity-75">
+                            © 2024 EURIP SSO. Alle Rechte vorbehalten.
+                        </div>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-white opacity-75 text-decoration-none">Impressum</a>
+                            <a href="#" class="text-white opacity-75 text-decoration-none">Datenschutz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# ================================================================
+       Particles Network - Hero mit SVG-Connections
+       ================================================================ #}
+    <h2 class="mb-3 mt-5">Particles Network - Hero mit SVG-Verbindungen</h2>
+    <p class="text-secondary mb-4">Das Network-Pattern mit exakten SVG-Verbindungslinien und Hero-Content-Komponenten.</p>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Network Hero (connectionType="svg")</h3>
+        </div>
+        <div class="card-body p-0">
+            <twig:PatternBackground pattern="particles-network" connectionType="svg" theme="dark" size="hero">
+                <div class="container py-5">
+                    <div class="row align-items-center">
+                        <div class="col-lg-7">
+                            <div class="security-badge">
+                                <div class="icon-wrap">
+                                    <i class="ti ti-network"></i>
+                                </div>
+                                <span>Vernetztes Identity Management</span>
+                            </div>
+                            <h1>
+                                Ihre Identitäten.<br>
+                                <span class="highlight">Sicher vernetzt.</span>
+                            </h1>
+                            <p class="hero-lead">
+                                Ein Konto, alle Apps. EURIP SSO verbindet alle Ihre Anwendungen
+                                mit einem zentralen, sicheren Authentifizierungsnetzwerk.
+                            </p>
+                            <div class="hero-actions">
+                                <button class="btn btn-particle-primary">
+                                    <i class="ti ti-login me-2"></i> Jetzt anmelden
+                                </button>
+                                <button class="btn btn-particle-secondary">
+                                    <i class="ti ti-book me-2"></i> Dokumentation
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="glass-card card card-md shadow-lg">
+                                <div class="card-body">
+                                    <h3 class="card-title">Schnellzugriff</h3>
+                                    <p class="text-secondary">Direkt einloggen oder registrieren</p>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary">
+                                            <i class="ti ti-login me-2"></i> Anmelden
+                                        </button>
+                                        <button class="btn btn-outline-secondary">
+                                            <i class="ti ti-user-plus me-2"></i> Registrieren
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stats-grid mt-4 pt-0 border-0 justify-content-start gap-4">
+                                <div class="stat-item text-start">
+                                    <i class="ti ti-clock"></i>
+                                    <span class="stat-value">&lt; 50ms</span>
+                                    <span class="stat-label">Token-Validierung</span>
+                                </div>
+                                <div class="stat-item text-start">
+                                    <i class="ti ti-shield-check"></i>
+                                    <span class="stat-value">RS256</span>
+                                    <span class="stat-label">JWT-Signatur</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </twig:PatternBackground>
+        </div>
+        <div class="card-footer">
+            <pre class="mb-0 bg-dark text-light p-2 rounded"><code>&lt;twig:PatternBackground pattern="particles-network" connectionType="svg" theme="dark" size="hero"&gt;
+    &lt;div class="container py-5"&gt;
+        &lt;div class="security-badge"&gt;...&lt;/div&gt;
+        &lt;h1&gt;Title &lt;span class="highlight"&gt;Highlight&lt;/span&gt;&lt;/h1&gt;
+        &lt;p class="hero-lead"&gt;...&lt;/p&gt;
+        &lt;div class="hero-actions"&gt;
+            &lt;button class="btn btn-particle-primary"&gt;...&lt;/button&gt;
+            &lt;button class="btn btn-particle-secondary"&gt;...&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class="glass-card"&gt;...&lt;/div&gt;
+        &lt;div class="stats-grid"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/twig:PatternBackground&gt;</code></pre>
+        </div>
+    </div>
+
+    {# Hero Content Components Dokumentation #}
+    <div class="card mb-5">
+        <div class="card-header">
+            <h3 class="card-title">Hero Content Components</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">Diese CSS-Klassen stehen für Hero-Inhalte zur Verfügung:</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Klasse</th>
+                        <th>Beschreibung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>.security-badge</code></td>
+                        <td>Badge mit Icon-Circle und Text</td>
+                    </tr>
+                    <tr>
+                        <td><code>.security-badge .icon-wrap</code></td>
+                        <td>Runder Icon-Container</td>
+                    </tr>
+                    <tr>
+                        <td><code>h1 .highlight</code></td>
+                        <td>Gradient-Text für Hervorhebungen</td>
+                    </tr>
+                    <tr>
+                        <td><code>.hero-lead</code></td>
+                        <td>Lead-Paragraph mit optimierter Lesbarkeit</td>
+                    </tr>
+                    <tr>
+                        <td><code>.hero-actions</code></td>
+                        <td>Flexbox-Container für Buttons</td>
+                    </tr>
+                    <tr>
+                        <td><code>.btn-particle-primary</code></td>
+                        <td>Primärer CTA-Button mit Glow</td>
+                    </tr>
+                    <tr>
+                        <td><code>.btn-particle-secondary</code></td>
+                        <td>Sekundärer Button mit Border</td>
+                    </tr>
+                    <tr>
+                        <td><code>.glass-card</code></td>
+                        <td>Karte mit Glasmorphismus-Effekt</td>
+                    </tr>
+                    <tr>
+                        <td><code>.stats-grid</code></td>
+                        <td>Grid für Statistik-Anzeige</td>
+                    </tr>
+                    <tr>
+                        <td><code>.stat-item</code>, <code>.stat-value</code>, <code>.stat-label</code></td>
+                        <td>Einzelne Statistik mit Wert und Label</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# ================================================================
+       Light Theme Examples
+       ================================================================ #}
+    <h2 class="mb-3 mt-5">Light Theme Beispiele</h2>
+
+    <div class="row row-cards">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="pattern-bg pattern-particles-sso pattern-light pattern-card">
+                    <div class="pattern-layer">
+                        <div class="glow glow-1"></div>
+                        <i class="ti ti-shield-lock icon i1"></i>
+                        <i class="ti ti-key icon i2"></i>
+                        <i class="ti ti-lock icon i3"></i>
+                        <i class="ti ti-shield-check icon i4"></i>
+                        <i class="ti ti-fingerprint icon i5"></i>
+                    </div>
+                    <div class="pattern-content d-flex align-items-center justify-content-center h-100 p-4">
+                        <div class="text-center">
+                            <h4 class="mb-2">SSO Light</h4>
+                            <p class="text-secondary mb-0">Heller Hintergrund mit dezenten Icons</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="pattern-bg pattern-geometric pattern-light pattern-card">
+                    <div class="pattern-layer">
+                        <div class="shape s1"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                        <div class="shape s3"><svg viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    </div>
+                    <div class="pattern-content d-flex align-items-center justify-content-center h-100 p-4">
+                        <div class="text-center">
+                            <h4 class="mb-2">Geometric Light</h4>
+                            <p class="text-secondary mb-0">Geometrische Formen auf hellem Grund</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="pattern-bg pattern-topo pattern-card">
+                    <div class="pattern-layer">
+                        <div class="topo"></div>
+                        <div class="accent"></div>
+                    </div>
+                    <div class="pattern-content d-flex align-items-center justify-content-center h-100 p-4">
+                        <div class="text-center">
+                            <h4 class="mb-2">Topography</h4>
+                            <p class="text-secondary mb-0">Subtile topografische Linien</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="pattern-bg pattern-dots pattern-card">
+                    <div class="pattern-layer">
+                        <div class="dots-grid"></div>
+                    </div>
+                    <div class="pattern-content d-flex align-items-center justify-content-center h-100 p-4">
+                        <div class="text-center">
+                            <h4 class="mb-2">Dots</h4>
+                            <p class="text-secondary mb-0">Dezentes Dot-Matrix Pattern</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# ================================================================
+       Intensity Examples
+       ================================================================ #}
+    <h2 class="mb-3 mt-5">Intensität</h2>
+
+    <div class="row row-cards">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="pattern-bg pattern-particles-sso pattern-dark pattern-card pattern-subtle">
+                    <div class="pattern-layer">
+                        <div class="glow glow-1"></div>
+                        <i class="ti ti-shield-lock icon i1"></i>
+                        <i class="ti ti-key icon i2"></i>
+                        <i class="ti ti-lock icon i3"></i>
+                    </div>
+                    <div class="pattern-content d-flex align-items-center justify-content-center h-100 text-white p-3">
+                        <div class="text-center">
+                            <code class="text-light">pattern-subtle</code>
+                            <p class="small opacity-75 mb-0 mt-2">Sehr dezent</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="pattern-bg pattern-particles-sso pattern-dark pattern-card">
+                    <div class="pattern-layer">
+                        <div class="glow glow-1"></div>
+                        <i class="ti ti-shield-lock icon i1"></i>
+                        <i class="ti ti-key icon i2"></i>
+                        <i class="ti ti-lock icon i3"></i>
+                    </div>
+                    <div class="pattern-content d-flex align-items-center justify-content-center h-100 text-white p-3">
+                        <div class="text-center">
+                            <code class="text-light">pattern-medium</code>
+                            <p class="small opacity-75 mb-0 mt-2">Standard</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="pattern-bg pattern-particles-sso pattern-dark pattern-card pattern-intense">
+                    <div class="pattern-layer">
+                        <div class="glow glow-1"></div>
+                        <i class="ti ti-shield-lock icon i1"></i>
+                        <i class="ti ti-key icon i2"></i>
+                        <i class="ti ti-lock icon i3"></i>
+                    </div>
+                    <div class="pattern-content d-flex align-items-center justify-content-center h-100 text-white p-3">
+                        <div class="text-center">
+                            <code class="text-light">pattern-intense</code>
+                            <p class="small opacity-75 mb-0 mt-2">Intensiv</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# ================================================================
+       TwigComponent Beispiel
+       ================================================================ #}
+    <h2 class="mb-3 mt-5">TwigComponent Beispiel</h2>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Mit PatternBackground Component</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Die einfachste Verwendung mit der Twig-Komponente:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded mb-4"><code>&lt;twig:PatternBackground pattern="particles-sso" theme="dark" size="hero"&gt;
+    &lt;div class="container py-5"&gt;
+        &lt;h1 class="text-white"&gt;Dein Inhalt hier&lt;/h1&gt;
+    &lt;/div&gt;
+&lt;/twig:PatternBackground&gt;</code></pre>
+
+            <h5>Verfügbare Properties:</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>Optionen</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>pattern</code></td>
+                        <td>particles, particles-sso, particles-network, waves, geometric, blob, grid, topo, dots, circuit</td>
+                        <td>particles</td>
+                    </tr>
+                    <tr>
+                        <td><code>theme</code></td>
+                        <td>dark, light, gradient, transparent</td>
+                        <td>dark</td>
+                    </tr>
+                    <tr>
+                        <td><code>size</code></td>
+                        <td>hero, section, header, footer, card, compact, divider, auto</td>
+                        <td>auto</td>
+                    </tr>
+                    <tr>
+                        <td><code>intensity</code></td>
+                        <td>subtle, medium, intense</td>
+                        <td>medium</td>
+                    </tr>
+                    <tr>
+                        <td><code>speed</code></td>
+                        <td>slow, normal, fast, static</td>
+                        <td>normal</td>
+                    </tr>
+                    <tr>
+                        <td><code>connectionType</code></td>
+                        <td>css, svg</td>
+                        <td>css</td>
+                    </tr>
+                    <tr>
+                        <td><code>tag</code></td>
+                        <td>div, section, header, footer, aside</td>
+                        <td>div</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-info mt-4">
+                <h5><i class="ti ti-network me-2"></i>SVG-Verbindungen für Network-Pattern</h5>
+                <p class="mb-2">Mit <code>connectionType="svg"</code> werden exakte SVG-Linien zwischen den Nodes gerendert:</p>
+                <pre class="bg-dark text-light p-2 rounded mb-0"><code>&lt;twig:PatternBackground pattern="particles-network" connectionType="svg" size="hero"&gt;
+    ...
+&lt;/twig:PatternBackground&gt;</code></pre>
+            </div>
+        </div>
+    </div>
+
+    {# ================================================================
+       GLOBALE BACKGROUND PATTERNS (Empfohlen)
+       ================================================================ #}
+    <h2 class="mb-3 mt-5"><i class="ti ti-star me-2 text-yellow"></i>Globale Background Patterns</h2>
+    <p class="text-secondary mb-4">
+        Die einfachste Methode: Ein Include in <code>base.html.twig</code> und das Pattern ist global aktiv.
+    </p>
+
+    <div class="alert alert-success mb-4">
+        <div class="d-flex">
+            <div class="me-3"><i class="ti ti-check icon"></i></div>
+            <div>
+                <h4 class="alert-title">Empfohlene Methode</h4>
+                <p class="mb-0">Nutze die Pattern-Includes für schnelle Integration ohne zusätzliche CSS-Dateien.</p>
+            </div>
+        </div>
+    </div>
+
+    {# Verfügbare Pattern-Includes #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Verfügbare Pattern-Includes</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Include</th>
+                        <th>Beschreibung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>@Tabler/patterns/background-sso.html.twig</code></td>
+                        <td>SSO-Icons (Shield, Key, Lock, Fingerprint)</td>
+                    </tr>
+                    <tr>
+                        <td><code>@Tabler/patterns/background-particles.html.twig</code></td>
+                        <td>Schwebende Punkte mit Glow</td>
+                    </tr>
+                    <tr>
+                        <td><code>@Tabler/patterns/background-network.html.twig</code></td>
+                        <td>Netzwerk-Knoten mit Verbindungen</td>
+                    </tr>
+                    <tr>
+                        <td><code>@Tabler/patterns/background-grid.html.twig</code></td>
+                        <td>Tech-Grid mit Scan-Linien</td>
+                    </tr>
+                    <tr>
+                        <td><code>@Tabler/patterns/background-waves.html.twig</code></td>
+                        <td>Animierte SVG-Wellen</td>
+                    </tr>
+                    <tr>
+                        <td><code>@Tabler/patterns/background-gradient-flow.html.twig</code></td>
+                        <td>Fliessende Gradienten mit animierten Blob-Formen</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# Basis-Integration #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">1. Basis-Integration</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Füge das Pattern direkt nach <code>&lt;body&gt;</code> in deiner <code>base.html.twig</code> ein:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded"><code>{# templates/base.html.twig #}
+&lt;body&gt;
+    {%- verbatim -%}{% include '@Tabler/patterns/background-sso.html.twig' %}{%- endverbatim -%}
+
+    {# Rest der Seite... #}
+    &lt;div class="page"&gt;
+        ...
+    &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+        </div>
+    </div>
+
+    {# Mit Parametern #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">2. Mit Parametern</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Alle Pattern-Includes unterstützen optionale Parameter:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded mb-4"><code>{%- verbatim -%}{% include '@Tabler/patterns/background-sso.html.twig' with {
+    theme: 'dark',        {# dark, light #}
+    intensity: 'medium',  {# subtle, medium, intense #}
+    fixed: true           {# true = fixed, false = absolute #}
+} %}{%- endverbatim -%}</code></pre>
+
+            <h5>Parameter-Übersicht:</h5>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Optionen</th>
+                        <th>Default</th>
+                        <th>Beschreibung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>theme</code></td>
+                        <td>dark, light</td>
+                        <td>dark</td>
+                        <td>Farbmodus</td>
+                    </tr>
+                    <tr>
+                        <td><code>intensity</code></td>
+                        <td>subtle, medium, intense</td>
+                        <td>medium</td>
+                        <td>Stärke der Effekte</td>
+                    </tr>
+                    <tr>
+                        <td><code>fixed</code></td>
+                        <td>true, false</td>
+                        <td>true</td>
+                        <td>fixed = bleibt beim Scrollen, absolute = scrollt mit</td>
+                    </tr>
+                    <tr>
+                        <td><code>position</code></td>
+                        <td>bottom, top, both</td>
+                        <td>bottom</td>
+                        <td>Nur für Waves-Pattern</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# Verschiedene Patterns pro Seite #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">3. Verschiedene Patterns pro Seite</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Nutze einen Twig-Block um auf verschiedenen Seiten unterschiedliche Patterns zu laden:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded mb-4"><code>{# templates/base.html.twig #}
+&lt;body&gt;
+    {%- verbatim -%}{% block background_pattern %}
+        {# Default Pattern #}
+        {% include '@Tabler/patterns/background-sso.html.twig' %}
+    {% endblock %}{%- endverbatim -%}
+
+    &lt;div class="page"&gt;
+        {%- verbatim -%}{% block body %}{% endblock %}{%- endverbatim -%}
+    &lt;/div&gt;
+&lt;/body&gt;</code></pre>
+
+            <p class="text-secondary mb-3">
+                Dann in einzelnen Templates überschreiben:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded mb-4"><code>{# templates/security/login.html.twig #}
+{%- verbatim -%}{% extends 'base.html.twig' %}
+
+{% block background_pattern %}
+    {% include '@Tabler/patterns/background-sso.html.twig' with {
+        intensity: 'intense'
+    } %}
+{% endblock %}{%- endverbatim -%}</code></pre>
+
+            <pre class="bg-dark text-light p-3 rounded mb-4"><code>{# templates/admin/dashboard.html.twig #}
+{%- verbatim -%}{% extends 'base.html.twig' %}
+
+{% block background_pattern %}
+    {% include '@Tabler/patterns/background-network.html.twig' %}
+{% endblock %}{%- endverbatim -%}</code></pre>
+
+            <pre class="bg-dark text-light p-3 rounded"><code>{# templates/public/landing.html.twig #}
+{%- verbatim -%}{% extends 'base.html.twig' %}
+
+{% block background_pattern %}
+    {% include '@Tabler/patterns/background-waves.html.twig' with {
+        position: 'both'
+    } %}
+{% endblock %}{%- endverbatim -%}</code></pre>
+        </div>
+    </div>
+
+    {# Kein Pattern auf bestimmten Seiten #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">4. Kein Pattern auf bestimmten Seiten</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Um das Pattern auf bestimmten Seiten zu deaktivieren, überschreibe den Block mit leerem Inhalt:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded"><code>{# templates/admin/reports.html.twig #}
+{%- verbatim -%}{% extends 'base.html.twig' %}
+
+{% block background_pattern %}
+    {# Kein Pattern auf dieser Seite #}
+{% endblock %}{%- endverbatim -%}</code></pre>
+        </div>
+    </div>
+
+    {# Farben anpassen #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">5. Farben anpassen</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Die Patterns nutzen CSS Custom Properties. Überschreibe sie in deiner <code>app.css</code>:
+            </p>
+            <pre class="bg-dark text-light p-3 rounded mb-4"><code>/* assets/styles/app.css */
+:root {
+    /* Hauptfarben */
+    --pattern-primary: #0f3d91;
+    --pattern-secondary: #1f74ff;
+    --pattern-accent: #0a1f44;
+
+    /* Hintergründe */
+    --pattern-bg-dark: #0a1f44;
+    --pattern-bg-light: #eef4ff;
+}</code></pre>
+            <p class="text-secondary mb-0">
+                <strong>Tipp:</strong> Die Patterns erkennen automatisch deine EURIP-Variablen
+                (<code>--eurip-blue</code>, <code>--eurip-navy</code>, etc.) und Tabler-Variablen (<code>--tblr-primary</code>).
+            </p>
+        </div>
+    </div>
+
+    {# Beispiel-Konfigurationen #}
+    <h2 class="mb-3 mt-5">Beispiel-Konfigurationen</h2>
+
+    <div class="row row-cards">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Login-Seite (intensiv)</h3>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-dark text-light p-3 rounded mb-0"><code>{%- verbatim -%}{% include '@Tabler/patterns/background-sso.html.twig' with {
+    theme: 'dark',
+    intensity: 'intense'
+} %}{%- endverbatim -%}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Dashboard (dezent)</h3>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-dark text-light p-3 rounded mb-0"><code>{%- verbatim -%}{% include '@Tabler/patterns/background-network.html.twig' with {
+    intensity: 'subtle'
+} %}{%- endverbatim -%}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Landing Page (Wellen)</h3>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-dark text-light p-3 rounded mb-0"><code>{%- verbatim -%}{% include '@Tabler/patterns/background-waves.html.twig' with {
+    position: 'both'
+} %}{%- endverbatim -%}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Tech-Seite (Grid)</h3>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-dark text-light p-3 rounded mb-0"><code>{%- verbatim -%}{% include '@Tabler/patterns/background-grid.html.twig' with {
+    intensity: 'medium'
+} %}{%- endverbatim -%}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Gradient Flow (Pink)</h3>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-dark text-light p-3 rounded mb-0"><code>{%- verbatim -%}{% include '@Tabler/patterns/background-gradient-flow.html.twig' with {
+    theme: 'pink',
+    intensity: 'medium'
+} %}{%- endverbatim -%}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Gradient Flow (Blue)</h3>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-dark text-light p-3 rounded mb-0"><code>{%- verbatim -%}{% include '@Tabler/patterns/background-gradient-flow.html.twig' with {
+    theme: 'blue',
+    intensity: 'intense'
+} %}{%- endverbatim -%}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

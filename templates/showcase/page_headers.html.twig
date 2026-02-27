@@ -1,0 +1,697 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}PageHeaders - Tabler Bundle{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="PageHeaders"
+        pretitle="Showcase"
+        subtitle="Versatile page headers for all use cases"
+        icon="layout-navbar"
+        iconColor="purple"
+    />
+{% endblock %}
+
+{% block content %}
+    {# ===== BASIC EXAMPLES ===== #}
+    <h3 class="mb-3">Basic Examples</h3>
+
+    {# 1. Minimal #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Minimal</h3>
+            <span class="badge bg-green-lt ms-auto">Empfohlen</span>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Einfachste Form - nur der Titel.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader title="Dashboard" container="none" />
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader title="Dashboard" /&gt;</code></pre>
+        </div>
+    </div>
+
+    {# 2. With Icon and Pretitle #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Icon and Pretitle</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Icon, Überschrift, Titel und optionaler Untertitel.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Users"
+                    pretitle="Administration"
+                    subtitle="Manage your team members"
+                    icon="users"
+                    iconColor="blue"
+                    container="none"
+                />
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Users"
+    pretitle="Administration"
+    subtitle="Manage your team members"
+    icon="users"
+    iconColor="blue"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# 3. With Action Buttons #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Action Buttons</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Actions-Slot für Buttons rechts im Header.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="API Clients"
+                    pretitle="Settings"
+                    icon="apps"
+                    iconColor="purple"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <a href="#" class="btn btn-outline-secondary">
+                            <i class="ti ti-download me-1"></i> Export
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <i class="ti ti-plus me-1"></i> New Client
+                        </a>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader title="API Clients" pretitle="Settings" icon="apps"&gt;
+    &lt;twig:block name="actions"&gt;
+        &lt;a href="#" class="btn btn-outline-secondary"&gt;Export&lt;/a&gt;
+        &lt;a href="#" class="btn btn-primary"&gt;New Client&lt;/a&gt;
+    &lt;/twig:block&gt;
+&lt;/twig:Tabler:PageHeader&gt;</code></pre>
+        </div>
+    </div>
+
+    {# ===== NAVIGATION ===== #}
+    <h3 class="mb-3 mt-5">Navigation</h3>
+
+    {# 4. With Breadcrumbs #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Breadcrumbs</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Breadcrumb-Navigation über dem Titel für tiefe Hierarchien.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Edit User"
+                    icon="user-edit"
+                    iconColor="cyan"
+                    container="none"
+                    :breadcrumbs="[
+                        {'label': 'Home', 'url': '#'},
+                        {'label': 'Users', 'url': '#'},
+                        {'label': 'John Doe', 'url': '#'},
+                        {'label': 'Edit'}
+                    ]"
+                >
+                    <twig:block name="actions">
+                        <button class="btn btn-primary">Save Changes</button>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Edit User"
+    icon="user-edit"
+    :breadcrumbs="[
+        {'label': 'Home', 'url': '/'},
+        {'label': 'Users', 'url': '/users'},
+        {'label': 'John Doe', 'url': '/users/123'},
+        {'label': 'Edit'}
+    ]"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# 5. With Tabs #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Tabs</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Tab-Navigation für verschiedene Ansichten derselben Entity.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="User Settings"
+                    icon="settings"
+                    iconColor="orange"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <button class="btn btn-primary">Save</button>
+                    </twig:block>
+                    <twig:block name="tabs">
+                        <ul class="nav nav-tabs card-header-tabs">
+                            <li class="nav-item"><a class="nav-link active" href="#">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Security</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Notifications</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Integrations</a></li>
+                        </ul>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader title="User Settings" icon="settings"&gt;
+    &lt;twig:block name="tabs"&gt;
+        &lt;ul class="nav nav-tabs"&gt;
+            &lt;li class="nav-item"&gt;&lt;a class="nav-link active" href="#"&gt;Profile&lt;/a&gt;&lt;/li&gt;
+            &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;Security&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/twig:block&gt;
+&lt;/twig:Tabler:PageHeader&gt;</code></pre>
+        </div>
+    </div>
+
+    {# ===== ENTITY HEADERS ===== #}
+    <h3 class="mb-3 mt-5">Entity Headers</h3>
+
+    {# 6. With Avatar #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Avatar</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Avatar-Bild statt Icon für User-Profile oder Organisationen.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="John Doe"
+                    subtitle="Senior Software Developer"
+                    avatar="https://i.pravatar.cc/150?u=john"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <a href="#" class="btn btn-outline-secondary">Message</a>
+                        <a href="#" class="btn btn-primary">Edit Profile</a>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="John Doe"
+    subtitle="Senior Software Developer"
+    avatar="/avatars/john.jpg"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# 7. With Avatar Initials #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Avatar Initials</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Initialen als Avatar-Fallback wenn kein Bild vorhanden.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="ACME Corporation"
+                    subtitle="Enterprise Client"
+                    avatarInitials="AC"
+                    iconColor="red"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <span class="badge bg-green me-2">Active</span>
+                        <a href="#" class="btn btn-primary">Manage</a>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="ACME Corporation"
+    subtitle="Enterprise Client"
+    avatarInitials="AC"
+    iconColor="red"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# 8. With Meta Information #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Meta Information</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Zusätzliche Meta-Informationen unter dem Titel (E-Mail, Location, Datum, etc.).
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Jane Smith"
+                    subtitle="Product Manager"
+                    avatar="https://i.pravatar.cc/150?u=jane"
+                    container="none"
+                    :meta="[
+                        {'icon': 'mail', 'text': 'jane@example.com', 'url': 'mailto:jane@example.com'},
+                        {'icon': 'map-pin', 'text': 'Berlin, Germany'},
+                        {'icon': 'calendar', 'text': 'Joined Jan 2024'},
+                        {'icon': 'briefcase', 'text': 'Product Team'}
+                    ]"
+                >
+                    <twig:block name="actions">
+                        <a href="#" class="btn btn-primary">Edit Profile</a>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Jane Smith"
+    subtitle="Product Manager"
+    avatar="/avatars/jane.jpg"
+    :meta="[
+        {'icon': 'mail', 'text': 'jane@example.com', 'url': 'mailto:jane@example.com'},
+        {'icon': 'map-pin', 'text': 'Berlin, Germany'},
+        {'icon': 'calendar', 'text': 'Joined Jan 2024'}
+    ]"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# ===== STATUS & PROGRESS ===== #}
+    <h3 class="mb-3 mt-5">Status & Progress</h3>
+
+    {# 9. With Status Badge #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Status Badge</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Status-Badge neben dem Titel für Entity-Lifecycle-Status.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Order #ORD-2024-001"
+                    pretitle="Orders"
+                    icon="shopping-cart"
+                    iconColor="teal"
+                    status="Processing"
+                    statusColor="warning"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <a href="#" class="btn btn-success">Mark as Shipped</a>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <div class="row row-cards mt-3 mb-3">
+                <div class="col-md-4">
+                    <div class="bg-light rounded p-3">
+                        <twig:Tabler:PageHeader title="Draft Post" icon="file-text" status="Draft" statusColor="secondary" container="none" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-light rounded p-3">
+                        <twig:Tabler:PageHeader title="Published Post" icon="file-check" status="Published" statusColor="success" container="none" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-light rounded p-3">
+                        <twig:Tabler:PageHeader title="Archived Post" icon="archive" status="Archived" statusColor="danger" container="none" />
+                    </div>
+                </div>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Order #ORD-2024-001"
+    pretitle="Orders"
+    icon="shopping-cart"
+    status="Processing"
+    statusColor="warning"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# 10. With Progress Bar #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Progress Bar</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Fortschrittsanzeige für Wizards oder mehrstufige Prozesse.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Account Setup"
+                    pretitle="Step 2 of 4 - Personal Information"
+                    icon="user-check"
+                    iconColor="blue"
+                    :progress="50"
+                    progressColor="primary"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <a href="#" class="btn btn-outline-secondary">Back</a>
+                        <a href="#" class="btn btn-primary">Continue</a>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <div class="row row-cards mt-3 mb-3">
+                <div class="col-md-4">
+                    <div class="bg-light rounded p-3">
+                        <twig:Tabler:PageHeader title="Step 1" pretitle="Getting Started" :progress="25" progressColor="info" container="none" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-light rounded p-3">
+                        <twig:Tabler:PageHeader title="Step 3" pretitle="Almost Done" :progress="75" progressColor="warning" container="none" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="bg-light rounded p-3">
+                        <twig:Tabler:PageHeader title="Complete" pretitle="All Done!" :progress="100" progressColor="success" container="none" />
+                    </div>
+                </div>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Account Setup"
+    pretitle="Step 2 of 4 - Personal Information"
+    icon="user-check"
+    :progress="50"
+    progressColor="primary"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# ===== VARIANTS ===== #}
+    <h3 class="mb-3 mt-5">Variants</h3>
+
+    {# 11. Bordered Variant #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Bordered Variant</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Mit Unterstrich-Linie zur visuellen Trennung vom Content.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Settings"
+                    pretitle="Account"
+                    icon="settings"
+                    iconColor="gray"
+                    variant="bordered"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <button class="btn btn-primary">Save</button>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Settings"
+    pretitle="Account"
+    icon="settings"
+    variant="bordered"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# 12. Compact Variant #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Compact Variant</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Reduzierter Abstand für Modals, Sidebars oder eingebettete Bereiche.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Quick Actions"
+                    icon="bolt"
+                    iconColor="yellow"
+                    variant="compact"
+                    avatarSize="md"
+                    container="none"
+                >
+                    <twig:block name="actions">
+                        <button class="btn btn-sm btn-primary">Action</button>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader
+    title="Quick Actions"
+    icon="bolt"
+    variant="compact"
+    avatarSize="md"
+/&gt;</code></pre>
+        </div>
+    </div>
+
+    {# ===== SEARCH & FILTER ===== #}
+    <h3 class="mb-3 mt-5">Search & Filter</h3>
+
+    {# 13. With Search Input #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">With Search Input</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Such-Input im Header für Listen-Seiten.
+            </p>
+            <div class="bg-light rounded p-3 mb-3">
+                <twig:Tabler:PageHeader
+                    title="Search Results"
+                    pretitle="Found 142 users"
+                    icon="search"
+                    iconColor="azure"
+                    container="none"
+                >
+                    <twig:block name="search">
+                        <div class="input-icon">
+                            <span class="input-icon-addon"><i class="ti ti-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search users..." value="john">
+                        </div>
+                    </twig:block>
+                    <twig:block name="actions">
+                        <button class="btn btn-outline-secondary">
+                            <i class="ti ti-filter me-1"></i> Filter
+                        </button>
+                    </twig:block>
+                </twig:Tabler:PageHeader>
+            </div>
+            <pre class="mb-0"><code>&lt;twig:Tabler:PageHeader title="Search Results" pretitle="Found 142 users"&gt;
+    &lt;twig:block name="search"&gt;
+        &lt;div class="input-icon"&gt;
+            &lt;span class="input-icon-addon"&gt;&lt;i class="ti ti-search"&gt;&lt;/i&gt;&lt;/span&gt;
+            &lt;input type="text" class="form-control" placeholder="Search..."&gt;
+        &lt;/div&gt;
+    &lt;/twig:block&gt;
+&lt;/twig:Tabler:PageHeader&gt;</code></pre>
+        </div>
+    </div>
+
+    {# ===== ICON COLORS ===== #}
+    <h3 class="mb-3 mt-5">Icon Colors</h3>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Available Icon Colors</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Alle verfügbaren Tabler-Farben für Icons.
+            </p>
+            <div class="row row-cards">
+                {% for color in ['blue', 'azure', 'indigo', 'purple', 'pink', 'red', 'orange', 'yellow', 'lime', 'green', 'teal', 'cyan'] %}
+                    <div class="col-md-4 col-lg-3">
+                        <div class="bg-light rounded p-2 mb-2">
+                            <twig:Tabler:PageHeader
+                                title="{{ color|capitalize }}"
+                                icon="palette"
+                                iconColor="{{ color }}"
+                                avatarSize="md"
+                                variant="compact"
+                                container="none"
+                            />
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {# ===== PROPS REFERENCE ===== #}
+    <h3 class="mb-3 mt-5">Props Reference</h3>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Available Props</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr>
+                            <th>Prop</th>
+                            <th>Type</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>title</code></td>
+                            <td><span class="badge bg-red-lt">string</span></td>
+                            <td>-</td>
+                            <td>Haupttitel (Pflicht)</td>
+                        </tr>
+                        <tr>
+                            <td><code>pretitle</code></td>
+                            <td><span class="badge bg-azure-lt">?string</span></td>
+                            <td><code>null</code></td>
+                            <td>Überschrift über dem Titel</td>
+                        </tr>
+                        <tr>
+                            <td><code>subtitle</code></td>
+                            <td><span class="badge bg-azure-lt">?string</span></td>
+                            <td><code>null</code></td>
+                            <td>Beschreibung unter dem Titel</td>
+                        </tr>
+                        <tr>
+                            <td><code>icon</code></td>
+                            <td><span class="badge bg-azure-lt">?string</span></td>
+                            <td><code>null</code></td>
+                            <td>Tabler Icon Name</td>
+                        </tr>
+                        <tr>
+                            <td><code>iconColor</code></td>
+                            <td><span class="badge bg-azure-lt">string</span></td>
+                            <td><code>'azure'</code></td>
+                            <td>Icon-Hintergrundfarbe</td>
+                        </tr>
+                        <tr>
+                            <td><code>avatar</code></td>
+                            <td><span class="badge bg-azure-lt">?string</span></td>
+                            <td><code>null</code></td>
+                            <td>Avatar-Bild-URL</td>
+                        </tr>
+                        <tr>
+                            <td><code>avatarInitials</code></td>
+                            <td><span class="badge bg-azure-lt">?string</span></td>
+                            <td><code>null</code></td>
+                            <td>Avatar-Initialen als Fallback</td>
+                        </tr>
+                        <tr>
+                            <td><code>avatarSize</code></td>
+                            <td><span class="badge bg-azure-lt">string</span></td>
+                            <td><code>'lg'</code></td>
+                            <td>Avatar/Icon-Größe (sm, md, lg, xl)</td>
+                        </tr>
+                        <tr>
+                            <td><code>variant</code></td>
+                            <td><span class="badge bg-azure-lt">string</span></td>
+                            <td><code>'default'</code></td>
+                            <td>default, bordered, compact</td>
+                        </tr>
+                        <tr>
+                            <td><code>container</code></td>
+                            <td><span class="badge bg-azure-lt">string</span></td>
+                            <td><code>'xl'</code></td>
+                            <td>Container-Typ (xl, fluid, none)</td>
+                        </tr>
+                        <tr>
+                            <td><code>breadcrumbs</code></td>
+                            <td><span class="badge bg-azure-lt">array</span></td>
+                            <td><code>[]</code></td>
+                            <td>[{label, url?}, ...]</td>
+                        </tr>
+                        <tr>
+                            <td><code>status</code></td>
+                            <td><span class="badge bg-azure-lt">?string</span></td>
+                            <td><code>null</code></td>
+                            <td>Status-Badge Text</td>
+                        </tr>
+                        <tr>
+                            <td><code>statusColor</code></td>
+                            <td><span class="badge bg-azure-lt">string</span></td>
+                            <td><code>'secondary'</code></td>
+                            <td>Status-Badge Farbe</td>
+                        </tr>
+                        <tr>
+                            <td><code>meta</code></td>
+                            <td><span class="badge bg-azure-lt">array</span></td>
+                            <td><code>[]</code></td>
+                            <td>[{icon?, text, url?}, ...]</td>
+                        </tr>
+                        <tr>
+                            <td><code>progress</code></td>
+                            <td><span class="badge bg-azure-lt">?int</span></td>
+                            <td><code>null</code></td>
+                            <td>Fortschritt 0-100</td>
+                        </tr>
+                        <tr>
+                            <td><code>progressColor</code></td>
+                            <td><span class="badge bg-azure-lt">string</span></td>
+                            <td><code>'primary'</code></td>
+                            <td>Fortschritts-Farbe</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# ===== SLOTS REFERENCE ===== #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Available Slots</h3>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-vcenter">
+                    <thead>
+                        <tr>
+                            <th>Slot</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>actions</code></td>
+                            <td>Buttons/Links rechts im Header</td>
+                        </tr>
+                        <tr>
+                            <td><code>search</code></td>
+                            <td>Such-Input Bereich</td>
+                        </tr>
+                        <tr>
+                            <td><code>tabs</code></td>
+                            <td>Tab-Navigation unter dem Header</td>
+                        </tr>
+                        <tr>
+                            <td><code>meta</code></td>
+                            <td>Custom Meta-Bereich (Alternative zu meta-Array)</td>
+                        </tr>
+                        <tr>
+                            <td><code>breadcrumbs</code></td>
+                            <td>Custom Breadcrumb-Navigation (Alternative zu breadcrumbs-Array)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

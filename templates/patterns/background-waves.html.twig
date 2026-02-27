@@ -1,0 +1,112 @@
+{#
+    Waves Background Pattern
+    ========================
+
+    Einfach in base.html.twig nach <body> einfügen:
+    {% include '@Tabler/patterns/background-waves.html.twig' %}
+
+    Optionale Parameter:
+    {% include '@Tabler/patterns/background-waves.html.twig' with {
+        theme: 'dark',        // dark, light
+        position: 'bottom',   // bottom, top, both
+        fixed: true           // true = fixed, false = absolute
+    } %}
+#}
+{% set theme = theme|default('dark') %}
+{% set position = position|default('bottom') %}
+{% set fixed = fixed|default(true) %}
+
+<style>
+.pattern-global-bg {
+    position: {{ fixed ? 'fixed' : 'absolute' }};
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+    {% if theme == 'dark' %}
+    background: linear-gradient(180deg, var(--pattern-bg-dark, #0a1f44) 0%, var(--pattern-primary, #0f3d91) 100%);
+    {% else %}
+    background: linear-gradient(180deg, var(--pattern-bg-light, #eef4ff) 0%, var(--pattern-bg-surface, #ffffff) 100%);
+    {% endif %}
+}
+
+.pattern-global-bg .wave-container {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+.pattern-global-bg .wave-container.bottom {
+    bottom: 0;
+}
+
+.pattern-global-bg .wave-container.top {
+    top: 0;
+    transform: rotate(180deg);
+}
+
+.pattern-global-bg .wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+}
+
+.pattern-global-bg .w1 {
+    animation: wave-move 12s linear infinite;
+    opacity: 0.6;
+}
+
+.pattern-global-bg .w2 {
+    animation: wave-move 8s linear infinite reverse;
+    opacity: 0.4;
+    bottom: 15px;
+}
+
+.pattern-global-bg .w3 {
+    animation: wave-move 15s linear infinite;
+    opacity: 0.2;
+    bottom: 30px;
+}
+
+@keyframes wave-move {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pattern-global-bg .wave {
+        animation: none;
+    }
+}
+</style>
+
+<div class="pattern-global-bg" aria-hidden="true">
+    {% if position == 'bottom' or position == 'both' %}
+    <div class="wave-container bottom">
+        <svg class="wave w1" viewBox="0 0 1440 150" preserveAspectRatio="none">
+            <path fill="rgba(255,255,255,0.3)" d="M0,50 C360,150 1080,0 1440,100 L1440,150 L0,150 Z M1440,50 C1800,150 2520,0 2880,100 L2880,150 L1440,150 Z"></path>
+        </svg>
+        <svg class="wave w2" viewBox="0 0 1440 150" preserveAspectRatio="none">
+            <path fill="rgba(255,255,255,0.2)" d="M0,80 C320,20 720,120 1080,60 C1260,30 1380,80 1440,60 L1440,150 L0,150 Z M1440,80 C1760,20 2160,120 2520,60 C2700,30 2820,80 2880,60 L2880,150 L1440,150 Z"></path>
+        </svg>
+        <svg class="wave w3" viewBox="0 0 1440 150" preserveAspectRatio="none">
+            <path fill="rgba(255,255,255,0.15)" d="M0,100 C200,50 400,130 600,80 C800,30 1000,110 1200,70 C1320,50 1400,90 1440,80 L1440,150 L0,150 Z M1440,100 C1640,50 1840,130 2040,80 C2240,30 2440,110 2640,70 C2760,50 2840,90 2880,80 L2880,150 L1440,150 Z"></path>
+        </svg>
+    </div>
+    {% endif %}
+
+    {% if position == 'top' or position == 'both' %}
+    <div class="wave-container top">
+        <svg class="wave w1" viewBox="0 0 1440 150" preserveAspectRatio="none">
+            <path fill="rgba(255,255,255,0.3)" d="M0,50 C360,150 1080,0 1440,100 L1440,150 L0,150 Z M1440,50 C1800,150 2520,0 2880,100 L2880,150 L1440,150 Z"></path>
+        </svg>
+        <svg class="wave w2" viewBox="0 0 1440 150" preserveAspectRatio="none">
+            <path fill="rgba(255,255,255,0.2)" d="M0,80 C320,20 720,120 1080,60 L1440,60 L1440,150 L0,150 Z M1440,80 C1760,20 2160,120 2520,60 L2880,60 L2880,150 L1440,150 Z"></path>
+        </svg>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,194 @@
+{#
+    PatternBackground Component
+    ==========================
+
+    Animierte Hintergrund-Patterns für beliebige Container.
+
+    Verwendung:
+        <twig:PatternBackground pattern="particles-sso" theme="dark" size="hero">
+            <div class="container">...</div>
+        </twig:PatternBackground>
+
+    Patterns:
+        - particles         : Schwebende Punkte
+        - particles-sso     : SSO-Icons (Keys, Shields, Locks)
+        - particles-network : Netzwerk-Knoten
+        - waves             : Animierte Wellen
+        - geometric         : Geometrische Formen
+        - blob              : Organische Blobs
+        - grid              : Tech-Grid
+        - topo              : Topografische Linien
+        - dots              : Dot-Matrix
+        - circuit           : Schaltkreis-Linien
+#}
+
+<{{ tag }} class="{{ this.cssClasses }}">
+    {# Pattern Layer #}
+    <div class="pattern-layer">
+        {# ============================================================
+           PARTICLES - Schwebende Punkte
+           ============================================================ #}
+        {% if pattern == 'particles' %}
+            {# Glow Circles #}
+            <div class="glow glow-1"></div>
+            <div class="glow glow-2"></div>
+            <div class="glow glow-3"></div>
+
+            {# Particles #}
+            {% for i in this.particleRange %}
+                <div class="particle p{{ i }}"></div>
+            {% endfor %}
+        {% endif %}
+
+        {# ============================================================
+           PARTICLES SSO - Sicherheits-Icons
+           ============================================================ #}
+        {% if pattern == 'particles-sso' %}
+            {# Glow Circles #}
+            <div class="glow glow-1"></div>
+            <div class="glow glow-2"></div>
+
+            {# Connection Lines #}
+            {% for i in this.lineRange %}
+                <div class="line l{{ i }}"></div>
+            {% endfor %}
+
+            {# SSO Icons #}
+            {% for i in this.iconRange %}
+                <i class="ti ti-{{ this.getSsoIcon(i) }} icon i{{ i }}"></i>
+            {% endfor %}
+        {% endif %}
+
+        {# ============================================================
+           PARTICLES NETWORK - Netzwerk-Knoten
+           ============================================================ #}
+        {% if pattern == 'particles-network' %}
+            {% if this.useSvgConnections %}
+                {# SVG-basierte Verbindungslinien (exakt) #}
+                <div class="connection-lines">
+                    <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+                        {% for line in this.svgLines %}
+                            <line x1="{{ line.x1 }}" y1="{{ line.y1 }}" x2="{{ line.x2 }}" y2="{{ line.y2 }}" />
+                        {% endfor %}
+                    </svg>
+                </div>
+            {% else %}
+                {# CSS-basierte Edges (Standard) #}
+                {% for i in this.edgeRange %}
+                    <div class="edge e{{ i }}"></div>
+                {% endfor %}
+            {% endif %}
+
+            {# Network Nodes #}
+            {% for i in this.nodeRange %}
+                <div class="node n{{ i }}"></div>
+            {% endfor %}
+        {% endif %}
+
+        {# ============================================================
+           WAVES - Animierte Wellen
+           ============================================================ #}
+        {% if pattern == 'waves' %}
+            <div class="wave-container">
+                <svg class="wave w1" viewBox="0 0 1440 150" preserveAspectRatio="none">
+                    <path fill="rgba(255,255,255,0.3)" d="M0,50 C360,150 1080,0 1440,100 L1440,150 L0,150 Z M1440,50 C1800,150 2520,0 2880,100 L2880,150 L1440,150 Z"></path>
+                </svg>
+                <svg class="wave w2" viewBox="0 0 1440 150" preserveAspectRatio="none">
+                    <path fill="rgba(255,255,255,0.2)" d="M0,80 C320,20 720,120 1080,60 C1260,30 1380,80 1440,60 L1440,150 L0,150 Z M1440,80 C1760,20 2160,120 2520,60 C2700,30 2820,80 2880,60 L2880,150 L1440,150 Z"></path>
+                </svg>
+                <svg class="wave w3" viewBox="0 0 1440 150" preserveAspectRatio="none">
+                    <path fill="rgba(255,255,255,0.15)" d="M0,100 C200,50 400,130 600,80 C800,30 1000,110 1200,70 C1320,50 1400,90 1440,80 L1440,150 L0,150 Z M1440,100 C1640,50 1840,130 2040,80 C2240,30 2440,110 2640,70 C2760,50 2840,90 2880,80 L2880,150 L1440,150 Z"></path>
+                </svg>
+            </div>
+        {% endif %}
+
+        {# ============================================================
+           GEOMETRIC - Geometrische Formen
+           ============================================================ #}
+        {% if pattern == 'geometric' %}
+            <div class="shape s1">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" stroke-width="1"/>
+                </svg>
+            </div>
+            <div class="shape s2">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="10 5"/>
+                </svg>
+            </div>
+            <div class="shape s3">
+                <svg viewBox="0 0 100 100">
+                    <polygon points="50,10 90,90 10,90" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <polygon points="50,25 75,75 25,75" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="shape s4">
+                <svg viewBox="0 0 100 100">
+                    <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" stroke-width="2" rx="5"/>
+                </svg>
+            </div>
+            <div class="shape s5">
+                <svg viewBox="0 0 100 100">
+                    <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="shape s6">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="5 3"/>
+                </svg>
+            </div>
+        {% endif %}
+
+        {# ============================================================
+           BLOB - Organische Formen
+           ============================================================ #}
+        {% if pattern == 'blob' %}
+            <div class="blob b1"></div>
+            <div class="blob b2"></div>
+            <div class="blob b3"></div>
+        {% endif %}
+
+        {# ============================================================
+           GRID - Tech Grid
+           ============================================================ #}
+        {% if pattern == 'grid' %}
+            <div class="grid"></div>
+            <div class="scan sc1"></div>
+            <div class="scan sc2"></div>
+            <div class="dot d1"></div>
+            <div class="dot d2"></div>
+            <div class="dot d3"></div>
+            <div class="dot d4"></div>
+            <div class="dot d5"></div>
+        {% endif %}
+
+        {# ============================================================
+           TOPO - Topografische Linien
+           ============================================================ #}
+        {% if pattern == 'topo' %}
+            <div class="topo"></div>
+            <div class="accent"></div>
+        {% endif %}
+
+        {# ============================================================
+           DOTS - Dot Matrix
+           ============================================================ #}
+        {% if pattern == 'dots' %}
+            <div class="dots-grid"></div>
+        {% endif %}
+
+        {# ============================================================
+           CIRCUIT - Schaltkreis-Linien
+           ============================================================ #}
+        {% if pattern == 'circuit' %}
+            <div class="circuit"></div>
+        {% endif %}
+    </div>
+
+    {# Content #}
+    <div class="pattern-content">
+        {% block content %}{% endblock %}
+    </div>
+</{{ tag }}>

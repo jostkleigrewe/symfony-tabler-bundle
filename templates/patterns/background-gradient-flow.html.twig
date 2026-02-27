@@ -1,0 +1,143 @@
+{#
+    Gradient Flow Background Pattern
+    ================================
+
+    Fliessende Gradienten mit animierten Blob-Formen.
+
+    Einfach in base.html.twig nach <body> einfuegen:
+    {% include '@Tabler/patterns/background-gradient-flow.html.twig' %}
+
+    Optionale Parameter:
+    {% include '@Tabler/patterns/background-gradient-flow.html.twig' with {
+        theme: 'pink',       // pink, blue, purple, teal
+        intensity: 'medium', // subtle, medium, intense
+        fixed: true          // true = fixed, false = absolute
+    } %}
+#}
+{% set theme = theme|default('pink') %}
+{% set intensity = intensity|default('medium') %}
+{% set fixed = fixed|default(true) %}
+
+<style>
+.pattern-gradient-flow-bg {
+    position: {{ fixed ? 'fixed' : 'absolute' }};
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+
+    {% if theme == 'pink' %}
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    {% elseif theme == 'blue' %}
+    background: linear-gradient(135deg, #0f3d91 0%, #1f74ff 50%, #38bdf8 100%);
+    {% elseif theme == 'purple' %}
+    background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a78bfa 100%);
+    {% elseif theme == 'teal' %}
+    background: linear-gradient(135deg, #134e4a 0%, #14b8a6 50%, #5eead4 100%);
+    {% endif %}
+}
+
+/* Animated Blobs */
+.pattern-gradient-flow-bg .gf-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: gf-float 20s ease-in-out infinite;
+
+    {% if intensity == 'subtle' %}
+    opacity: 0.15;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.4;
+    {% else %}
+    opacity: 0.25;
+    {% endif %}
+}
+
+.pattern-gradient-flow-bg .gf-blob-1 {
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.3);
+    top: -150px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.pattern-gradient-flow-bg .gf-blob-2 {
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.25);
+    bottom: -100px;
+    right: -50px;
+    animation-delay: -5s;
+}
+
+.pattern-gradient-flow-bg .gf-blob-3 {
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.2);
+    top: 40%;
+    left: 30%;
+    animation-delay: -10s;
+}
+
+.pattern-gradient-flow-bg .gf-blob-4 {
+    width: 250px;
+    height: 250px;
+    background: rgba(255, 255, 255, 0.15);
+    top: 20%;
+    right: 20%;
+    animation-delay: -15s;
+}
+
+@keyframes gf-float {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(30px, -30px) scale(1.05);
+    }
+    50% {
+        transform: translate(-20px, 20px) scale(0.95);
+    }
+    75% {
+        transform: translate(20px, 10px) scale(1.02);
+    }
+}
+
+/* Grain Overlay */
+.pattern-gradient-flow-bg .gf-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pattern-gradient-flow-bg .gf-blob {
+        animation: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .pattern-gradient-flow-bg .gf-blob {
+        transform: scale(0.6);
+    }
+    .pattern-gradient-flow-bg .gf-blob-1 {
+        top: -80px;
+        left: -60px;
+    }
+    .pattern-gradient-flow-bg .gf-blob-2 {
+        bottom: -60px;
+        right: -30px;
+    }
+}
+</style>
+
+<div class="pattern-gradient-flow-bg" aria-hidden="true">
+    <div class="gf-blob gf-blob-1"></div>
+    <div class="gf-blob gf-blob-2"></div>
+    <div class="gf-blob gf-blob-3"></div>
+    <div class="gf-blob gf-blob-4"></div>
+    <div class="gf-grain"></div>
+</div>

@@ -1,0 +1,94 @@
+{#
+    DE: Stepper-Komponente für Prozess-Visualisierung
+    EN: Stepper component for process visualization
+
+    @see Jostkleigrewe\TablerBundle\Twig\Components\Stepper
+#}
+{% set col_class = 'col-md-' ~ (12 // columns) ~ ' col-sm-6' %}
+
+{% if variant == 'horizontal' %}
+    {# Horizontal variant with dots and connectors #}
+    <div class="stepper stepper-horizontal">
+        <div class="d-flex justify-content-between align-items-start position-relative">
+            {% if showConnectors %}
+                <div class="stepper-connector"></div>
+            {% endif %}
+            {% for step in steps %}
+                <div class="stepper-step text-center flex-fill">
+                    <div class="stepper-indicator mb-2">
+                        {% if step.icon is defined and step.icon %}
+                            <span class="avatar avatar-sm bg-{{ step.icon_color|default('primary') }}-lt text-{{ step.icon_color|default('primary') }}">
+                                <i class="ti {{ step.icon }}"></i>
+                            </span>
+                        {% elseif showNumbers %}
+                            <span class="avatar avatar-sm bg-primary text-white">{{ loop.index }}</span>
+                        {% else %}
+                            <span class="avatar avatar-sm bg-primary"></span>
+                        {% endif %}
+                    </div>
+                    <div class="stepper-content">
+                        <div class="fw-semibold small">{{ step.title }}</div>
+                        {% if step.text is defined and step.text %}
+                            <div class="text-secondary small">{{ step.text }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% elseif variant == 'compact' %}
+    {# Compact variant without cards #}
+    <div class="stepper stepper-compact">
+        <div class="row g-3">
+            {% for step in steps %}
+                <div class="{{ col_class }}">
+                    <div class="d-flex align-items-start gap-3">
+                        {% if step.icon is defined and step.icon %}
+                            <span class="avatar avatar-sm bg-{{ step.icon_color|default('primary') }}-lt text-{{ step.icon_color|default('primary') }} flex-shrink-0">
+                                <i class="ti {{ step.icon }}"></i>
+                            </span>
+                        {% elseif showNumbers %}
+                            <span class="badge bg-primary flex-shrink-0">{{ loop.index }}</span>
+                        {% endif %}
+                        <div>
+                            <div class="fw-semibold">{{ step.title }}</div>
+                            {% if step.text is defined and step.text %}
+                                <div class="text-secondary small">{{ step.text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    {# Default variant with cards #}
+    <div class="stepper stepper-cards">
+        <div class="row g-3">
+            {% for step in steps %}
+                <div class="{{ col_class }}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-2">
+                                {% if showNumbers %}
+                                    <span class="badge bg-primary me-2">{{ loop.index }}</span>
+                                {% endif %}
+                                <div class="fw-semibold">{{ step.title }}</div>
+                            </div>
+                            <div class="d-flex align-items-start gap-3">
+                                {% if step.icon is defined and step.icon %}
+                                    <div class="stepper-icon text-{{ step.icon_color|default('primary') }}">
+                                        <i class="ti {{ step.icon }} icon-lg"></i>
+                                    </div>
+                                {% endif %}
+                                {% if step.text is defined and step.text %}
+                                    <p class="text-secondary mb-0">{{ step.text }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

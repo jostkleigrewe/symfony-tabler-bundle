@@ -3,19 +3,20 @@
     "description": "Tabler Design System FormTypes and Components for Symfony",
     "type": "symfony-bundle",
     "license": "MIT",
-    "keywords": ["symfony", "tabler", "form", "ui", "components", "design-system"],
+    "keywords": ["symfony", "symfony-ux", "tabler", "form", "ui", "components", "design-system", "stimulus"],
     "require": {
         "php": ">=8.4",
         "symfony/form": "^7.0 || ^8.0",
-        "symfony/twig-bundle": "^7.0 || ^8.0"
+        "symfony/twig-bundle": "^7.0 || ^8.0",
+        "symfony/ux-twig-component": "^2.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.0",
         "symplify/easy-coding-standard": "^12.0 || ^13.0"
     },
     "suggest": {
-        "symfony/ux-twig-component": "Required for standalone Twig components (FloatingInput etc.)",
-        "doctrine/orm": "Required for EntityCardType"
+        "symfony/stimulus-bundle": "Required for Stimulus controllers (theme, clipboard, sidebar, etc.)",
+        "doctrine/orm": "Required for EntityCardType and CardSelectType"
     },
     "autoload": {
         "psr-4": {
@@ -34,6 +35,11 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "require": "^7.0 || ^8.0"
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

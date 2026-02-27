@@ -1,0 +1,48 @@
+{% set theme_usage %}
+{# Theme Controller einbinden #}
+<div data-controller="theme"
+     data-theme-themes-value='["eurip", "forest", "sunset"]'>
+
+    {# Mode Toggle (Light/Dark/Auto) #}
+    <button data-action="click->theme#choose"
+            data-theme-value="light">
+        Hell
+    </button>
+    <button data-action="click->theme#choose"
+            data-theme-value="dark">
+        Dunkel
+    </button>
+    <button data-action="click->theme#choose"
+            data-theme-value="auto">
+        Auto
+    </button>
+
+    {# Theme Selector #}
+    <button data-action="click->theme#selectTheme"
+            data-theme="forest"
+            data-theme-target="themeOption">
+        Forest Theme
+    </button>
+
+    {# Cycle Button #}
+    <button data-action="click->theme#cycle">
+        Nächster Modus
+    </button>
+</div>
+{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="theme_usage" />
+
+<h5 class="mt-4 mb-3">Mit der ThemePicker-Komponente</h5>
+<p class="text-secondary small">Die Komponente ist sofort einsatzbereit und enthält alle UI-Elemente:</p>
+
+{% set theme_component %}{% verbatim %}
+{# Komplett (Mode + Themes) #}
+<twig:Tabler:ThemePicker />
+
+{# Nur Mode-Toggle #}
+<twig:Tabler:ThemePicker :showThemeSelector="false" />
+
+{# Kompakte Variante (nur Icons) #}
+<twig:Tabler:ThemePicker variant="compact" />
+{% endverbatim %}{% endset %}
+<twig:Tabler:CodeBlock language="twig" :code="theme_component" />

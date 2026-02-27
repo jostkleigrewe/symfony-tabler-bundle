@@ -15,12 +15,13 @@
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark">
                     <a href="{{ path('tabler_showcase_index') }}">
-                        <i class="ti ti-layout-dashboard me-2"></i>
+                        <i class="ti ti-package me-2"></i>
                         Tabler Bundle
                     </a>
                 </h1>
                 <div class="collapse navbar-collapse" id="sidebar-menu">
                     <ul class="navbar-nav pt-lg-3">
+                        {# Overview #}
                         <li class="nav-item">
                             <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_index' ? ' active' : '' }}" href="{{ path('tabler_showcase_index') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -29,22 +30,134 @@
                                 <span class="nav-link-title">Overview</span>
                             </a>
                         </li>
+
+                        {# Divider #}
+                        <li class="nav-item pt-2">
+                            <span class="nav-link text-uppercase text-secondary small fw-bold">
+                                TwigComponents
+                            </span>
+                        </li>
+
+                        {# UI Components #}
                         <li class="nav-item">
                             <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_components' ? ' active' : '' }}" href="{{ path('tabler_showcase_components') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <i class="ti ti-components"></i>
                                 </span>
-                                <span class="nav-link-title">TwigComponents</span>
+                                <span class="nav-link-title">UI Components</span>
                             </a>
                         </li>
+
+                        {# PageHeaders #}
+                        <li class="nav-item">
+                            <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_page_headers' ? ' active' : '' }}" href="{{ path('tabler_showcase_page_headers') }}">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-layout-navbar"></i>
+                                </span>
+                                <span class="nav-link-title">PageHeader</span>
+                            </a>
+                        </li>
+
+                        {# Patterns #}
+                        <li class="nav-item">
+                            <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_patterns' ? ' active' : '' }}" href="{{ path('tabler_showcase_patterns') }}">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-background"></i>
+                                </span>
+                                <span class="nav-link-title">Patterns</span>
+                            </a>
+                        </li>
+
+                        {# Themes #}
+                        <li class="nav-item">
+                            <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_themes' ? ' active' : '' }}" href="{{ path('tabler_showcase_themes') }}">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-palette"></i>
+                                </span>
+                                <span class="nav-link-title">Themes</span>
+                            </a>
+                        </li>
+
+                        {# Divider #}
+                        <li class="nav-item pt-3">
+                            <span class="nav-link text-uppercase text-secondary small fw-bold">
+                                JavaScript
+                            </span>
+                        </li>
+
+                        {# Stimulus Controllers with Submenu #}
+                        {% set is_controller_section = app.request.attributes.get('_route') starts with 'tabler_showcase_controller' %}
+                        <li class="nav-item{{ is_controller_section ? ' active' : '' }}">
+                            <a class="nav-link dropdown-toggle{{ is_controller_section ? '' : ' collapsed' }}"
+                               href="#controllers-submenu"
+                               data-bs-toggle="collapse"
+                               role="button"
+                               aria-expanded="{{ is_controller_section ? 'true' : 'false' }}">
+                                <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                    <i class="ti ti-brand-javascript"></i>
+                                </span>
+                                <span class="nav-link-title">Stimulus Controllers</span>
+                            </a>
+                            <div class="collapse{{ is_controller_section ? ' show' : '' }}" id="controllers-submenu">
+                                <ul class="nav nav-pills flex-column ps-4">
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1{{ app.request.attributes.get('_route') == 'tabler_showcase_controllers' ? ' active' : '' }}"
+                                           href="{{ path('tabler_showcase_controllers') }}">
+                                            <i class="ti ti-list me-1"></i>Übersicht
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1{{ app.request.attributes.get('_route') == 'tabler_showcase_controller_detail' and app.request.attributes.get('key') == 'theme' ? ' active' : '' }}"
+                                           href="{{ path('tabler_showcase_controller_detail', {key: 'theme'}) }}">
+                                            <i class="ti ti-palette me-1 text-purple"></i>Theme
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1{{ app.request.attributes.get('_route') == 'tabler_showcase_controller_detail' and app.request.attributes.get('key') == 'clipboard' ? ' active' : '' }}"
+                                           href="{{ path('tabler_showcase_controller_detail', {key: 'clipboard'}) }}">
+                                            <i class="ti ti-clipboard-copy me-1 text-green"></i>Clipboard
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1{{ app.request.attributes.get('_route') == 'tabler_showcase_controller_detail' and app.request.attributes.get('key') == 'sidebar' ? ' active' : '' }}"
+                                           href="{{ path('tabler_showcase_controller_detail', {key: 'sidebar'}) }}">
+                                            <i class="ti ti-layout-sidebar-left-collapse me-1 text-azure"></i>Sidebar
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1{{ app.request.attributes.get('_route') == 'tabler_showcase_controller_detail' and app.request.attributes.get('key') == 'modal-frame' ? ' active' : '' }}"
+                                           href="{{ path('tabler_showcase_controller_detail', {key: 'modal-frame'}) }}">
+                                            <i class="ti ti-browser me-1 text-orange"></i>Modal Frame
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link py-1{{ app.request.attributes.get('_route') == 'tabler_showcase_controller_detail' and app.request.attributes.get('key') == 'required-checkbox' ? ' active' : '' }}"
+                                           href="{{ path('tabler_showcase_controller_detail', {key: 'required-checkbox'}) }}">
+                                            <i class="ti ti-checkbox me-1 text-red"></i>Required Checkbox
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        {# Divider #}
+                        <li class="nav-item pt-3">
+                            <span class="nav-link text-uppercase text-secondary small fw-bold">
+                                FormTypes
+                            </span>
+                        </li>
+
+                        {# FormTypes #}
                         <li class="nav-item">
                             <a class="nav-link{{ app.request.attributes.get('_route') == 'tabler_showcase_form_types' ? ' active' : '' }}" href="{{ path('tabler_showcase_form_types') }}">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
                                     <i class="ti ti-forms"></i>
                                 </span>
-                                <span class="nav-link-title">FormTypes</span>
+                                <span class="nav-link-title">Form Inputs</span>
                             </a>
                         </li>
+
+                        {# Footer Links #}
                         <li class="nav-item mt-auto">
                             <a class="nav-link" href="https://github.com/jostkleigrewe/symfony-tabler-bundle" target="_blank">
                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -59,6 +172,12 @@
         </aside>
 
         <div class="page-wrapper">
+            {# Theme Bar - Theme Picker im Header #}
+            <div class="showcase-theme-bar">
+                <span class="showcase-theme-bar__label">Preview:</span>
+                <twig:Tabler:ThemePicker variant="compact" />
+            </div>
+
             {% block page_header %}{% endblock %}
 
             <div class="page-body">

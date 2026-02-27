@@ -1,0 +1,135 @@
+{% extends '@Tabler/showcase/layout.html.twig' %}
+
+{% block title %}Stimulus Controllers - Tabler Bundle{% endblock %}
+
+{% block page_header %}
+    <twig:Tabler:PageHeader
+        title="Stimulus Controllers"
+        pretitle="JavaScript"
+        subtitle="Interaktive Controller für Theme-Switching, Copy-to-Clipboard und mehr"
+        icon="brand-javascript"
+        iconColor="yellow"
+    />
+{% endblock %}
+
+{% block content %}
+    {# Introduction #}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3 class="card-title">Übersicht</h3>
+        </div>
+        <div class="card-body">
+            <p class="text-secondary mb-3">
+                Das Tabler Bundle enthält {{ controllers|length }} Stimulus Controller für häufige Interaktionen.
+                Die Controller sind als UX-Bundle Assets verfügbar und können über den AssetMapper eingebunden werden.
+            </p>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="card bg-azure-lt">
+                        <div class="card-body">
+                            <h4 class="mb-2"><i class="ti ti-package me-2"></i>Bundle-Namespace</h4>
+                            <code class="text-azure">@jostkleigrewe/tabler-bundle</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card bg-green-lt">
+                        <div class="card-body">
+                            <h4 class="mb-2"><i class="ti ti-file-code me-2"></i>Controller-Pfad</h4>
+                            <code class="text-green">assets/controllers/</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Controller Cards #}
+    <div class="row g-4">
+        {% for key, controller in controllers %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="avatar bg-{{ controller.color }}-lt me-3">
+                                <i class="ti ti-{{ controller.icon }} text-{{ controller.color }}"></i>
+                            </span>
+                            <div>
+                                <h3 class="card-title mb-0">{{ controller.name }}</h3>
+                                <code class="text-secondary small">{{ key }}</code>
+                            </div>
+                        </div>
+                        <p class="text-secondary mb-3">{{ controller.description }}</p>
+                        <div class="d-flex flex-wrap gap-1 mb-3">
+                            {% if controller.targets is not empty %}
+                                <span class="badge bg-secondary-lt" title="Targets">
+                                    <i class="ti ti-target me-1"></i>{{ controller.targets|length }}
+                                </span>
+                            {% endif %}
+                            {% if controller.values is not empty %}
+                                <span class="badge bg-secondary-lt" title="Values">
+                                    <i class="ti ti-variable me-1"></i>{{ controller.values|length }}
+                                </span>
+                            {% endif %}
+                            {% if controller.actions is not empty %}
+                                <span class="badge bg-secondary-lt" title="Actions">
+                                    <i class="ti ti-click me-1"></i>{{ controller.actions|length }}
+                                </span>
+                            {% endif %}
+                            {% if controller.events is not empty %}
+                                <span class="badge bg-secondary-lt" title="Events">
+                                    <i class="ti ti-broadcast me-1"></i>{{ controller.events|length }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('tabler_showcase_controller_detail', {key: key}) }}" class="btn btn-primary w-100">
+                            <i class="ti ti-arrow-right me-1"></i>Details & Beispiele
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {# Installation #}
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3 class="card-title">Installation & Einbindung</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="mb-3">1. importmap.php erweitern</h4>
+{% set importmap_code %}
+// importmap.php
+return [
+    // ... andere Einträge
+    '@jostkleigrewe/tabler-bundle/theme_controller.js' => [
+        'path' => '@jostkleigrewe/tabler-bundle/theme_controller.js',
+    ],
+    '@jostkleigrewe/tabler-bundle/clipboard_controller.js' => [
+        'path' => '@jostkleigrewe/tabler-bundle/clipboard_controller.js',
+    ],
+    // ... weitere Controller
+];
+{% endset %}
+            <twig:Tabler:CodeBlock language="php" :code="importmap_code" />
+
+            <h4 class="mt-4 mb-3">2. Controller in stimulus_bootstrap.js registrieren</h4>
+{% set bootstrap_code %}
+import { startStimulusApp } from '@symfony/stimulus-bundle';
+
+// Bundle-Controller importieren
+import ThemeController from '@jostkleigrewe/tabler-bundle/theme_controller.js';
+import ClipboardController from '@jostkleigrewe/tabler-bundle/clipboard_controller.js';
+
+const app = startStimulusApp();
+
+// Mit kurzen Namen registrieren
+app.register('theme', ThemeController);
+app.register('clipboard', ClipboardController);
+{% endset %}
+            <twig:Tabler:CodeBlock language="javascript" :code="bootstrap_code" />
+        </div>
+    </div>
+{% endblock %}

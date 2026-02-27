@@ -1,0 +1,186 @@
+{#
+    SSO Background Pattern
+    ======================
+
+    Einfach in base.html.twig nach <body> einfügen:
+    {% include '@Tabler/patterns/background-sso.html.twig' %}
+
+    Optionale Parameter:
+    {% include '@Tabler/patterns/background-sso.html.twig' with {
+        theme: 'dark',        // dark, light
+        intensity: 'medium',  // subtle, medium, intense
+        fixed: true           // true = fixed, false = absolute
+    } %}
+#}
+{% set theme = theme|default('dark') %}
+{% set intensity = intensity|default('medium') %}
+{% set fixed = fixed|default(true) %}
+
+<style>
+/* Pattern SSO Background */
+.pattern-global-bg {
+    position: {{ fixed ? 'fixed' : 'absolute' }};
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+    {% if theme == 'dark' %}
+    background: linear-gradient(135deg, var(--pattern-bg-dark, #0a1f44) 0%, color-mix(in srgb, var(--pattern-bg-dark, #0a1f44) 70%, var(--pattern-primary, #0f3d91)) 100%);
+    {% else %}
+    background: linear-gradient(135deg, var(--pattern-bg-light, #eef4ff) 0%, var(--pattern-bg-surface, #ffffff) 100%);
+    {% endif %}
+}
+
+.pattern-global-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(31,116,255,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(15,61,145,0.1) 0%, transparent 35%);
+}
+
+.pattern-global-bg .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    {% if intensity == 'subtle' %}
+    opacity: 0.15;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.5;
+    {% else %}
+    opacity: 0.3;
+    {% endif %}
+}
+
+.pattern-global-bg .glow-1 {
+    width: 500px;
+    height: 500px;
+    background: var(--pattern-primary, #0f3d91);
+    top: -150px;
+    left: -100px;
+}
+
+.pattern-global-bg .glow-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--pattern-secondary, #1f74ff);
+    bottom: -100px;
+    right: -50px;
+}
+
+.pattern-global-bg .glow-3 {
+    width: 300px;
+    height: 300px;
+    background: var(--pattern-accent, #0a1f44);
+    top: 50%;
+    right: 20%;
+    opacity: 0.15;
+}
+
+.pattern-global-bg .sso-icon {
+    position: absolute;
+    {% if theme == 'dark' %}
+    color: var(--pattern-secondary, #1f74ff);
+    {% else %}
+    color: var(--pattern-primary, #0f3d91);
+    {% endif %}
+    {% if intensity == 'subtle' %}
+    opacity: 0.06;
+    {% elseif intensity == 'intense' %}
+    opacity: 0.25;
+    {% else %}
+    opacity: 0.12;
+    {% endif %}
+    animation: sso-icon-float 25s ease-in-out infinite;
+}
+
+.pattern-global-bg .line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pattern-secondary, #1f74ff), transparent);
+    opacity: 0.08;
+    animation: sso-line-pulse 8s ease-in-out infinite;
+}
+
+@keyframes sso-icon-float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(20px, -25px) rotate(10deg); }
+    50% { transform: translate(-10px, -50px) rotate(-5deg); }
+    75% { transform: translate(-25px, -25px) rotate(5deg); }
+}
+
+@keyframes sso-line-pulse {
+    0%, 100% { opacity: 0.04; }
+    50% { opacity: 0.12; }
+}
+
+/* Icon Positions */
+.pattern-global-bg .i1 { top: 5%; left: 8%; font-size: 1.5rem; animation-delay: 0s; }
+.pattern-global-bg .i2 { top: 12%; left: 75%; font-size: 2.5rem; animation-delay: -2s; }
+.pattern-global-bg .i3 { top: 30%; left: 5%; font-size: 2rem; animation-delay: -4s; }
+.pattern-global-bg .i4 { top: 22%; left: 90%; font-size: 1.8rem; animation-delay: -6s; }
+.pattern-global-bg .i5 { top: 52%; left: 85%; font-size: 2.2rem; animation-delay: -8s; }
+.pattern-global-bg .i6 { top: 68%; left: 8%; font-size: 1.6rem; animation-delay: -10s; }
+.pattern-global-bg .i7 { top: 78%; left: 62%; font-size: 2rem; animation-delay: -12s; }
+.pattern-global-bg .i8 { top: 42%; left: 32%; font-size: 1.4rem; animation-delay: -14s; }
+.pattern-global-bg .i9 { top: 58%; left: 52%; font-size: 1.8rem; animation-delay: -16s; }
+.pattern-global-bg .i10 { top: 88%; left: 28%; font-size: 1.5rem; animation-delay: -18s; }
+.pattern-global-bg .i11 { top: 8%; left: 42%; font-size: 1.3rem; animation-delay: -1s; }
+.pattern-global-bg .i12 { top: 38%; left: 68%; font-size: 2.8rem; animation-delay: -3s; opacity: 0.06; }
+.pattern-global-bg .i13 { top: 72%; left: 42%; font-size: 1.7rem; animation-delay: -5s; }
+.pattern-global-bg .i14 { top: 18%; left: 52%; font-size: 1.4rem; animation-delay: -7s; }
+.pattern-global-bg .i15 { top: 85%; left: 82%; font-size: 2rem; animation-delay: -9s; }
+
+/* Line Positions */
+.pattern-global-bg .l1 { width: 200px; top: 20%; left: 15%; transform: rotate(25deg); }
+.pattern-global-bg .l2 { width: 150px; top: 50%; left: 60%; transform: rotate(-15deg); animation-delay: -2s; }
+.pattern-global-bg .l3 { width: 180px; top: 75%; left: 25%; transform: rotate(10deg); animation-delay: -4s; }
+.pattern-global-bg .l4 { width: 120px; top: 35%; left: 45%; transform: rotate(-30deg); animation-delay: -6s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pattern-global-bg .sso-icon,
+    .pattern-global-bg .line {
+        animation: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .pattern-global-bg .sso-icon {
+        font-size: 1rem !important;
+    }
+    .pattern-global-bg .glow {
+        transform: scale(0.5);
+    }
+}
+</style>
+
+<div class="pattern-global-bg" aria-hidden="true">
+    {# Glow Effects #}
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+
+    {# Connection Lines #}
+    <div class="line l1"></div>
+    <div class="line l2"></div>
+    <div class="line l3"></div>
+    <div class="line l4"></div>
+
+    {# SSO Icons #}
+    <i class="ti ti-shield-lock sso-icon i1"></i>
+    <i class="ti ti-key sso-icon i2"></i>
+    <i class="ti ti-lock sso-icon i3"></i>
+    <i class="ti ti-shield-check sso-icon i4"></i>
+    <i class="ti ti-fingerprint sso-icon i5"></i>
+    <i class="ti ti-user-check sso-icon i6"></i>
+    <i class="ti ti-certificate sso-icon i7"></i>
+    <i class="ti ti-shield sso-icon i8"></i>
+    <i class="ti ti-lock-access sso-icon i9"></i>
+    <i class="ti ti-user-shield sso-icon i10"></i>
+    <i class="ti ti-key sso-icon i11"></i>
+    <i class="ti ti-shield-lock sso-icon i12"></i>
+    <i class="ti ti-lock sso-icon i13"></i>
+    <i class="ti ti-certificate sso-icon i14"></i>
+    <i class="ti ti-fingerprint sso-icon i15"></i>
+</div>

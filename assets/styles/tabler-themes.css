@@ -1,0 +1,419 @@
+/**
+ * =================================================================
+ * Tabler Themes - Color Scheme System
+ * =================================================================
+ *
+ * DE: Themes ändern die Farbpalette, nicht den Dark/Light-Modus.
+ *     Der Dark/Light-Modus (data-bs-theme) bleibt unabhängig.
+ *
+ * EN: Themes change the color palette, not the dark/light mode.
+ *     The dark/light mode (data-bs-theme) remains independent.
+ *
+ * Usage:
+ *   <html data-theme="eurip" data-bs-theme="light">
+ *   <html data-theme="forest" data-bs-theme="dark">
+ */
+
+/* =================================================================
+   BASE THEME STRUCTURE
+   Each theme defines primary, secondary and accent colors
+   ================================================================= */
+
+/* -----------------------------------------------------------------
+   EURIP Theme (Default) - Corporate Blue
+   ----------------------------------------------------------------- */
+[data-theme="eurip"],
+:root {
+    --theme-primary: #0f3d91;
+    --theme-primary-rgb: 15, 61, 145;
+    --theme-primary-light: #1f74ff;
+    --theme-primary-dark: #0a2a66;
+
+    --theme-secondary: #6366f1;
+    --theme-secondary-rgb: 99, 102, 241;
+
+    --theme-accent: #1f74ff;
+    --theme-accent-rgb: 31, 116, 255;
+
+    --theme-gradient-start: #0f3d91;
+    --theme-gradient-end: #1f74ff;
+
+    --theme-hero-from: #0a1f44;
+    --theme-hero-to: #0f3d91;
+
+    --theme-surface-tint: rgba(15, 61, 145, 0.05);
+    --theme-surface-tint-hover: rgba(15, 61, 145, 0.1);
+
+    /* Map to Tabler variables */
+    --tblr-primary: var(--theme-primary);
+    --tblr-primary-rgb: var(--theme-primary-rgb);
+}
+
+/* -----------------------------------------------------------------
+   Forest Theme - Natural Green
+   ----------------------------------------------------------------- */
+[data-theme="forest"] {
+    --theme-primary: #059669;
+    --theme-primary-rgb: 5, 150, 105;
+    --theme-primary-light: #10b981;
+    --theme-primary-dark: #047857;
+
+    --theme-secondary: #14b8a6;
+    --theme-secondary-rgb: 20, 184, 166;
+
+    --theme-accent: #34d399;
+    --theme-accent-rgb: 52, 211, 153;
+
+    --theme-gradient-start: #059669;
+    --theme-gradient-end: #10b981;
+
+    --theme-hero-from: #022c22;
+    --theme-hero-to: #064e3b;
+
+    --theme-surface-tint: rgba(5, 150, 105, 0.05);
+    --theme-surface-tint-hover: rgba(5, 150, 105, 0.1);
+
+    --tblr-primary: var(--theme-primary);
+    --tblr-primary-rgb: var(--theme-primary-rgb);
+}
+
+/* -----------------------------------------------------------------
+   Sunset Theme - Warm Orange/Red
+   ----------------------------------------------------------------- */
+[data-theme="sunset"] {
+    --theme-primary: #ea580c;
+    --theme-primary-rgb: 234, 88, 12;
+    --theme-primary-light: #f97316;
+    --theme-primary-dark: #c2410c;
+
+    --theme-secondary: #ef4444;
+    --theme-secondary-rgb: 239, 68, 68;
+
+    --theme-accent: #fbbf24;
+    --theme-accent-rgb: 251, 191, 36;
+
+    --theme-gradient-start: #ea580c;
+    --theme-gradient-end: #f97316;
+
+    --theme-hero-from: #431407;
+    --theme-hero-to: #7c2d12;
+
+    --theme-surface-tint: rgba(234, 88, 12, 0.05);
+    --theme-surface-tint-hover: rgba(234, 88, 12, 0.1);
+
+    --tblr-primary: var(--theme-primary);
+    --tblr-primary-rgb: var(--theme-primary-rgb);
+}
+
+/* -----------------------------------------------------------------
+   Ocean Theme - Deep Teal/Cyan
+   ----------------------------------------------------------------- */
+[data-theme="ocean"] {
+    --theme-primary: #0891b2;
+    --theme-primary-rgb: 8, 145, 178;
+    --theme-primary-light: #06b6d4;
+    --theme-primary-dark: #0e7490;
+
+    --theme-secondary: #0ea5e9;
+    --theme-secondary-rgb: 14, 165, 233;
+
+    --theme-accent: #22d3ee;
+    --theme-accent-rgb: 34, 211, 238;
+
+    --theme-gradient-start: #0891b2;
+    --theme-gradient-end: #06b6d4;
+
+    --theme-hero-from: #083344;
+    --theme-hero-to: #164e63;
+
+    --theme-surface-tint: rgba(8, 145, 178, 0.05);
+    --theme-surface-tint-hover: rgba(8, 145, 178, 0.1);
+
+    --tblr-primary: var(--theme-primary);
+    --tblr-primary-rgb: var(--theme-primary-rgb);
+}
+
+/* -----------------------------------------------------------------
+   Purple Theme - Royal Purple
+   ----------------------------------------------------------------- */
+[data-theme="purple"] {
+    --theme-primary: #7c3aed;
+    --theme-primary-rgb: 124, 58, 237;
+    --theme-primary-light: #8b5cf6;
+    --theme-primary-dark: #6d28d9;
+
+    --theme-secondary: #a855f7;
+    --theme-secondary-rgb: 168, 85, 247;
+
+    --theme-accent: #c084fc;
+    --theme-accent-rgb: 192, 132, 252;
+
+    --theme-gradient-start: #7c3aed;
+    --theme-gradient-end: #a855f7;
+
+    --theme-hero-from: #2e1065;
+    --theme-hero-to: #4c1d95;
+
+    --theme-surface-tint: rgba(124, 58, 237, 0.05);
+    --theme-surface-tint-hover: rgba(124, 58, 237, 0.1);
+
+    --tblr-primary: var(--theme-primary);
+    --tblr-primary-rgb: var(--theme-primary-rgb);
+}
+
+/* -----------------------------------------------------------------
+   Rose Theme - Soft Pink
+   ----------------------------------------------------------------- */
+[data-theme="rose"] {
+    --theme-primary: #e11d48;
+    --theme-primary-rgb: 225, 29, 72;
+    --theme-primary-light: #f43f5e;
+    --theme-primary-dark: #be123c;
+
+    --theme-secondary: #ec4899;
+    --theme-secondary-rgb: 236, 72, 153;
+
+    --theme-accent: #f472b6;
+    --theme-accent-rgb: 244, 114, 182;
+
+    --theme-gradient-start: #e11d48;
+    --theme-gradient-end: #f43f5e;
+
+    --theme-hero-from: #4c0519;
+    --theme-hero-to: #881337;
+
+    --theme-surface-tint: rgba(225, 29, 72, 0.05);
+    --theme-surface-tint-hover: rgba(225, 29, 72, 0.1);
+
+    --tblr-primary: var(--theme-primary);
+    --tblr-primary-rgb: var(--theme-primary-rgb);
+}
+
+/* =================================================================
+   THEME-AWARE COMPONENTS
+   Components that respond to the active theme
+   ================================================================= */
+
+/* Buttons with theme colors */
+.btn-theme {
+    background: var(--theme-primary);
+    border-color: var(--theme-primary);
+    color: #fff;
+}
+
+.btn-theme:hover {
+    background: var(--theme-primary-dark);
+    border-color: var(--theme-primary-dark);
+    color: #fff;
+}
+
+.btn-theme-gradient {
+    background: linear-gradient(135deg, var(--theme-gradient-start), var(--theme-gradient-end));
+    border: none;
+    color: #fff;
+}
+
+.btn-theme-gradient:hover {
+    filter: brightness(1.1);
+    color: #fff;
+}
+
+/* Links with theme color */
+.link-theme {
+    color: var(--theme-primary);
+}
+
+.link-theme:hover {
+    color: var(--theme-primary-dark);
+}
+
+/* Badge with theme color */
+.badge-theme {
+    background: var(--theme-primary);
+    color: #fff;
+}
+
+.badge-theme-light {
+    background: var(--theme-surface-tint);
+    color: var(--theme-primary);
+}
+
+/* Card with theme accent */
+.card-theme-border {
+    border-left: 3px solid var(--theme-primary);
+}
+
+.card-theme-header {
+    background: var(--theme-surface-tint);
+    border-bottom: 1px solid rgba(var(--theme-primary-rgb), 0.1);
+}
+
+/* Progress with theme color */
+.progress-theme .progress-bar {
+    background: var(--theme-primary);
+}
+
+/* Navbar brand accent */
+.navbar-brand-theme {
+    color: var(--theme-primary) !important;
+}
+
+/* Hero section with theme gradient */
+.hero-theme {
+    background: linear-gradient(135deg, var(--theme-hero-from) 0%, var(--theme-hero-to) 100%);
+    color: #fff;
+}
+
+/* =================================================================
+   THEME SELECTOR UI
+   Styles for the theme picker component
+   ================================================================= */
+
+.theme-selector {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.theme-selector__option {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.theme-selector__option:hover {
+    transform: scale(1.1);
+}
+
+.theme-selector__option--active {
+    border-color: var(--tblr-body-color);
+    box-shadow: 0 0 0 2px var(--tblr-bg-surface);
+}
+
+.theme-selector__option--active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.5rem;
+    height: 0.5rem;
+    background: #fff;
+    border-radius: 50%;
+}
+
+/* Theme option colors */
+.theme-selector__option--eurip { background: #0f3d91; }
+.theme-selector__option--forest { background: #059669; }
+.theme-selector__option--sunset { background: #ea580c; }
+.theme-selector__option--ocean { background: #0891b2; }
+.theme-selector__option--purple { background: #7c3aed; }
+.theme-selector__option--rose { background: #e11d48; }
+
+/* =================================================================
+   DARK MODE ADJUSTMENTS
+   Theme colors may need adjustment in dark mode
+   ================================================================= */
+
+[data-bs-theme="dark"] .badge-theme-light {
+    background: rgba(var(--theme-primary-rgb), 0.2);
+}
+
+[data-bs-theme="dark"] .card-theme-header {
+    background: rgba(var(--theme-primary-rgb), 0.1);
+}
+
+/* =================================================================
+   THEME PICKER COMPONENT
+   Styles for the ThemePicker TwigComponent
+   ================================================================= */
+
+.theme-picker {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-picker--compact {
+    gap: 0.75rem;
+}
+
+.theme-picker--inline {
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.theme-picker__mode {
+    display: flex;
+    align-items: center;
+}
+
+.theme-picker__mode-toggle {
+    position: relative;
+}
+
+.theme-picker__mode-toggle .ti {
+    font-size: 1.25rem;
+}
+
+.theme-picker__themes {
+    display: flex;
+    align-items: center;
+}
+
+/* Mode toggle icons - only show the active one */
+.theme-picker__mode-toggle [data-show-in-mode] {
+    display: none;
+}
+
+/* Theme Selector Pills Alternative */
+.theme-selector-pills {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: var(--tblr-bg-surface-secondary);
+    border-radius: 0.5rem;
+}
+
+.theme-selector-pills__option {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    border: none;
+    background: transparent;
+    color: var(--tblr-body-color);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.theme-selector-pills__option:hover {
+    background: var(--tblr-bg-surface-tertiary);
+}
+
+.theme-selector-pills__option--active {
+    background: var(--theme-primary);
+    color: #fff;
+}
+
+/* Showcase Header Theme Bar */
+.showcase-theme-bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--tblr-bg-surface-secondary);
+    border-bottom: 1px solid var(--tblr-border-color);
+}
+
+.showcase-theme-bar__label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--tblr-secondary);
+}
