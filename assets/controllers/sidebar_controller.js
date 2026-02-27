@@ -31,6 +31,7 @@ export default class extends Controller {
 
     connect() {
         this.tooltips = [];
+        this._boundListeners = [];
 
         // DE: Gespeicherten State wiederherstellen
         // EN: Restore saved state
@@ -46,6 +47,13 @@ export default class extends Controller {
     }
 
     disconnect() {
+        // DE: Event-Listener aufräumen um Memory Leaks zu verhindern
+        // EN: Clean up event listeners to prevent memory leaks
+        this._boundListeners.forEach(({ element, event, handler }) => {
+            element.removeEventListener(event, handler);
+        });
+        this._boundListeners = [];
+
         this.removeMobileBackdrop();
         this.disableTooltips();
     }
@@ -97,23 +105,27 @@ export default class extends Controller {
         const sidebarMenu = document.getElementById(this.menuIdValue);
         if (!sidebarMenu) return;
 
-        sidebarMenu.addEventListener('show.bs.collapse', () => {
-            this.showMobileBackdrop();
-        });
+        const showHandler = () => this.showMobileBackdrop();
+        const hideHandler = () => this.hideMobileBackdrop();
 
-        sidebarMenu.addEventListener('hide.bs.collapse', () => {
-            this.hideMobileBackdrop();
-        });
+        sidebarMenu.addEventListener('show.bs.collapse', showHandler);
+        sidebarMenu.addEventListener('hide.bs.collapse', hideHandler);
+        this._boundListeners.push(
+            { element: sidebarMenu, event: 'show.bs.collapse', handler: showHandler },
+            { element: sidebarMenu, event: 'hide.bs.collapse', handler: hideHandler },
+        );
 
         // DE: Sidebar-Links schließen mobile Sidebar
         // EN: Sidebar links close mobile sidebar
         const navLinks = sidebarMenu.querySelectorAll('.nav-link:not(.dropdown-toggle)');
         navLinks.forEach(link => {
-            link.addEventListener('click', () => {
+            const clickHandler = () => {
                 if (window.innerWidth < this.breakpointValue) {
                     this.hideMobileSidebar();
                 }
-            });
+            };
+            link.addEventListener('click', clickHandler);
+            this._boundListeners.push({ element: link, event: 'click', handler: clickHandler });
         });
     }
 

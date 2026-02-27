@@ -12,7 +12,7 @@
     {% endif %}
         <div class="d-flex align-items-center">
             {% if icon %}
-                <div class="avatar avatar-lg bg-{{ iconColor }}-lt me-3">
+                <div class="avatar avatar-lg bg-{{ iconColor.value }}-lt me-3">
                     <i class="ti ti-{{ icon }} fs-1"></i>
                 </div>
             {% endif %}
@@ -21,8 +21,8 @@
                 <div class="d-flex align-items-baseline">
                     <div class="h2 mb-0">{{ value }}</div>
                     {% if trend %}
-                        <span class="ms-2 text-{{ trend == 'up' ? 'success' : 'danger' }}">
-                            <i class="ti ti-trending-{{ trend }}"></i>
+                        <span class="ms-2 text-{{ trend.value == 'up' ? 'success' : 'danger' }}">
+                            <i class="ti ti-trending-{{ trend.value }}"></i>
                         </span>
                     {% endif %}
                 </div>

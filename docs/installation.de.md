@@ -90,7 +90,6 @@ Das Bundle liefert vier CSS-Dateien mit:
 | `tabler-forms.css` | ~18 KB | Styling fuer alle FormTypes |
 | `pattern-backgrounds.css` | ~35 KB | 14 animierte Hintergrund-Muster |
 | `tabler-themes.css` | ~11 KB | 6 Farbthemen (EURIP, Forest, Sunset, Ocean, Purple, Rose) |
-| `hero-backgrounds.css` | ~24 KB | Hero-Sektionen Styling |
 
 ### Methode A: AssetMapper (empfohlen)
 

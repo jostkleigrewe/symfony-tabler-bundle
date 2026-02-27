@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\ConnectionType;
+use Jostkleigrewe\TablerBundle\Enum\PatternIntensity;
+use Jostkleigrewe\TablerBundle\Enum\PatternSize;
+use Jostkleigrewe\TablerBundle\Enum\PatternSpeed;
+use Jostkleigrewe\TablerBundle\Enum\PatternTheme;
+use Jostkleigrewe\TablerBundle\Enum\PatternType;
+use Jostkleigrewe\TablerBundle\Enum\WavePosition;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -14,83 +21,44 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
  *     Can be used for hero sections, headers, footers, cards, dividers etc.
  *
  * Verwendung / Usage:
- *   <twig:PatternBackground pattern="particles-sso" theme="dark" size="hero">
+ *   <twig:Tabler:PatternBackground pattern="particles-sso" theme="dark" size="hero">
  *       <div class="container">...</div>
- *   </twig:PatternBackground>
+ *   </twig:Tabler:PatternBackground>
  *
  * @api
  */
-#[AsTwigComponent('PatternBackground', template: '@Tabler/components/PatternBackground.html.twig')]
+#[AsTwigComponent('Tabler:PatternBackground', template: '@Tabler/components/PatternBackground.html.twig')]
 final class PatternBackground
 {
     /**
      * DE: Pattern-Typ
      * EN: Pattern type
-     *
-     * Optionen / Options:
-     * - particles        : Schwebende Punkte
-     * - particles-sso    : SSO-Icons (Keys, Shields, Locks)
-     * - particles-network: Netzwerk-Knoten mit Verbindungen
-     * - waves            : Animierte Wellen
-     * - geometric        : Geometrische Formen
-     * - blob             : Organische Blob-Formen
-     * - grid             : Tech-Grid mit Glow
-     * - topo             : Topografische Linien
-     * - dots             : Dot-Matrix
-     * - circuit          : Schaltkreis-Linien
      */
-    public string $pattern = 'particles';
+    public PatternType $pattern = PatternType::Particles;
 
     /**
      * DE: Farbmodus
      * EN: Color theme
-     *
-     * Optionen / Options:
-     * - dark        : Dunkler Hintergrund
-     * - light       : Heller Hintergrund
-     * - gradient    : Gradient-Hintergrund
-     * - transparent : Transparenter Hintergrund
      */
-    public string $theme = 'dark';
+    public PatternTheme $theme = PatternTheme::Dark;
 
     /**
      * DE: Größen-Preset
      * EN: Size preset
-     *
-     * Optionen / Options:
-     * - hero    : Volle Hero-Section (min-height: 480px)
-     * - section : Section-Höhe (min-height: 300px)
-     * - header  : Header-Höhe (min-height: 200px)
-     * - footer  : Footer-Höhe (min-height: 150px)
-     * - card    : Card-Höhe (min-height: 200px)
-     * - compact : Kompakt (min-height: 100px)
-     * - divider : Trennlinie (min-height: 60px)
-     * - auto    : Keine min-height
      */
-    public string $size = 'auto';
+    public PatternSize $size = PatternSize::Auto;
 
     /**
      * DE: Intensität der Effekte
      * EN: Effect intensity
-     *
-     * Optionen / Options:
-     * - subtle  : Dezent
-     * - medium  : Standard (default)
-     * - intense : Intensiv
      */
-    public string $intensity = 'medium';
+    public PatternIntensity $intensity = PatternIntensity::Medium;
 
     /**
      * DE: Animationsgeschwindigkeit
      * EN: Animation speed
-     *
-     * Optionen / Options:
-     * - slow   : Langsam (0.5x)
-     * - normal : Normal (default)
-     * - fast   : Schnell (2x)
-     * - static : Keine Animation
      */
-    public string $speed = 'normal';
+    public PatternSpeed $speed = PatternSpeed::Normal;
 
     /**
      * DE: HTML-Tag für den Container
@@ -144,48 +112,44 @@ final class PatternBackground
     /**
      * DE: Verbindungstyp für Network-Pattern
      * EN: Connection type for network pattern
-     *
-     * Optionen / Options:
-     * - css : CSS-basierte Linien (Standard)
-     * - svg : SVG-basierte Linien (exakte Verbindungen)
      */
-    public string $connectionType = 'css';
+    public ConnectionType $connectionType = ConnectionType::Css;
 
     /**
      * DE: Wellen-Position (top, bottom, both)
      * EN: Wave position (top, bottom, both)
      */
-    public string $wavePosition = 'bottom';
+    public WavePosition $wavePosition = WavePosition::Bottom;
 
     public function getCssClasses(): string
     {
         $classes = ['pattern-bg'];
 
         // Pattern-Typ
-        $classes[] = 'pattern-' . $this->pattern;
+        $classes[] = 'pattern-' . $this->pattern->value;
 
         // Theme
-        if ($this->theme !== 'dark') {
-            $classes[] = 'pattern-' . $this->theme;
+        if ($this->theme !== PatternTheme::Dark) {
+            $classes[] = 'pattern-' . $this->theme->value;
         }
 
         // Size
-        if ($this->size !== 'auto') {
-            $classes[] = 'pattern-' . $this->size;
+        if ($this->size !== PatternSize::Auto) {
+            $classes[] = 'pattern-' . $this->size->value;
         }
 
         // Intensity
-        if ($this->intensity !== 'medium') {
-            $classes[] = 'pattern-' . $this->intensity;
+        if ($this->intensity !== PatternIntensity::Medium) {
+            $classes[] = 'pattern-' . $this->intensity->value;
         }
 
         // Speed
-        if ($this->speed !== 'normal') {
-            $classes[] = 'pattern-' . $this->speed;
+        if ($this->speed !== PatternSpeed::Normal) {
+            $classes[] = 'pattern-' . $this->speed->value;
         }
 
         // Wave position
-        if ($this->pattern === 'waves' && $this->wavePosition === 'top') {
+        if ($this->pattern === PatternType::Waves && $this->wavePosition === WavePosition::Top) {
             $classes[] = 'pattern-waves-top';
         }
 
@@ -248,7 +212,7 @@ final class PatternBackground
      */
     public function useSvgConnections(): bool
     {
-        return $this->connectionType === 'svg' && $this->pattern === 'particles-network';
+        return $this->connectionType === ConnectionType::Svg && $this->pattern === PatternType::ParticlesNetwork;
     }
 
     /**
@@ -260,19 +224,84 @@ final class PatternBackground
     public function getSvgLines(): array
     {
         return [
-            ['x1' => 20, 'y1' => 15, 'x2' => 50, 'y2' => 25],
-            ['x1' => 50, 'y1' => 25, 'x2' => 80, 'y2' => 20],
-            ['x1' => 20, 'y1' => 15, 'x2' => 10, 'y2' => 50],
-            ['x1' => 50, 'y1' => 25, 'x2' => 35, 'y2' => 35],
-            ['x1' => 80, 'y1' => 20, 'x2' => 75, 'y2' => 45],
-            ['x1' => 10, 'y1' => 50, 'x2' => 45, 'y2' => 55],
-            ['x1' => 35, 'y1' => 35, 'x2' => 45, 'y2' => 55],
-            ['x1' => 75, 'y1' => 45, 'x2' => 90, 'y2' => 65],
-            ['x1' => 45, 'y1' => 55, 'x2' => 60, 'y2' => 75],
-            ['x1' => 25, 'y1' => 80, 'x2' => 60, 'y2' => 75],
-            ['x1' => 60, 'y1' => 75, 'x2' => 85, 'y2' => 85],
-            ['x1' => 10, 'y1' => 50, 'x2' => 25, 'y2' => 80],
-            ['x1' => 45, 'y1' => 90, 'x2' => 60, 'y2' => 75],
+            [
+                'x1' => 20,
+                'y1' => 15,
+                'x2' => 50,
+                'y2' => 25,
+            ],
+            [
+                'x1' => 50,
+                'y1' => 25,
+                'x2' => 80,
+                'y2' => 20,
+            ],
+            [
+                'x1' => 20,
+                'y1' => 15,
+                'x2' => 10,
+                'y2' => 50,
+            ],
+            [
+                'x1' => 50,
+                'y1' => 25,
+                'x2' => 35,
+                'y2' => 35,
+            ],
+            [
+                'x1' => 80,
+                'y1' => 20,
+                'x2' => 75,
+                'y2' => 45,
+            ],
+            [
+                'x1' => 10,
+                'y1' => 50,
+                'x2' => 45,
+                'y2' => 55,
+            ],
+            [
+                'x1' => 35,
+                'y1' => 35,
+                'x2' => 45,
+                'y2' => 55,
+            ],
+            [
+                'x1' => 75,
+                'y1' => 45,
+                'x2' => 90,
+                'y2' => 65,
+            ],
+            [
+                'x1' => 45,
+                'y1' => 55,
+                'x2' => 60,
+                'y2' => 75,
+            ],
+            [
+                'x1' => 25,
+                'y1' => 80,
+                'x2' => 60,
+                'y2' => 75,
+            ],
+            [
+                'x1' => 60,
+                'y1' => 75,
+                'x2' => 85,
+                'y2' => 85,
+            ],
+            [
+                'x1' => 10,
+                'y1' => 50,
+                'x2' => 25,
+                'y2' => 80,
+            ],
+            [
+                'x1' => 45,
+                'y1' => 90,
+                'x2' => 60,
+                'y2' => 75,
+            ],
         ];
     }
 }

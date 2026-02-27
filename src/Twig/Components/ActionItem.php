@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\ComponentSize;
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -48,13 +50,13 @@ final class ActionItem
     public ?string $icon = null;
 
     /** DE: Icon-Hintergrundfarbe / EN: Icon background color */
-    public string $iconColor = 'blue';
+    public TablerColor $iconColor = TablerColor::Blue;
 
     /** DE: Badge-Text (z.B. Zähler) / EN: Badge text (e.g. counter) */
     public ?string $badge = null;
 
     /** DE: Badge-Farbe / EN: Badge color */
-    public string $badgeColor = 'azure';
+    public TablerColor $badgeColor = TablerColor::Azure;
 
     /** DE: Zeigt Pfeil rechts / EN: Shows arrow on right */
     public bool $arrow = true;
@@ -62,8 +64,8 @@ final class ActionItem
     /** DE: Disabled-Zustand / EN: Disabled state */
     public bool $disabled = false;
 
-    /** DE: Größe: 'sm', 'md', 'lg' / EN: Size */
-    public string $size = 'md';
+    /** DE: Größe / EN: Size */
+    public ComponentSize $size = ComponentSize::Md;
 
     /**
      * DE: Berechnet Avatar-Größe basierend auf Size
@@ -72,8 +74,8 @@ final class ActionItem
     public function getAvatarSize(): string
     {
         return match ($this->size) {
-            'sm' => 'sm',
-            'lg' => 'md',
+            ComponentSize::Sm => 'sm',
+            ComponentSize::Lg => 'md',
             default => 'sm',
         };
     }

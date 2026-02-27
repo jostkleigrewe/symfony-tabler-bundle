@@ -10,20 +10,22 @@
 
     @see Jostkleigrewe\TablerBundle\Twig\Components\ActionItem
 #}
-{% set tag = url ? 'a' : 'div' %}
-{% set attrs = url ? 'href="' ~ url ~ '"' : '' %}
-
-<{{ tag }} {{ attrs|raw }} class="list-group-item list-group-item-action d-flex align-items-center{{ disabled ? ' disabled' : '' }}">
+{% set baseClass = 'list-group-item list-group-item-action d-flex align-items-center' ~ (disabled ? ' disabled' : '') %}
+{% if url %}
+<a href="{{ url }}" class="{{ baseClass }}">
+{% else %}
+<div class="{{ baseClass }}">
+{% endif %}
     {# Icon #}
     {% if icon %}
-        <span class="avatar avatar-{{ this.avatarSize }} bg-{{ iconColor }}-lt text-{{ iconColor }} me-3">
+        <span class="avatar avatar-{{ this.avatarSize }} bg-{{ iconColor.value }}-lt text-{{ iconColor.value }} me-3">
             <i class="ti ti-{{ icon }}"></i>
         </span>
     {% endif %}
 
     {# Content #}
     <div class="flex-fill">
-        <div class="fw-semibold{% if size == 'sm' %} small{% endif %}">{{ label }}</div>
+        <div class="fw-semibold{% if size.value == 'sm' %} small{% endif %}">{{ label }}</div>
         {% if description %}
             <div class="text-secondary small">{{ description }}</div>
         {% endif %}
@@ -31,11 +33,15 @@
 
     {# Badge #}
     {% if badge %}
-        <span class="badge bg-{{ badgeColor }}-lt text-{{ badgeColor }} ms-2">{{ badge }}</span>
+        <span class="badge bg-{{ badgeColor.value }}-lt text-{{ badgeColor.value }} ms-2">{{ badge }}</span>
     {% endif %}
 
     {# Arrow #}
     {% if arrow and url %}
         <i class="ti ti-chevron-right text-secondary ms-2"></i>
     {% endif %}
-</{{ tag }}>
+{% if url %}
+</a>
+{% else %}
+</div>
+{% endif %}

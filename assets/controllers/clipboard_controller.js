@@ -44,7 +44,7 @@ export default class extends Controller {
     static values = {
         text: String,
         separator: String,
-        successText: { type: String, default: 'Kopiert!' },
+        successText: { type: String, default: 'Copied!' },
         successDuration: { type: Number, default: 2000 },
     };
 
@@ -168,7 +168,7 @@ export default class extends Controller {
             this.textTarget.classList.add('text-success');
         } else {
             this.iconTarget.className = 'ti ti-x text-danger';
-            this.textTarget.textContent = 'Fehler!';
+            this.textTarget.textContent = 'Error';
             this.textTarget.classList.add('text-danger');
         }
 
@@ -184,21 +184,25 @@ export default class extends Controller {
      * EN: Feedback via button styling
      */
     showButtonFeedback(button, success) {
-        const original = button.innerHTML;
+        // DE: Original-Inhalt als DocumentFragment speichern (sicher, kein innerHTML)
+        // EN: Save original content as DocumentFragment (safe, no innerHTML)
+        const originalNodes = Array.from(button.childNodes).map(n => n.cloneNode(true));
         const originalClasses = [...button.classList];
 
-        if (success) {
-            button.innerHTML = '<i class="ti ti-check me-1"></i> ' + this.successTextValue;
-            button.classList.remove('btn-outline-secondary', 'btn-outline-primary', 'btn-primary');
-            button.classList.add('btn-success');
-        } else {
-            button.innerHTML = '<i class="ti ti-x me-1"></i> Fehler';
-            button.classList.remove('btn-outline-secondary', 'btn-outline-primary', 'btn-primary');
-            button.classList.add('btn-danger');
-        }
+        // DE: Button-Inhalt sicher via DOM-API ersetzen (kein innerHTML = kein XSS)
+        // EN: Replace button content safely via DOM API (no innerHTML = no XSS)
+        const icon = document.createElement('i');
+        icon.className = success ? 'ti ti-check me-1' : 'ti ti-x me-1';
+
+        button.textContent = '';
+        button.appendChild(icon);
+        button.append(success ? ' ' + this.successTextValue : ' Error');
+        button.classList.remove('btn-outline-secondary', 'btn-outline-primary', 'btn-primary');
+        button.classList.add(success ? 'btn-success' : 'btn-danger');
 
         setTimeout(() => {
-            button.innerHTML = original;
+            button.textContent = '';
+            originalNodes.forEach(n => button.appendChild(n));
             button.classList.remove('btn-success', 'btn-danger');
             // DE: Original-Klassen wiederherstellen
             // EN: Restore original classes

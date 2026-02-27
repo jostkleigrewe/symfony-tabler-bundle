@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
+use Jostkleigrewe\TablerBundle\Enum\TooltipPlacement;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -19,8 +21,12 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class HelpTooltip
 {
     public string $text;
+
     public ?string $title = null;
+
     public string $icon = 'info-circle';
-    public string $placement = 'top';
-    public string $color = 'secondary';
+
+    public TooltipPlacement $placement = TooltipPlacement::Top;
+
+    public TablerColor $color = TablerColor::Secondary;
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\StatCardTrend;
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -24,10 +26,16 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class StatCard
 {
     public string $label;
+
     public string $value;
+
     public ?string $icon = null;
-    public string $iconColor = 'azure';
+
+    public TablerColor $iconColor = TablerColor::Azure;
+
     public ?string $hint = null;
-    public ?string $trend = null; // 'up', 'down', null
+
+    public ?StatCardTrend $trend = null;
+
     public ?string $url = null;
 }

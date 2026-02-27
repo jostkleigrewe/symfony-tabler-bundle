@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\CollapsiblePanelVariant;
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -41,7 +43,7 @@ final class CollapsiblePanel
      * DE: Icon-Farbe
      * EN: Icon color
      */
-    public string $iconColor = 'primary';
+    public TablerColor $iconColor = TablerColor::Primary;
 
     /**
      * DE: Initial ausgeklappt
@@ -58,12 +60,8 @@ final class CollapsiblePanel
     /**
      * DE: Variante der Darstellung
      * EN: Display variant
-     * - 'default': Einfacher Stil
-     * - 'bordered': Mit Rahmen
-     * - 'card': Als Card
-     * - 'subtle': Dezenter Hintergrund
      */
-    public string $variant = 'default';
+    public CollapsiblePanelVariant $variant = CollapsiblePanelVariant::Default;
 
     /**
      * DE: Hilfetext unter dem Titel

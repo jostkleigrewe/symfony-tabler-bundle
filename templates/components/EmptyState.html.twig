@@ -6,7 +6,7 @@
 #}
 <div class="empty">
     <div class="empty-icon">
-        <i class="ti ti-{{ icon }} text-{{ iconColor }}"></i>
+        <i class="ti ti-{{ icon }} text-{{ iconColor.value }}"></i>
     </div>
     <p class="empty-title">{{ title }}</p>
     {% if text %}
@@ -14,7 +14,7 @@
     {% endif %}
     {% if actionUrl and actionLabel %}
         <div class="empty-action">
-            <a href="{{ actionUrl }}" class="btn btn-{{ actionVariant }}">
+            <a href="{{ actionUrl }}" class="btn btn-{{ actionVariant.value }}">
                 {{ actionLabel }}
             </a>
         </div>

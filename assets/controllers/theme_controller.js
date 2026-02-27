@@ -36,11 +36,7 @@ export default class extends Controller {
             }
         };
 
-        if (this.media.addEventListener) {
-            this.media.addEventListener('change', this.onMediaChange);
-        } else {
-            this.media.addListener(this.onMediaChange);
-        }
+        this.media.addEventListener('change', this.onMediaChange);
     }
 
     disconnect() {
@@ -48,11 +44,7 @@ export default class extends Controller {
             return;
         }
 
-        if (this.media.removeEventListener) {
-            this.media.removeEventListener('change', this.onMediaChange);
-        } else {
-            this.media.removeListener(this.onMediaChange);
-        }
+        this.media.removeEventListener('change', this.onMediaChange);
     }
 
     choose(event) {
@@ -116,7 +108,7 @@ export default class extends Controller {
     }
 
     updateLabel(mode) {
-        const labelMap = { light: 'Hell', dark: 'Dunkel', auto: 'Auto' };
+        const labelMap = { light: 'Light', dark: 'Dark', auto: 'Auto' };
         const iconMap = { light: 'ti ti-sun', dark: 'ti ti-moon', auto: 'ti ti-device-laptop' };
 
         if (this.hasLabelTarget) {
@@ -179,7 +171,7 @@ export default class extends Controller {
             this.themeOptionTargets.forEach((option) => {
                 const isActive = option.dataset.theme === theme;
                 option.classList.toggle('theme-selector__option--active', isActive);
-                option.setAttribute('aria-pressed', isActive);
+                option.setAttribute('aria-pressed', isActive ? 'true' : 'false');
             });
         }
 

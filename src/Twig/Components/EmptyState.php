@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -29,10 +30,16 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class EmptyState
 {
     public string $title;
+
     public ?string $text = null;
+
     public string $icon = 'inbox';
-    public string $iconColor = 'secondary';
+
+    public TablerColor $iconColor = TablerColor::Secondary;
+
     public ?string $actionUrl = null;
+
     public ?string $actionLabel = null;
-    public string $actionVariant = 'primary';
+
+    public TablerColor $actionVariant = TablerColor::Primary;
 }

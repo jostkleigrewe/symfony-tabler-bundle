@@ -8,9 +8,9 @@
 {% set content_id = panel_id ~ '-content' %}
 
 {% set wrapper_classes = ['collapsible-panel'] %}
-{% if variant == 'bordered' %}{% set wrapper_classes = wrapper_classes|merge(['collapsible-panel-bordered', 'border', 'rounded']) %}{% endif %}
-{% if variant == 'card' %}{% set wrapper_classes = wrapper_classes|merge(['card']) %}{% endif %}
-{% if variant == 'subtle' %}{% set wrapper_classes = wrapper_classes|merge(['collapsible-panel-subtle', 'bg-light', 'rounded']) %}{% endif %}
+{% if variant.value == 'bordered' %}{% set wrapper_classes = wrapper_classes|merge(['collapsible-panel-bordered', 'border', 'rounded']) %}{% endif %}
+{% if variant.value == 'card' %}{% set wrapper_classes = wrapper_classes|merge(['card']) %}{% endif %}
+{% if variant.value == 'subtle' %}{% set wrapper_classes = wrapper_classes|merge(['collapsible-panel-subtle', 'bg-light', 'rounded']) %}{% endif %}
 
 <div class="{{ wrapper_classes|join(' ') }}" data-controller="collapsible" data-collapsible-expanded-value="{{ expanded ? 'true' : 'false' }}">
     <button
@@ -22,7 +22,7 @@
         data-collapsible-target="button"
     >
         {% if icon %}
-            <span class="avatar avatar-sm bg-{{ iconColor }}-lt text-{{ iconColor }}">
+            <span class="avatar avatar-sm bg-{{ iconColor.value }}-lt text-{{ iconColor.value }}">
                 <i class="ti ti-{{ icon }}"></i>
             </span>
         {% endif %}

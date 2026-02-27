@@ -6,7 +6,7 @@
 #}
 {% set col_class = 'col-md-' ~ (12 // columns) ~ ' col-sm-6' %}
 
-{% if variant == 'horizontal' %}
+{% if variant.value == 'horizontal' %}
     {# Horizontal variant with dots and connectors #}
     <div class="stepper stepper-horizontal">
         <div class="d-flex justify-content-between align-items-start position-relative">
@@ -36,7 +36,7 @@
             {% endfor %}
         </div>
     </div>
-{% elseif variant == 'compact' %}
+{% elseif variant.value == 'compact' %}
     {# Compact variant without cards #}
     <div class="stepper stepper-compact">
         <div class="row g-3">

@@ -15,7 +15,6 @@ The bundle provides 4 CSS files in `assets/styles/`:
 | `tabler-forms.css` | ~18 KB | Styling for all 5 FormTypes |
 | `pattern-backgrounds.css` | ~35 KB | 14 animated background patterns |
 | `tabler-themes.css` | ~11 KB | 6 color theme definitions with CSS variables |
-| `hero-backgrounds.css` | ~24 KB | Hero section styling |
 
 ---
 
@@ -34,9 +33,6 @@ The bundle auto-registers its asset paths with Symfony AssetMapper. Reference th
 
 {# Pattern backgrounds -- include where patterns are used #}
 <link rel="stylesheet" href="{{ asset('@jostkleigrewe/tabler-bundle/styles/pattern-backgrounds.css') }}">
-
-{# Hero backgrounds -- include on pages with hero sections #}
-<link rel="stylesheet" href="{{ asset('@jostkleigrewe/tabler-bundle/styles/hero-backgrounds.css') }}">
 ```
 
 ### Manual Link Tags
@@ -197,7 +193,6 @@ See the [PatternBackground component documentation](components.en.md#patternback
 ## Performance Notes
 
 - **pattern-backgrounds.css** is ~35 KB and contains complex CSS animations. Only include it on pages that actually use pattern backgrounds. Consider lazy-loading it or inlining only the patterns you need.
-- **hero-backgrounds.css** is ~24 KB. Same recommendation as above.
 - **tabler-themes.css** is ~11 KB. Safe to include globally since it only defines CSS variable overrides.
 - **tabler-forms.css** is ~18 KB. Include on pages with Tabler form types.
 

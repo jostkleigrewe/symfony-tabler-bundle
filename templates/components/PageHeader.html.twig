@@ -50,7 +50,7 @@
                 <div class="d-flex align-items-center">
                     {# Avatar oder Icon #}
                     {% if this.hasAvatar %}
-                        <span class="avatar avatar-{{ avatarSize }} me-3{% if not avatar %} bg-{{ iconColor }}-lt{% endif %}">
+                        <span class="avatar avatar-{{ avatarSize.value }} me-3{% if not avatar %} bg-{{ iconColor.value }}-lt{% endif %}">
                             {% if avatar %}
                                 <img src="{{ avatar }}" alt="{{ title }}">
                             {% else %}
@@ -58,7 +58,7 @@
                             {% endif %}
                         </span>
                     {% elseif icon %}
-                        <span class="avatar avatar-{{ avatarSize }} bg-{{ iconColor }}-lt me-3">
+                        <span class="avatar avatar-{{ avatarSize.value }} bg-{{ iconColor.value }}-lt me-3">
                             <i class="ti ti-{{ icon }} fs-1"></i>
                         </span>
                     {% endif %}
@@ -73,7 +73,7 @@
                         <h2 class="page-title mb-0">
                             {{ title }}
                             {% if status %}
-                                <span class="badge bg-{{ statusColor }} ms-2">{{ status }}</span>
+                                <span class="badge bg-{{ statusColor.value }} ms-2">{{ status }}</span>
                             {% endif %}
                         </h2>
 
@@ -128,7 +128,7 @@
         {# === Progress Bar === #}
         {% if progress is not null %}
             <div class="progress progress-sm mt-3" role="progressbar" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar bg-{{ progressColor }}" style="width: {{ progress }}%"></div>
+                <div class="progress-bar bg-{{ progressColor.value }}" style="width: {{ progress }}%"></div>
             </div>
         {% endif %}
 

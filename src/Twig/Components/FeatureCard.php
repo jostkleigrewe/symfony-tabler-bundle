@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\FeatureCardVariant;
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -33,6 +35,7 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class FeatureCard
 {
     public string $title;
+
     public string $text;
 
     /**
@@ -45,7 +48,7 @@ final class FeatureCard
      * DE: Icon-Farbe (blue, green, purple, orange, red, etc.)
      * EN: Icon color (blue, green, purple, orange, red, etc.)
      */
-    public string $iconColor = 'primary';
+    public TablerColor $iconColor = TablerColor::Primary;
 
     /**
      * DE: Link-URL (optional)
@@ -54,7 +57,7 @@ final class FeatureCard
     public ?string $linkUrl = null;
 
     /**
-     * DE: Link-Text (optional, default: "Mehr erfahren")
+     * DE: Link-Text (optional, default: "Learn more")
      * EN: Link text (optional, default: "Learn more")
      */
     public ?string $linkText = null;
@@ -62,12 +65,8 @@ final class FeatureCard
     /**
      * DE: Variante der Darstellung
      * EN: Display variant
-     * - 'default': Normale Card
-     * - 'highlight': Hervorgehobene Card mit farbigem Rand
-     * - 'minimal': Ohne Card-Border
-     * - 'horizontal': Icon links, Content rechts
      */
-    public string $variant = 'default';
+    public FeatureCardVariant $variant = FeatureCardVariant::Default;
 
     /**
      * DE: Card-Höhe 100% (für gleiche Höhen in Grid)

@@ -21,10 +21,33 @@ final class ShowcaseController extends AbstractController
     {
         return $this->render('@Tabler/showcase/index.html.twig', [
             'stats' => [
-                ['label' => 'Total Users', 'value' => '1,234', 'icon' => 'users', 'trend' => 'up', 'hint' => '+12% this month'],
-                ['label' => 'Revenue', 'value' => '€45,678', 'icon' => 'currency-euro', 'trend' => 'up', 'hint' => '+8.3%'],
-                ['label' => 'Orders', 'value' => '892', 'icon' => 'shopping-cart', 'trend' => 'down', 'hint' => '-3.2%'],
-                ['label' => 'Tickets', 'value' => '23', 'icon' => 'ticket', 'hint' => '5 open'],
+                [
+                    'label' => 'Total Users',
+                    'value' => '1,234',
+                    'icon' => 'users',
+                    'trend' => 'up',
+                    'hint' => '+12% this month',
+                ],
+                [
+                    'label' => 'Revenue',
+                    'value' => '€45,678',
+                    'icon' => 'currency-euro',
+                    'trend' => 'up',
+                    'hint' => '+8.3%',
+                ],
+                [
+                    'label' => 'Orders',
+                    'value' => '892',
+                    'icon' => 'shopping-cart',
+                    'trend' => 'down',
+                    'hint' => '-3.2%',
+                ],
+                [
+                    'label' => 'Tickets',
+                    'value' => '23',
+                    'icon' => 'ticket',
+                    'hint' => '5 open',
+                ],
             ],
         ]);
     }
@@ -52,20 +75,62 @@ final class ShowcaseController extends AbstractController
     {
         return $this->render('@Tabler/showcase/patterns.html.twig', [
             'patterns' => [
-                'particles' => ['name' => 'Particles', 'description' => 'Schwebende Punkte mit Glow-Effekten'],
-                'particles-sso' => ['name' => 'Particles SSO', 'description' => 'SSO-Icons (Keys, Shields, Locks)'],
-                'particles-network' => ['name' => 'Network', 'description' => 'Netzwerk-Knoten mit Verbindungen'],
-                'waves' => ['name' => 'Waves', 'description' => 'Animierte SVG-Wellen'],
-                'geometric' => ['name' => 'Geometric', 'description' => 'Geometrische Formen'],
-                'blob' => ['name' => 'Blob', 'description' => 'Organische Blob-Formen'],
-                'grid' => ['name' => 'Tech Grid', 'description' => 'Grid mit Scan-Linien und Glow'],
-                'topo' => ['name' => 'Topography', 'description' => 'Topografische Linien'],
-                'dots' => ['name' => 'Dots', 'description' => 'Dot-Matrix Pattern'],
-                'circuit' => ['name' => 'Circuit', 'description' => 'Schaltkreis-Linien'],
-                'stream' => ['name' => 'Stream', 'description' => 'Strömende eckige Partikel'],
-                'rain' => ['name' => 'Rain', 'description' => 'Regen mit Tropfen und Pfützen'],
-                'sandstorm' => ['name' => 'Sandstorm', 'description' => 'Wehende Sandpartikel'],
-                'autumn' => ['name' => 'Autumn Leaves', 'description' => 'Fallende Herbstblätter'],
+                'particles' => [
+                    'name' => 'Particles',
+                    'description' => 'Schwebende Punkte mit Glow-Effekten',
+                ],
+                'particles-sso' => [
+                    'name' => 'Particles SSO',
+                    'description' => 'SSO-Icons (Keys, Shields, Locks)',
+                ],
+                'particles-network' => [
+                    'name' => 'Network',
+                    'description' => 'Netzwerk-Knoten mit Verbindungen',
+                ],
+                'waves' => [
+                    'name' => 'Waves',
+                    'description' => 'Animierte SVG-Wellen',
+                ],
+                'geometric' => [
+                    'name' => 'Geometric',
+                    'description' => 'Geometrische Formen',
+                ],
+                'blob' => [
+                    'name' => 'Blob',
+                    'description' => 'Organische Blob-Formen',
+                ],
+                'grid' => [
+                    'name' => 'Tech Grid',
+                    'description' => 'Grid mit Scan-Linien und Glow',
+                ],
+                'topo' => [
+                    'name' => 'Topography',
+                    'description' => 'Topografische Linien',
+                ],
+                'dots' => [
+                    'name' => 'Dots',
+                    'description' => 'Dot-Matrix Pattern',
+                ],
+                'circuit' => [
+                    'name' => 'Circuit',
+                    'description' => 'Schaltkreis-Linien',
+                ],
+                'stream' => [
+                    'name' => 'Stream',
+                    'description' => 'Strömende eckige Partikel',
+                ],
+                'rain' => [
+                    'name' => 'Rain',
+                    'description' => 'Regen mit Tropfen und Pfützen',
+                ],
+                'sandstorm' => [
+                    'name' => 'Sandstorm',
+                    'description' => 'Wehende Sandpartikel',
+                ],
+                'autumn' => [
+                    'name' => 'Autumn Leaves',
+                    'description' => 'Fallende Herbstblätter',
+                ],
             ],
             'themes' => ['dark', 'light'],
             'sizes' => ['hero', 'section', 'header', 'footer', 'card', 'compact'],
@@ -78,12 +143,42 @@ final class ShowcaseController extends AbstractController
     {
         return $this->render('@Tabler/showcase/themes.html.twig', [
             'themes' => [
-                'eurip' => ['name' => 'EURIP', 'description' => 'Corporate Blue - das Standard-Theme', 'color' => '#0f3d91', 'colors' => ['#0f3d91', '#1f74ff', '#6366f1']],
-                'forest' => ['name' => 'Forest', 'description' => 'Natürliches Grün für umweltbewusste Projekte', 'color' => '#059669', 'colors' => ['#059669', '#10b981', '#34d399']],
-                'sunset' => ['name' => 'Sunset', 'description' => 'Warme Orange/Rot-Töne für energetische UIs', 'color' => '#ea580c', 'colors' => ['#ea580c', '#f97316', '#fbbf24']],
-                'ocean' => ['name' => 'Ocean', 'description' => 'Tiefes Teal/Cyan für beruhigende Interfaces', 'color' => '#0891b2', 'colors' => ['#0891b2', '#06b6d4', '#22d3ee']],
-                'purple' => ['name' => 'Purple', 'description' => 'Royales Lila für kreative Projekte', 'color' => '#7c3aed', 'colors' => ['#7c3aed', '#8b5cf6', '#a855f7']],
-                'rose' => ['name' => 'Rose', 'description' => 'Softes Pink für freundliche Anwendungen', 'color' => '#e11d48', 'colors' => ['#e11d48', '#f43f5e', '#fb7185']],
+                'eurip' => [
+                    'name' => 'EURIP',
+                    'description' => 'Corporate Blue - das Standard-Theme',
+                    'color' => '#0f3d91',
+                    'colors' => ['#0f3d91', '#1f74ff', '#6366f1'],
+                ],
+                'forest' => [
+                    'name' => 'Forest',
+                    'description' => 'Natürliches Grün für umweltbewusste Projekte',
+                    'color' => '#059669',
+                    'colors' => ['#059669', '#10b981', '#34d399'],
+                ],
+                'sunset' => [
+                    'name' => 'Sunset',
+                    'description' => 'Warme Orange/Rot-Töne für energetische UIs',
+                    'color' => '#ea580c',
+                    'colors' => ['#ea580c', '#f97316', '#fbbf24'],
+                ],
+                'ocean' => [
+                    'name' => 'Ocean',
+                    'description' => 'Tiefes Teal/Cyan für beruhigende Interfaces',
+                    'color' => '#0891b2',
+                    'colors' => ['#0891b2', '#06b6d4', '#22d3ee'],
+                ],
+                'purple' => [
+                    'name' => 'Purple',
+                    'description' => 'Royales Lila für kreative Projekte',
+                    'color' => '#7c3aed',
+                    'colors' => ['#7c3aed', '#8b5cf6', '#a855f7'],
+                ],
+                'rose' => [
+                    'name' => 'Rose',
+                    'description' => 'Softes Pink für freundliche Anwendungen',
+                    'color' => '#e11d48',
+                    'colors' => ['#e11d48', '#f43f5e', '#fb7185'],
+                ],
             ],
         ]);
     }
@@ -103,7 +198,7 @@ final class ShowcaseController extends AbstractController
     {
         $controllers = $this->getControllerDefinitions();
 
-        if (!isset($controllers[$key])) {
+        if (! isset($controllers[$key])) {
             throw new NotFoundHttpException(sprintf('Controller "%s" not found.', $key));
         }
 
@@ -138,9 +233,18 @@ final class ShowcaseController extends AbstractController
                     'currentTheme' => 'Text-Anzeige des aktuellen Themes',
                 ],
                 'values' => [
-                    'themes' => ['type' => 'Array', 'default' => "['eurip', 'forest', ...]"],
-                    'modeStorageKey' => ['type' => 'String', 'default' => 'tabler-theme-mode'],
-                    'themeStorageKey' => ['type' => 'String', 'default' => 'tabler-theme-color'],
+                    'themes' => [
+                        'type' => 'Array',
+                        'default' => "['eurip', 'forest', ...]",
+                    ],
+                    'modeStorageKey' => [
+                        'type' => 'String',
+                        'default' => 'tabler-theme-mode',
+                    ],
+                    'themeStorageKey' => [
+                        'type' => 'String',
+                        'default' => 'tabler-theme-color',
+                    ],
                 ],
                 'actions' => [
                     'choose' => 'Modus wählen (light/dark/auto) via data-theme-value',
@@ -166,10 +270,22 @@ final class ShowcaseController extends AbstractController
                     'text' => 'Text im Button (für Text-Feedback)',
                 ],
                 'values' => [
-                    'text' => ['type' => 'String', 'default' => ''],
-                    'separator' => ['type' => 'String', 'default' => ''],
-                    'successText' => ['type' => 'String', 'default' => 'Kopiert!'],
-                    'successDuration' => ['type' => 'Number', 'default' => '2000'],
+                    'text' => [
+                        'type' => 'String',
+                        'default' => '',
+                    ],
+                    'separator' => [
+                        'type' => 'String',
+                        'default' => '',
+                    ],
+                    'successText' => [
+                        'type' => 'String',
+                        'default' => 'Copied!',
+                    ],
+                    'successDuration' => [
+                        'type' => 'Number',
+                        'default' => '2000',
+                    ],
                 ],
                 'actions' => [
                     'copy' => 'Kopiert Inhalt in die Zwischenablage (mode-param: code|curl)',
@@ -184,10 +300,22 @@ final class ShowcaseController extends AbstractController
                 'file' => 'sidebar_controller.js',
                 'targets' => [],
                 'values' => [
-                    'storageKey' => ['type' => 'String', 'default' => 'tabler-sidebar-state'],
-                    'menuId' => ['type' => 'String', 'default' => 'sidebar-menu'],
-                    'collapsedClass' => ['type' => 'String', 'default' => 'sidebar-collapsed'],
-                    'breakpoint' => ['type' => 'Number', 'default' => '992'],
+                    'storageKey' => [
+                        'type' => 'String',
+                        'default' => 'tabler-sidebar-state',
+                    ],
+                    'menuId' => [
+                        'type' => 'String',
+                        'default' => 'sidebar-menu',
+                    ],
+                    'collapsedClass' => [
+                        'type' => 'String',
+                        'default' => 'sidebar-collapsed',
+                    ],
+                    'breakpoint' => [
+                        'type' => 'Number',
+                        'default' => '992',
+                    ],
                 ],
                 'actions' => [
                     'toggle' => 'Sidebar ein-/ausklappen',
@@ -204,9 +332,18 @@ final class ShowcaseController extends AbstractController
                 'file' => 'modal-frame_controller.js',
                 'targets' => [],
                 'values' => [
-                    'modal' => ['type' => 'String', 'default' => '(required)'],
-                    'container' => ['type' => 'String', 'default' => '(required)'],
-                    'loadingHtml' => ['type' => 'String', 'default' => '(spinner)'],
+                    'modal' => [
+                        'type' => 'String',
+                        'default' => '(required)',
+                    ],
+                    'container' => [
+                        'type' => 'String',
+                        'default' => '(required)',
+                    ],
+                    'loadingHtml' => [
+                        'type' => 'String',
+                        'default' => '(spinner)',
+                    ],
                 ],
                 'actions' => [
                     'open' => 'Modal öffnen und Content laden',
@@ -228,6 +365,30 @@ final class ShowcaseController extends AbstractController
                 'actions' => [
                     'prevent' => 'Verhindert click wenn checked',
                     'enforce' => 'Stellt sicher dass checked bleibt',
+                ],
+                'events' => [],
+            ],
+            'collapsible' => [
+                'name' => 'Collapsible Controller',
+                'description' => 'Aufklappbare Panels mit ARIA-Support und Animations',
+                'icon' => 'arrows-maximize',
+                'color' => 'cyan',
+                'file' => 'collapsible_controller.js',
+                'targets' => [
+                    'button' => 'Toggle-Button',
+                    'content' => 'Aufklappbarer Inhalt',
+                    'chevron' => 'Pfeil-Icon (rotiert bei Toggle)',
+                ],
+                'values' => [
+                    'expanded' => [
+                        'type' => 'Boolean',
+                        'default' => 'false',
+                    ],
+                ],
+                'actions' => [
+                    'toggle' => 'Panel auf-/zuklappen',
+                    'expand' => 'Panel aufklappen',
+                    'collapse' => 'Panel zuklappen',
                 ],
                 'events' => [],
             ],

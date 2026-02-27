@@ -4,12 +4,12 @@
 
     @see Jostkleigrewe\TablerBundle\Twig\Components\Panel
 #}
-<div class="card card-{{ size }}">
+<div class="card card-{{ size.value }}">
     <div class="card-body">
         <div class="{{ centered ? 'text-center' : '' }} mb-4">
             {% if icon %}
                 <div class="mb-3">
-                    <span class="avatar avatar-lg bg-{{ iconColor }}-lt">
+                    <span class="avatar avatar-lg bg-{{ iconColor.value }}-lt">
                         <i class="ti ti-{{ icon }} fs-1"></i>
                     </span>
                 </div>

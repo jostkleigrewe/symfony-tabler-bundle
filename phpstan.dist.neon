@@ -1,0 +1,12 @@
+parameters:
+    level: 6
+    paths:
+        - src
+    excludePaths:
+        # DE: ShowcaseController braucht symfony/framework-bundle (optionale Dev-Dependency)
+        # EN: ShowcaseController requires symfony/framework-bundle (optional dev dependency)
+        - src/Controller/ShowcaseController.php
+    ignoreErrors:
+        # DE: Optionale Doctrine-Dependency — nicht immer installiert
+        # EN: Optional Doctrine dependency — not always installed
+        - '#Class Symfony\\Bridge\\Doctrine\\Form\\Type\\EntityType not found#'

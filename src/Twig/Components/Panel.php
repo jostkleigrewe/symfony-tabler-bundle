@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\ComponentSize;
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -23,9 +25,14 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 final class Panel
 {
     public string $title;
+
     public ?string $subtitle = null;
+
     public ?string $icon = null;
-    public string $iconColor = 'azure';
+
+    public TablerColor $iconColor = TablerColor::Azure;
+
     public bool $centered = true;
-    public string $size = 'md'; // 'sm', 'md', 'lg'
+
+    public ComponentSize $size = ComponentSize::Md;
 }

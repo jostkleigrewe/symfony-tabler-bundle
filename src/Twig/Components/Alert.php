@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\AlertType;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -27,12 +28,17 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent('Tabler:Alert', template: '@Tabler/components/Alert.html.twig')]
 final class Alert
 {
-    public string $type = 'info'; // 'success', 'info', 'warning', 'danger'
+    public AlertType $type = AlertType::Info;
+
     public ?string $title = null;
+
     public ?string $text = null;
+
     public ?string $icon = null;
+
     public bool $dismissible = false;
-    public bool $important = false; // Filled background style
+
+    public bool $important = false; // DE: Gefüllter Hintergrund // EN: Filled background style
 
     public function getIcon(): string
     {
@@ -40,11 +46,6 @@ final class Alert
             return $this->icon;
         }
 
-        return match ($this->type) {
-            'success' => 'check',
-            'warning' => 'alert-triangle',
-            'danger' => 'alert-circle',
-            default => 'info-circle',
-        };
+        return $this->type->icon();
     }
 }

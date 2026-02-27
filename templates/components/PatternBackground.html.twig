@@ -5,9 +5,9 @@
     Animierte Hintergrund-Patterns für beliebige Container.
 
     Verwendung:
-        <twig:PatternBackground pattern="particles-sso" theme="dark" size="hero">
+        <twig:Tabler:PatternBackground pattern="particles-sso" theme="dark" size="hero">
             <div class="container">...</div>
-        </twig:PatternBackground>
+        </twig:Tabler:PatternBackground>
 
     Patterns:
         - particles         : Schwebende Punkte
@@ -28,7 +28,7 @@
         {# ============================================================
            PARTICLES - Schwebende Punkte
            ============================================================ #}
-        {% if pattern == 'particles' %}
+        {% if pattern.value == 'particles' %}
             {# Glow Circles #}
             <div class="glow glow-1"></div>
             <div class="glow glow-2"></div>
@@ -43,7 +43,7 @@
         {# ============================================================
            PARTICLES SSO - Sicherheits-Icons
            ============================================================ #}
-        {% if pattern == 'particles-sso' %}
+        {% if pattern.value == 'particles-sso' %}
             {# Glow Circles #}
             <div class="glow glow-1"></div>
             <div class="glow glow-2"></div>
@@ -62,7 +62,7 @@
         {# ============================================================
            PARTICLES NETWORK - Netzwerk-Knoten
            ============================================================ #}
-        {% if pattern == 'particles-network' %}
+        {% if pattern.value == 'particles-network' %}
             {% if this.useSvgConnections %}
                 {# SVG-basierte Verbindungslinien (exakt) #}
                 <div class="connection-lines">
@@ -88,7 +88,7 @@
         {# ============================================================
            WAVES - Animierte Wellen
            ============================================================ #}
-        {% if pattern == 'waves' %}
+        {% if pattern.value == 'waves' %}
             <div class="wave-container">
                 <svg class="wave w1" viewBox="0 0 1440 150" preserveAspectRatio="none">
                     <path fill="rgba(255,255,255,0.3)" d="M0,50 C360,150 1080,0 1440,100 L1440,150 L0,150 Z M1440,50 C1800,150 2520,0 2880,100 L2880,150 L1440,150 Z"></path>
@@ -105,7 +105,7 @@
         {# ============================================================
            GEOMETRIC - Geometrische Formen
            ============================================================ #}
-        {% if pattern == 'geometric' %}
+        {% if pattern.value == 'geometric' %}
             <div class="shape s1">
                 <svg viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -144,7 +144,7 @@
         {# ============================================================
            BLOB - Organische Formen
            ============================================================ #}
-        {% if pattern == 'blob' %}
+        {% if pattern.value == 'blob' %}
             <div class="blob b1"></div>
             <div class="blob b2"></div>
             <div class="blob b3"></div>
@@ -153,7 +153,7 @@
         {# ============================================================
            GRID - Tech Grid
            ============================================================ #}
-        {% if pattern == 'grid' %}
+        {% if pattern.value == 'grid' %}
             <div class="grid"></div>
             <div class="scan sc1"></div>
             <div class="scan sc2"></div>
@@ -167,7 +167,7 @@
         {# ============================================================
            TOPO - Topografische Linien
            ============================================================ #}
-        {% if pattern == 'topo' %}
+        {% if pattern.value == 'topo' %}
             <div class="topo"></div>
             <div class="accent"></div>
         {% endif %}
@@ -175,14 +175,14 @@
         {# ============================================================
            DOTS - Dot Matrix
            ============================================================ #}
-        {% if pattern == 'dots' %}
+        {% if pattern.value == 'dots' %}
             <div class="dots-grid"></div>
         {% endif %}
 
         {# ============================================================
            CIRCUIT - Schaltkreis-Linien
            ============================================================ #}
-        {% if pattern == 'circuit' %}
+        {% if pattern.value == 'circuit' %}
             <div class="circuit"></div>
         {% endif %}
     </div>

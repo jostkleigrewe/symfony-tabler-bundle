@@ -41,7 +41,7 @@ final class TablerBundle extends AbstractBundle
      */
     public function prependExtension(ContainerConfigurator $container, ContainerBuilder $builder): void
     {
-        if (!$this->isAssetMapperAvailable($builder)) {
+        if (! $this->isAssetMapperAvailable($builder)) {
             return;
         }
 
@@ -61,14 +61,14 @@ final class TablerBundle extends AbstractBundle
      */
     private function isAssetMapperAvailable(ContainerBuilder $builder): bool
     {
-        if (!interface_exists(AssetMapperInterface::class)) {
+        if (! interface_exists(AssetMapperInterface::class)) {
             return false;
         }
 
-        // @phpstan-ignore-next-line
+        /** @var array<string, array{path: string}> $bundlesMetadata */
         $bundlesMetadata = $builder->getParameter('kernel.bundles_metadata');
 
-        if (!\is_array($bundlesMetadata) || !isset($bundlesMetadata['FrameworkBundle'])) {
+        if (! isset($bundlesMetadata['FrameworkBundle'])) {
             return false;
         }
 

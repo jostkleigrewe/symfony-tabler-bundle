@@ -14,7 +14,6 @@ Mode. Dieser Abschnitt erklaert die CSS-Architektur und wie Themes angepasst wer
 | `tabler-forms.css` | ~18 KB | Styling fuer alle 5 FormTypes |
 | `pattern-backgrounds.css` | ~35 KB | 14 animierte Hintergrund-Muster |
 | `tabler-themes.css` | ~11 KB | 6 Farbthemen mit CSS-Variablen |
-| `hero-backgrounds.css` | ~24 KB | Hero-Sektionen Styling |
 
 Alle Dateien liegen unter `assets/styles/` im Bundle-Verzeichnis.
 
@@ -36,9 +35,6 @@ Das Bundle registriert seine Assets automatisch im AssetMapper. Die Pfade werden
 
 {# Hintergrund-Muster (optional, 35 KB) #}
 <link rel="stylesheet" href="{{ asset('@jostkleigrewe/tabler-bundle/styles/pattern-backgrounds.css') }}">
-
-{# Hero-Sektionen (optional) #}
-<link rel="stylesheet" href="{{ asset('@jostkleigrewe/tabler-bundle/styles/hero-backgrounds.css') }}">
 ```
 
 ### Manuell per Link-Tag

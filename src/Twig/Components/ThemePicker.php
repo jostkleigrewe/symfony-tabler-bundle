@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\ThemePickerVariant;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -34,7 +35,7 @@ final class ThemePicker
      * DE: Darstellungsvariante
      * EN: Display variant
      */
-    public string $variant = 'default'; // default, compact, inline
+    public ThemePickerVariant $variant = ThemePickerVariant::Default;
 
     /**
      * DE: Verfügbare Themes
@@ -43,12 +44,30 @@ final class ThemePicker
      * @var array<string, array{label: string, color: string}>
      */
     public array $themes = [
-        'eurip' => ['label' => 'EURIP', 'color' => '#0f3d91'],
-        'forest' => ['label' => 'Forest', 'color' => '#059669'],
-        'sunset' => ['label' => 'Sunset', 'color' => '#ea580c'],
-        'ocean' => ['label' => 'Ocean', 'color' => '#0891b2'],
-        'purple' => ['label' => 'Purple', 'color' => '#7c3aed'],
-        'rose' => ['label' => 'Rose', 'color' => '#e11d48'],
+        'eurip' => [
+            'label' => 'EURIP',
+            'color' => '#0f3d91',
+        ],
+        'forest' => [
+            'label' => 'Forest',
+            'color' => '#059669',
+        ],
+        'sunset' => [
+            'label' => 'Sunset',
+            'color' => '#ea580c',
+        ],
+        'ocean' => [
+            'label' => 'Ocean',
+            'color' => '#0891b2',
+        ],
+        'purple' => [
+            'label' => 'Purple',
+            'color' => '#7c3aed',
+        ],
+        'rose' => [
+            'label' => 'Rose',
+            'color' => '#e11d48',
+        ],
     ];
 
     /**

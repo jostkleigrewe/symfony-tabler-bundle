@@ -5,7 +5,7 @@
     Props:
         variant: 'toggle' | 'tristate' | 'cycle' (default: 'toggle')
         size: 'normal' | 'compact' (default: 'normal')
-        title: string (default: 'Theme wechseln')
+        title: string (default: 'Switch theme')
         showLabel: bool (default: false)
         label: string (default: 'Theme')
         class: string (default: '')
@@ -21,7 +21,7 @@
     <span class="text-secondary small">{{ label }}</span>
 {% endif %}
 
-{% if variant == 'tristate' %}
+{% if variant.value == 'tristate' %}
     {# Variante A: Drei-Positionen-Slider (Light / Auto / Dark) #}
     <div class="{{ this.cssClass }}{% if not showLabel and class %} {{ class }}{% endif %}"
          data-controller="theme"
@@ -32,7 +32,7 @@
                 class="tabler-theme-switch__btn"
                 data-theme-value="light"
                 data-action="click->theme#choose"
-                aria-label="Hell">
+                aria-label="Light">
             <i class="ti ti-sun"></i>
         </button>
         <button type="button"
@@ -46,13 +46,13 @@
                 class="tabler-theme-switch__btn"
                 data-theme-value="dark"
                 data-action="click->theme#choose"
-                aria-label="Dunkel">
+                aria-label="Dark">
             <i class="ti ti-moon"></i>
         </button>
         <span class="tabler-theme-switch__indicator" data-theme-target="indicator"></span>
     </div>
 
-{% elseif variant == 'cycle' %}
+{% elseif variant.value == 'cycle' %}
     {# Variante B: Cycle-Toggle (durchklicken: Light → Dark → Auto → ...) #}
     <button type="button"
             class="{{ this.cssClass }}{% if not showLabel and class %} {{ class }}{% endif %}"

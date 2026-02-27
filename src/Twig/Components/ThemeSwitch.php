@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\ThemeSwitchSize;
+use Jostkleigrewe\TablerBundle\Enum\ThemeSwitchVariant;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -27,37 +29,23 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent('Tabler:ThemeSwitch', template: '@Tabler/components/ThemeSwitch.html.twig')]
 final class ThemeSwitch
 {
-    public const SIZE_COMPACT = 'compact';
-    public const SIZE_NORMAL = 'normal';
-
-    public const VARIANT_TOGGLE = 'toggle';
-    public const VARIANT_TRISTATE = 'tristate';
-    public const VARIANT_CYCLE = 'cycle';
-
     /**
      * DE: Variante des Toggles
-     *     - 'toggle': Standard 2-State (Light/Dark)
-     *     - 'tristate': Drei-Positionen-Slider (Light/Auto/Dark)
-     *     - 'cycle': Durchklicken (Light → Dark → Auto → ...)
-     *
      * EN: Variant of the toggle
-     *     - 'toggle': Standard 2-state (Light/Dark)
-     *     - 'tristate': Three-position slider (Light/Auto/Dark)
-     *     - 'cycle': Click through (Light → Dark → Auto → ...)
      */
-    public string $variant = self::VARIANT_TOGGLE;
+    public ThemeSwitchVariant $variant = ThemeSwitchVariant::Toggle;
 
     /**
-     * DE: Größe des Toggles: 'normal' (60x30px) oder 'compact' (50x26px)
-     * EN: Size of the toggle: 'normal' (60x30px) or 'compact' (50x26px)
+     * DE: Größe des Toggles
+     * EN: Size of the toggle
      */
-    public string $size = self::SIZE_NORMAL;
+    public ThemeSwitchSize $size = ThemeSwitchSize::Normal;
 
     /**
      * DE: Tooltip-Text für den Button
      * EN: Tooltip text for the button
      */
-    public string $title = 'Theme wechseln';
+    public string $title = 'Switch theme';
 
     /**
      * DE: Zeigt ein Label neben dem Toggle an
@@ -81,13 +69,11 @@ final class ThemeSwitch
     {
         $classes = ['tabler-theme-switch'];
 
-        // Variant class
-        if ($this->variant !== self::VARIANT_TOGGLE) {
-            $classes[] = 'tabler-theme-switch--' . $this->variant;
+        if ($this->variant !== ThemeSwitchVariant::Toggle) {
+            $classes[] = 'tabler-theme-switch--' . $this->variant->value;
         }
 
-        // Size class
-        if ($this->size === self::SIZE_COMPACT) {
+        if ($this->size === ThemeSwitchSize::Compact) {
             $classes[] = 'tabler-theme-switch-compact';
         }
 
@@ -97,8 +83,8 @@ final class ThemeSwitch
     public function getDataAction(): string
     {
         return match ($this->variant) {
-            self::VARIANT_TRISTATE => 'click->theme#choosePosition',
-            self::VARIANT_CYCLE => 'click->theme#cycle',
+            ThemeSwitchVariant::Tristate => 'click->theme#choosePosition',
+            ThemeSwitchVariant::Cycle => 'click->theme#cycle',
             default => 'click->theme#toggle',
         };
     }

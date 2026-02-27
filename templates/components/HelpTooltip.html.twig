@@ -5,9 +5,9 @@
     @see Jostkleigrewe\TablerBundle\Twig\Components\HelpTooltip
 #}
 <span
-    class="text-{{ color }} cursor-help"
+    class="text-{{ color.value }} cursor-help"
     data-bs-toggle="tooltip"
-    data-bs-placement="{{ placement }}"
+    data-bs-placement="{{ placement.value }}"
     {% if title %}data-bs-title="{{ title }}: {{ text }}"{% else %}data-bs-title="{{ text }}"{% endif %}
 >
     <i class="ti ti-{{ icon }}"></i>

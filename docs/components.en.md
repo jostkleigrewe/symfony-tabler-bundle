@@ -301,7 +301,7 @@ Day/night toggle for light/dark mode switching. Uses the `theme` Stimulus contro
 |----------|------|---------|-------------|
 | `variant` | string | `'toggle'` | `toggle` (2-state), `tristate` (light/auto/dark), `cycle` (click-through) |
 | `size` | string | `'normal'` | `normal`, `compact` |
-| `title` | string | `'Theme wechseln'` | Tooltip text |
+| `title` | string | `'Switch theme'` | Tooltip text |
 | `showLabel` | bool | `false` | Show text label next to toggle |
 | `label` | string | `'Theme'` | Label text |
 | `class` | string | `''` | Additional CSS classes |

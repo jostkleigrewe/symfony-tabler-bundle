@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\ComponentSize;
+use Jostkleigrewe\TablerBundle\Enum\ContainerType;
+use Jostkleigrewe\TablerBundle\Enum\PageHeaderVariant;
+use Jostkleigrewe\TablerBundle\Enum\TablerColor;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -95,7 +99,7 @@ final class PageHeader
     public ?string $icon = null;
 
     /** DE: Icon-Hintergrundfarbe / EN: Icon background color */
-    public string $iconColor = 'azure';
+    public TablerColor $iconColor = TablerColor::Azure;
 
     /** DE: Avatar-Bild-URL (ersetzt Icon) / EN: Avatar image URL (replaces icon) */
     public ?string $avatar = null;
@@ -104,25 +108,21 @@ final class PageHeader
     public ?string $avatarInitials = null;
 
     /** DE: Avatar/Icon-Größe / EN: Avatar/icon size */
-    public string $avatarSize = 'lg';
+    public ComponentSize $avatarSize = ComponentSize::Lg;
 
     // ===== Varianten & Layout =====
 
     /**
      * DE: Header-Variante
      * EN: Header variant
-     *
-     * @var 'default'|'bordered'|'compact'
      */
-    public string $variant = 'default';
+    public PageHeaderVariant $variant = PageHeaderVariant::Default;
 
     /**
      * DE: Container-Typ
      * EN: Container type
-     *
-     * @var 'xl'|'fluid'|'none'
      */
-    public string $container = 'xl';
+    public ContainerType $container = ContainerType::Xl;
 
     // ===== Breadcrumbs =====
 
@@ -144,10 +144,8 @@ final class PageHeader
     /**
      * DE: Status-Badge Farbe
      * EN: Status badge color
-     *
-     * @var 'primary'|'secondary'|'success'|'warning'|'danger'|'info'
      */
-    public string $statusColor = 'secondary';
+    public TablerColor $statusColor = TablerColor::Secondary;
 
     // ===== Meta-Informationen =====
 
@@ -173,7 +171,7 @@ final class PageHeader
      * DE: Fortschritts-Farbe
      * EN: Progress color
      */
-    public string $progressColor = 'primary';
+    public TablerColor $progressColor = TablerColor::Primary;
 
     // ===== CSS Klasse =====
 
@@ -186,11 +184,7 @@ final class PageHeader
      */
     public function getContainerClass(): string
     {
-        return match ($this->container) {
-            'fluid' => 'container-fluid',
-            'none' => '',
-            default => 'container-xl',
-        };
+        return $this->container->cssClass();
     }
 
     /**
@@ -201,11 +195,11 @@ final class PageHeader
     {
         $classes = ['page-header', 'd-print-none'];
 
-        if ($this->variant === 'bordered') {
+        if ($this->variant === PageHeaderVariant::Bordered) {
             $classes[] = 'page-header-border';
         }
 
-        if ($this->variant === 'compact') {
+        if ($this->variant === PageHeaderVariant::Compact) {
             $classes[] = 'page-header-compact';
         }
 

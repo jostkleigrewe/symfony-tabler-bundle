@@ -4,13 +4,13 @@
 
     @see Jostkleigrewe\TablerBundle\Twig\Components\ThemePicker
 #}
-<div class="theme-picker {{ variant == 'compact' ? 'theme-picker--compact' : '' }} {{ variant == 'inline' ? 'theme-picker--inline' : '' }}"
+<div class="theme-picker {{ variant.value == 'compact' ? 'theme-picker--compact' : '' }} {{ variant.value == 'inline' ? 'theme-picker--inline' : '' }}"
      data-controller="theme"
      data-theme-themes-value="{{ this.themeNames|json_encode }}">
 
     {% if showModeToggle %}
         <div class="theme-picker__mode">
-            {% if variant == 'compact' %}
+            {% if variant.value == 'compact' %}
                 {# Compact: Single toggle button #}
                 <button type="button"
                         class="theme-picker__mode-toggle btn btn-ghost-secondary btn-icon"
@@ -55,7 +55,7 @@
 
     {% if showThemeSelector %}
         <div class="theme-picker__themes">
-            {% if variant != 'compact' %}
+            {% if variant.value != 'compact' %}
                 <span class="text-secondary small me-2">Theme:</span>
             {% endif %}
             <div class="theme-selector" role="radiogroup" aria-label="Theme auswählen">

@@ -4,7 +4,7 @@
 
     @see Jostkleigrewe\TablerBundle\Twig\Components\Alert
 #}
-<div class="alert alert-{{ type }}{{ important ? ' alert-important' : '' }}{{ dismissible ? ' alert-dismissible' : '' }}" role="alert">
+<div class="alert alert-{{ type.value }}{{ important ? ' alert-important' : '' }}{{ dismissible ? ' alert-dismissible' : '' }}" role="alert">
     <div class="d-flex">
         <div class="me-2">
             <i class="ti ti-{{ this.icon }}"></i>

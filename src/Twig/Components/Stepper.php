@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\StepperVariant;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -37,11 +38,8 @@ final class Stepper
     /**
      * DE: Variante der Darstellung
      * EN: Display variant
-     * - 'default': Cards mit voller Breite
-     * - 'compact': Kleinere Cards
-     * - 'horizontal': Horizontale Linie mit Punkten
      */
-    public string $variant = 'default';
+    public StepperVariant $variant = StepperVariant::Default;
 
     /**
      * DE: Spaltenanzahl pro Zeile (Bootstrap Grid)

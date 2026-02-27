@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jostkleigrewe\TablerBundle\Twig\Components;
 
+use Jostkleigrewe\TablerBundle\Enum\CodeLanguage;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 /**
@@ -25,7 +26,7 @@ final class CodeBlock
      * DE: Programmiersprache für Syntax-Klasse
      * EN: Programming language for syntax class
      */
-    public string $language = 'php';
+    public CodeLanguage $language = CodeLanguage::Php;
 
     /**
      * DE: Optionaler Titel über dem Code-Block
@@ -57,18 +58,7 @@ final class CodeBlock
      */
     public function getLanguageClass(): string
     {
-        return match ($this->language) {
-            'php' => 'language-php',
-            'twig', 'html.twig' => 'language-twig',
-            'html' => 'language-html',
-            'css' => 'language-css',
-            'js', 'javascript' => 'language-javascript',
-            'json' => 'language-json',
-            'yaml', 'yml' => 'language-yaml',
-            'bash', 'shell' => 'language-bash',
-            'sql' => 'language-sql',
-            default => 'language-plaintext',
-        };
+        return $this->language->cssClass();
     }
 
     /**
@@ -77,17 +67,6 @@ final class CodeBlock
      */
     public function getLanguageIcon(): string
     {
-        return match ($this->language) {
-            'php' => 'brand-php',
-            'twig', 'html.twig' => 'template',
-            'html' => 'code',
-            'css' => 'brand-css3',
-            'js', 'javascript' => 'brand-javascript',
-            'json' => 'braces',
-            'yaml', 'yml' => 'file-text',
-            'bash', 'shell' => 'terminal-2',
-            'sql' => 'database',
-            default => 'code',
-        };
+        return $this->language->icon();
     }
 }

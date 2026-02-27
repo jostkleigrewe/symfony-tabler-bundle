@@ -97,7 +97,13 @@ export default class extends Controller {
             }
 
             const html = await response.text();
-            container.innerHTML = html;
+
+            // DE: Script-Tags entfernen um XSS zu verhindern
+            // EN: Remove script tags to prevent XSS
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            doc.querySelectorAll('script').forEach(s => s.remove());
+            container.innerHTML = doc.body.innerHTML;
 
             // DE: Event dispatchen für weitere Verarbeitung
             // EN: Dispatch event for further processing
@@ -121,7 +127,7 @@ export default class extends Controller {
         return `
             <div class="modal-body text-center py-5">
                 <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Laden...</span>
+                    <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
         `;
@@ -135,7 +141,7 @@ export default class extends Controller {
         return `
             <div class="modal-body text-center py-5 text-danger">
                 <i class="ti ti-alert-circle fs-1 d-block mb-2"></i>
-                <p class="mb-0">Inhalt konnte nicht geladen werden.</p>
+                <p class="mb-0">Failed to load content.</p>
             </div>
         `;
     }

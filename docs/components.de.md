@@ -322,7 +322,7 @@ Dark/Light Mode Toggle mit drei Varianten. Nutzt intern den `theme` Stimulus Con
 |-------------|-----|----------|--------------|
 | `variant` | string | `'toggle'` | `toggle` (2-State), `tristate` (3-Positionen), `cycle` (Durchklicken) |
 | `size` | string | `'normal'` | `normal`, `compact` |
-| `title` | string | `'Theme wechseln'` | Tooltip-Text |
+| `title` | string | `'Switch theme'` | Tooltip-Text |
 | `showLabel` | bool | `false` | Label anzeigen |
 | `label` | string | `'Theme'` | Label-Text |
 | `class` | string | `''` | Zusaetzliche CSS-Klassen |
