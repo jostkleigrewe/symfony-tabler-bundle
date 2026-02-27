@@ -38,6 +38,17 @@ final class ThemePicker
     public ThemePickerVariant $variant = ThemePickerVariant::Default;
 
     /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|ThemePickerVariant|null $variant = null): void
+    {
+        if ($variant !== null) {
+            $this->variant = $variant instanceof ThemePickerVariant ? $variant : ThemePickerVariant::tryFrom($variant) ?? ThemePickerVariant::Default;
+        }
+    }
+
+    /**
      * DE: Verfügbare Themes
      * EN: Available themes
      *

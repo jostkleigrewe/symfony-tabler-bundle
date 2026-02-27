@@ -42,6 +42,25 @@ final class ThemeSwitch
     public ThemeSwitchSize $size = ThemeSwitchSize::Normal;
 
     /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|ThemeSwitchVariant|null $variant = null, string|ThemeSwitchSize|null $size = null): void
+    {
+        if ($variant !== null) {
+            $this->variant = $variant instanceof ThemeSwitchVariant
+                ? $variant
+                : ThemeSwitchVariant::from($variant);
+        }
+
+        if ($size !== null) {
+            $this->size = $size instanceof ThemeSwitchSize
+                ? $size
+                : ThemeSwitchSize::from($size);
+        }
+    }
+
+    /**
      * DE: Tooltip-Text für den Button
      * EN: Tooltip text for the button
      */

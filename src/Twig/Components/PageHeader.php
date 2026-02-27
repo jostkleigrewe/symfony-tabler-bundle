@@ -179,6 +179,38 @@ final class PageHeader
     public string $class = '';
 
     /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(
+        string|TablerColor|null $iconColor = null,
+        string|ComponentSize|null $avatarSize = null,
+        string|PageHeaderVariant|null $variant = null,
+        string|ContainerType|null $container = null,
+        string|TablerColor|null $statusColor = null,
+        string|TablerColor|null $progressColor = null,
+    ): void {
+        if ($iconColor !== null) {
+            $this->iconColor = $iconColor instanceof TablerColor ? $iconColor : TablerColor::tryFrom($iconColor) ?? TablerColor::Azure;
+        }
+        if ($avatarSize !== null) {
+            $this->avatarSize = $avatarSize instanceof ComponentSize ? $avatarSize : ComponentSize::tryFrom($avatarSize) ?? ComponentSize::Lg;
+        }
+        if ($variant !== null) {
+            $this->variant = $variant instanceof PageHeaderVariant ? $variant : PageHeaderVariant::tryFrom($variant) ?? PageHeaderVariant::Default;
+        }
+        if ($container !== null) {
+            $this->container = $container instanceof ContainerType ? $container : ContainerType::tryFrom($container) ?? ContainerType::Xl;
+        }
+        if ($statusColor !== null) {
+            $this->statusColor = $statusColor instanceof TablerColor ? $statusColor : TablerColor::tryFrom($statusColor) ?? TablerColor::Secondary;
+        }
+        if ($progressColor !== null) {
+            $this->progressColor = $progressColor instanceof TablerColor ? $progressColor : TablerColor::tryFrom($progressColor) ?? TablerColor::Primary;
+        }
+    }
+
+    /**
      * DE: Berechnet die Container-CSS-Klasse
      * EN: Calculates the container CSS class
      */

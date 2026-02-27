@@ -68,4 +68,18 @@ final class CollapsiblePanel
      * EN: Help text below title
      */
     public ?string $subtitle = null;
+
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|TablerColor|null $iconColor = null, string|CollapsiblePanelVariant|null $variant = null): void
+    {
+        if ($iconColor !== null) {
+            $this->iconColor = $iconColor instanceof TablerColor ? $iconColor : TablerColor::tryFrom($iconColor) ?? TablerColor::Primary;
+        }
+        if ($variant !== null) {
+            $this->variant = $variant instanceof CollapsiblePanelVariant ? $variant : CollapsiblePanelVariant::tryFrom($variant) ?? CollapsiblePanelVariant::Default;
+        }
+    }
 }

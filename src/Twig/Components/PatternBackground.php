@@ -121,6 +121,42 @@ final class PatternBackground
      */
     public WavePosition $wavePosition = WavePosition::Bottom;
 
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(
+        string|PatternType|null $pattern = null,
+        string|PatternTheme|null $theme = null,
+        string|PatternSize|null $size = null,
+        string|PatternIntensity|null $intensity = null,
+        string|PatternSpeed|null $speed = null,
+        string|ConnectionType|null $connectionType = null,
+        string|WavePosition|null $wavePosition = null,
+    ): void {
+        if ($pattern !== null) {
+            $this->pattern = $pattern instanceof PatternType ? $pattern : PatternType::tryFrom($pattern) ?? PatternType::Particles;
+        }
+        if ($theme !== null) {
+            $this->theme = $theme instanceof PatternTheme ? $theme : PatternTheme::tryFrom($theme) ?? PatternTheme::Dark;
+        }
+        if ($size !== null) {
+            $this->size = $size instanceof PatternSize ? $size : PatternSize::tryFrom($size) ?? PatternSize::Auto;
+        }
+        if ($intensity !== null) {
+            $this->intensity = $intensity instanceof PatternIntensity ? $intensity : PatternIntensity::tryFrom($intensity) ?? PatternIntensity::Medium;
+        }
+        if ($speed !== null) {
+            $this->speed = $speed instanceof PatternSpeed ? $speed : PatternSpeed::tryFrom($speed) ?? PatternSpeed::Normal;
+        }
+        if ($connectionType !== null) {
+            $this->connectionType = $connectionType instanceof ConnectionType ? $connectionType : ConnectionType::tryFrom($connectionType) ?? ConnectionType::Css;
+        }
+        if ($wavePosition !== null) {
+            $this->wavePosition = $wavePosition instanceof WavePosition ? $wavePosition : WavePosition::tryFrom($wavePosition) ?? WavePosition::Bottom;
+        }
+    }
+
     public function getCssClasses(): string
     {
         $classes = ['pattern-bg'];

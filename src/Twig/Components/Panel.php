@@ -35,4 +35,18 @@ final class Panel
     public bool $centered = true;
 
     public ComponentSize $size = ComponentSize::Md;
+
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|TablerColor|null $iconColor = null, string|ComponentSize|null $size = null): void
+    {
+        if ($iconColor !== null) {
+            $this->iconColor = $iconColor instanceof TablerColor ? $iconColor : TablerColor::tryFrom($iconColor) ?? TablerColor::Azure;
+        }
+        if ($size !== null) {
+            $this->size = $size instanceof ComponentSize ? $size : ComponentSize::tryFrom($size) ?? ComponentSize::Md;
+        }
+    }
 }

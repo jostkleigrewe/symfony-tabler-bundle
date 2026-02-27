@@ -73,4 +73,18 @@ final class FeatureCard
      * EN: Full height card (for equal heights in grid)
      */
     public bool $fullHeight = true;
+
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|TablerColor|null $iconColor = null, string|FeatureCardVariant|null $variant = null): void
+    {
+        if ($iconColor !== null) {
+            $this->iconColor = $iconColor instanceof TablerColor ? $iconColor : TablerColor::tryFrom($iconColor) ?? TablerColor::Primary;
+        }
+        if ($variant !== null) {
+            $this->variant = $variant instanceof FeatureCardVariant ? $variant : FeatureCardVariant::tryFrom($variant) ?? FeatureCardVariant::Default;
+        }
+    }
 }

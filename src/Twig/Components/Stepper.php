@@ -58,4 +58,15 @@ final class Stepper
      * EN: Show connector lines between steps
      */
     public bool $showConnectors = false;
+
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|StepperVariant|null $variant = null): void
+    {
+        if ($variant !== null) {
+            $this->variant = $variant instanceof StepperVariant ? $variant : StepperVariant::tryFrom($variant) ?? StepperVariant::Default;
+        }
+    }
 }

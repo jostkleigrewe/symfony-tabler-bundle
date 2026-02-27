@@ -35,6 +35,19 @@ final class CodeBlock
     public ?string $title = null;
 
     /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|CodeLanguage|null $language = null): void
+    {
+        if ($language !== null) {
+            $this->language = $language instanceof CodeLanguage
+                ? $language
+                : CodeLanguage::tryFrom($language) ?? CodeLanguage::Php;
+        }
+    }
+
+    /**
      * DE: Code-Inhalt als Property (Alternative zu Content-Block)
      * EN: Code content as property (alternative to content block)
      */
