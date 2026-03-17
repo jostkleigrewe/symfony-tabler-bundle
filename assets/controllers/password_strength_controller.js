@@ -37,6 +37,12 @@ export default class extends Controller {
     ];
 
     connect() {
+        // DE: Original-Hilfetext speichern (wird bei Score 0 wiederhergestellt)
+        // EN: Save original help text (restored when score is 0)
+        if (this.hasLabelTarget) {
+            this._originalText = this.labelTarget.textContent;
+        }
+
         if (this.hasInputTarget) {
             this.inputTarget.addEventListener('input', this.evaluate.bind(this));
             // DE: Initial-Check falls Feld bereits Wert hat
@@ -123,13 +129,29 @@ export default class extends Controller {
             });
         }
 
-        // DE: Label aktualisieren
-        // EN: Update label
+        // DE: Label aktualisieren (nutzt den Hilfetext als Container)
+        // EN: Update label (uses help text as container)
         if (this.hasLabelTarget) {
-            this.labelTarget.textContent = level.label;
-            this.labelTarget.className = 'tabler-fl-strength-label';
-            if (level.class) {
-                this.labelTarget.classList.add(level.class);
+            // DE: Stärke-Klassen entfernen
+            // EN: Remove strength classes
+            this.labelTarget.classList.remove(
+                'strength-weak',
+                'strength-fair',
+                'strength-strong',
+                'strength-very-strong'
+            );
+
+            if (score > 0) {
+                // DE: Stärke-Text anzeigen
+                // EN: Show strength text
+                this.labelTarget.textContent = level.label;
+                if (level.class) {
+                    this.labelTarget.classList.add(level.class);
+                }
+            } else {
+                // DE: Original-Hilfetext wiederherstellen
+                // EN: Restore original help text
+                this.labelTarget.textContent = this._originalText || '';
             }
         }
     }

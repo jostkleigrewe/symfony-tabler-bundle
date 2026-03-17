@@ -9,11 +9,10 @@ services:
         resource: '../src/Form/Type/'
         tags: ['form.type']
 
-    # DE: TwigComponents für Tabler Design System
-    # EN: TwigComponents for Tabler Design System
+    # DE: TwigComponents für Tabler Design System (Namen via #[AsTwigComponent]-Attribut)
+    # EN: TwigComponents for Tabler Design System (names via #[AsTwigComponent] attribute)
     Jostkleigrewe\TablerBundle\Twig\Components\:
         resource: '../src/Twig/Components/'
-        tags: ['twig.component']
 
     # DE: Showcase Controller
     # EN: Showcase Controller

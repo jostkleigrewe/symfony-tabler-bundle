@@ -834,21 +834,37 @@
 
 /* =================================================================
    PASSWORD STRENGTH METER
-   Visuelle Stärke-Anzeige für Passwort-Felder
+   DE: 4-Segment-Leiste ersetzt die animierte Underline bei Passwort-Feldern.
+       Der Hilfetext wird vom Stimulus-Controller dynamisch getauscht:
+       Unter 8 Zeichen → Original-Hilfetext, ab 8 Zeichen → Stärke-Anzeige.
+   EN: 4-segment bar replaces the animated underline for password fields.
+       The help text is dynamically swapped by the Stimulus controller:
+       Under 8 chars → original help text, 8+ chars → strength indicator.
    ================================================================= */
 
+/* DE: Strength-Meter ersetzt die animierte Underline (position: absolute am unteren Rand).
+       Die Input-Border wird ausgeblendet, da die 4 Segmente sie ersetzen. */
+/* EN: Strength meter replaces the animated underline (position: absolute at the bottom).
+       The input border is hidden since the 4 segments replace it. */
+.tabler-fl-wrap:has(.tabler-fl-strength) .tabler-fl-input {
+    border-bottom-color: transparent;
+}
+
 .tabler-fl-strength {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     display: flex;
-    gap: 4px;
-    margin-top: 0.5rem;
-    height: 4px;
+    gap: 2px;
+    height: 2px;
 }
 
 .tabler-fl-strength-bar {
     flex: 1;
     background: var(--tblr-border-color, #e6e7e9);
-    border-radius: 2px;
-    transition: background-color 0.2s ease;
+    border-radius: 1px;
+    transition: background-color 0.3s ease;
 }
 
 /* DE: Aktive Balken mit Farbe basierend auf Stärke */
@@ -869,28 +885,21 @@
     background: var(--tblr-success, #2fb344);
 }
 
-/* Strength label */
-.tabler-fl-strength-label {
-    display: block;
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-    color: var(--tabler-form-muted);
-    transition: color 0.2s ease;
-}
-
-.tabler-fl-strength-label.strength-weak {
+/* DE: Stärke-Farben auf dem Hilfetext (Controller tauscht Text dynamisch) */
+/* EN: Strength colors on help text (controller swaps text dynamically) */
+.tabler-fl-help.strength-weak {
     color: var(--tblr-danger, #d63939);
 }
 
-.tabler-fl-strength-label.strength-fair {
+.tabler-fl-help.strength-fair {
     color: var(--tblr-warning, #f59f00);
 }
 
-.tabler-fl-strength-label.strength-strong {
+.tabler-fl-help.strength-strong {
     color: var(--tblr-success, #2fb344);
 }
 
-.tabler-fl-strength-label.strength-very-strong {
+.tabler-fl-help.strength-very-strong {
     color: var(--tblr-success, #2fb344);
 }
 

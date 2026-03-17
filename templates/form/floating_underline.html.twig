@@ -43,12 +43,16 @@
         {% set controllers = controllers|merge(['jostkleigrewe--tabler-bundle--password-strength']) %}
     {% endif %}
 
-    <div class="mb-3 {{ row_attr.class|default('') }}">
-        <div class="tabler-fl-wrap {{ icon is not null ? '' : 'tabler-fl-wrap--no-icon' }} {{ has_errors ? 'tabler-fl-wrap--error' : '' }} {{ show_toggle ? 'tabler-fl-wrap--with-toggle' : '' }}"
-            {% if controllers|length > 0 %}
-                data-controller="{{ controllers|join(' ') }}"
-            {% endif %}
-        >
+    {# DE: data-controller auf dem äußeren Container, damit Stimulus sowohl Input (in .tabler-fl-wrap)
+           als auch Meter/Label (Geschwister von .tabler-fl-wrap) als Targets findet #}
+    {# EN: data-controller on the outer container so Stimulus finds both input (inside .tabler-fl-wrap)
+           and meter/label (siblings of .tabler-fl-wrap) as targets #}
+    <div class="mb-3 {{ row_attr.class|default('') }}"
+        {% if controllers|length > 0 %}
+            data-controller="{{ controllers|join(' ') }}"
+        {% endif %}
+    >
+        <div class="tabler-fl-wrap {{ icon is not null ? '' : 'tabler-fl-wrap--no-icon' }} {{ has_errors ? 'tabler-fl-wrap--error' : '' }} {{ show_toggle ? 'tabler-fl-wrap--with-toggle' : '' }}">
             {# Icon #}
             {% if icon is not null %}
                 <i class="ti ti-{{ icon }} tabler-fl-icon"></i>
@@ -97,23 +101,33 @@
                 </button>
             {% endif %}
 
-            {# Animated Underline #}
-            <span class="tabler-fl-line"></span>
+            {# DE: Bei Strength-Meter ersetzt die 4-Segment-Leiste die animierte Underline.
+                   Ohne Strength-Meter wird die normale animierte Linie gerendert. #}
+            {# EN: With strength meter, the 4-segment bar replaces the animated underline.
+                   Without strength meter, the normal animated line is rendered. #}
+            {% if show_strength %}
+                <div class="tabler-fl-strength" data-jostkleigrewe--tabler-bundle--password-strength-target="meter">
+                    <div class="tabler-fl-strength-bar"></div>
+                    <div class="tabler-fl-strength-bar"></div>
+                    <div class="tabler-fl-strength-bar"></div>
+                    <div class="tabler-fl-strength-bar"></div>
+                </div>
+            {% else %}
+                <span class="tabler-fl-line"></span>
+            {% endif %}
         </div>
 
-        {# Password Strength Meter #}
+        {# DE: Bei Strength-Meter wird der Hilfetext als Label-Target genutzt.
+               Der Controller tauscht den Text dynamisch: Help → Stärke-Anzeige. #}
+        {# EN: With strength meter, the help text is used as the label target.
+               The controller swaps text dynamically: help → strength indicator. #}
         {% if show_strength %}
-            <div class="tabler-fl-strength" data-jostkleigrewe--tabler-bundle--password-strength-target="meter">
-                <div class="tabler-fl-strength-bar"></div>
-                <div class="tabler-fl-strength-bar"></div>
-                <div class="tabler-fl-strength-bar"></div>
-                <div class="tabler-fl-strength-bar"></div>
+            <div class="tabler-fl-help" data-jostkleigrewe--tabler-bundle--password-strength-target="label">
+                {%- if help is defined and help is not null and help is not empty -%}
+                    {{- help|trans(help_translation_parameters, translation_domain) -}}
+                {%- endif -%}
             </div>
-            <span class="tabler-fl-strength-label" data-jostkleigrewe--tabler-bundle--password-strength-target="label"></span>
-        {% endif %}
-
-        {# Help text #}
-        {% if help is defined and help is not null and help is not empty %}
+        {% elseif help is defined and help is not null and help is not empty %}
             <div class="tabler-fl-help">
                 {{- help|trans(help_translation_parameters, translation_domain) -}}
             </div>
