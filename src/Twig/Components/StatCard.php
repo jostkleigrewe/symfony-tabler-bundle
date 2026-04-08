@@ -38,4 +38,20 @@ final class StatCard
     public ?StatCardTrend $trend = null;
 
     public ?string $url = null;
+
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(
+        string|TablerColor|null $iconColor = null,
+        string|StatCardTrend|null $trend = null,
+    ): void {
+        if ($iconColor !== null) {
+            $this->iconColor = $iconColor instanceof TablerColor ? $iconColor : TablerColor::tryFrom($iconColor) ?? TablerColor::Azure;
+        }
+        if ($trend !== null) {
+            $this->trend = $trend instanceof StatCardTrend ? $trend : StatCardTrend::tryFrom($trend);
+        }
+    }
 }

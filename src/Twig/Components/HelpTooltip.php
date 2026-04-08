@@ -29,4 +29,20 @@ final class HelpTooltip
     public TooltipPlacement $placement = TooltipPlacement::Top;
 
     public TablerColor $color = TablerColor::Secondary;
+
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(
+        string|TooltipPlacement|null $placement = null,
+        string|TablerColor|null $color = null,
+    ): void {
+        if ($placement !== null) {
+            $this->placement = $placement instanceof TooltipPlacement ? $placement : TooltipPlacement::tryFrom($placement) ?? TooltipPlacement::Top;
+        }
+        if ($color !== null) {
+            $this->color = $color instanceof TablerColor ? $color : TablerColor::tryFrom($color) ?? TablerColor::Secondary;
+        }
+    }
 }

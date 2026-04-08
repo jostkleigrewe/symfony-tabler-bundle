@@ -42,4 +42,20 @@ final class EmptyState
     public ?string $actionLabel = null;
 
     public TablerColor $actionVariant = TablerColor::Primary;
+
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(
+        string|TablerColor|null $iconColor = null,
+        string|TablerColor|null $actionVariant = null,
+    ): void {
+        if ($iconColor !== null) {
+            $this->iconColor = $iconColor instanceof TablerColor ? $iconColor : TablerColor::tryFrom($iconColor) ?? TablerColor::Secondary;
+        }
+        if ($actionVariant !== null) {
+            $this->actionVariant = $actionVariant instanceof TablerColor ? $actionVariant : TablerColor::tryFrom($actionVariant) ?? TablerColor::Primary;
+        }
+    }
 }

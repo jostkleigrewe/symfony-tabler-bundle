@@ -40,6 +40,17 @@ final class Alert
 
     public bool $important = false; // DE: Gefüllter Hintergrund // EN: Filled background style
 
+    /**
+     * DE: Normalisiert String-Werte zu Enums (für Twig-Kompatibilität).
+     * EN: Normalizes string values to enums (for Twig compatibility).
+     */
+    public function mount(string|AlertType|null $type = null): void
+    {
+        if ($type !== null) {
+            $this->type = $type instanceof AlertType ? $type : AlertType::tryFrom($type) ?? AlertType::Info;
+        }
+    }
+
     public function getIcon(): string
     {
         if ($this->icon !== null) {
