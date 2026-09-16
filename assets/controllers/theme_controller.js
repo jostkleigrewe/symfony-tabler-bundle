@@ -176,16 +176,36 @@ export default class extends Controller {
         }
 
         if (this.hasCurrentThemeTarget) {
-            const labels = {
-                'eurip': 'EURIP',
-                'forest': 'Forest',
-                'sunset': 'Sunset',
-                'ocean': 'Ocean',
-                'purple': 'Purple',
-                'rose': 'Rose'
-            };
-            this.currentThemeTarget.textContent = labels[theme] || theme;
+            this.currentThemeTarget.textContent = this.resolveThemeLabel(theme);
         }
+    }
+
+    /**
+     * DE: Label für Theme auflösen.
+     *     1. Aus aktivem Option-Button via `data-theme-label`-Attribut.
+     *     2. Bundle-Defaults für eurip/forest/sunset/ocean/purple/rose.
+     *     3. Fallback: Theme-Key.
+     * EN: Resolve theme label, prefer DOM data attribute so apps can register
+     *     their own themes with their own labels without subclassing this controller.
+     */
+    resolveThemeLabel(theme) {
+        if (this.hasThemeOptionTarget) {
+            const match = this.themeOptionTargets.find((option) => option.dataset.theme === theme);
+            if (match && match.dataset.themeLabel) {
+                return match.dataset.themeLabel;
+            }
+        }
+
+        const defaults = {
+            eurip: 'EURIP',
+            forest: 'Forest',
+            sunset: 'Sunset',
+            ocean: 'Ocean',
+            purple: 'Purple',
+            rose: 'Rose',
+        };
+
+        return defaults[theme] || theme;
     }
 
     // =========================================================================

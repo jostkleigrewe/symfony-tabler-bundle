@@ -190,6 +190,18 @@
 }
 
 /* =================================================================
+   App-spezifische Themes
+   -----------------------------------------------------------------
+   DE: Apps definieren eigene Themes in einer eigenen Datei
+       (z.B. assets/styles/themes/<name>.css) und importieren sie
+       NACH `tabler-themes.css`. Wenn die App-Theme-Datei
+       `:root, [data-theme="<name>"]` setzt, gewinnt sie per CSS-
+       Cascade gegenüber dem Bundle-Default (eurip).
+   EN: Apps ship their own themes in a dedicated file and import
+       them AFTER `tabler-themes.css`. The last `:root` block wins.
+   ================================================================= */
+
+/* =================================================================
    THEME-AWARE COMPONENTS
    Components that respond to the active theme
    ================================================================= */
